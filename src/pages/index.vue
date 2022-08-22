@@ -7,5 +7,5 @@
 </template>
 
 <script setup>
-  import MyComponent from '../components/MyComponent'
+  import MyComponent from '@components/MyComponent'
 </script>
