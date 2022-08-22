@@ -1,0 +1,4 @@
+node_modules
+dist
+mix-manifest.json
+package-lock.json
