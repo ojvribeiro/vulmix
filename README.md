@@ -44,10 +44,10 @@ Then, in a separate terminal, run:
 
 ```bash
 # With NPM
-npm run watch
+npm run dev
 
 # With Yarn
-yarn watch
+yarn dev
 ```
 
-This should open your project on the `3000` port.
+This should open your project on the `3000` port with fast refresh.
