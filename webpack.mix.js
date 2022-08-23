@@ -26,6 +26,6 @@ mix
   .extract()
 
   .browserSync({
-    proxy: 'http://127.0.0.1:8000/',
-    files: ['*.html', './src/**/*.{js, vue, scss}'],
+    proxy: 'http://localhost:8000/',
+    files: ['./*.{html,ejs,php}', './src/**/*.{js,vue,scss}'],
   })
