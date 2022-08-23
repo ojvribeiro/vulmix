@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "serve": "npx http-server -p 8000 -a localhost -c-1",
-    "watch": "mix watch",
-    "dev": "mix",
+    "dev": "mix watch",
     "prod": "mix --production"
   },
   "author": "Victor Ribeiro",
