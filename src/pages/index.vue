@@ -6,9 +6,6 @@
   </div>
 </template>
 
-<script setup>
-  import MyComponent from '@components/MyComponent'
-</script>
 <style scoped lang="scss">
   @import '@sass/utils';
 
