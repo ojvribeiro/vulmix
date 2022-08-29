@@ -1,15 +1,14 @@
-import { createRouter, createWebHistory } from 'vue-router'
-
 import HomePage from '@pages/index'
+import SobrePage from '@pages/sobre'
 
-const router = createRouter({
-  history: createWebHistory(),
-  routes: [
-    {
-      path: '/',
-      component: HomePage,
-    },
-  ],
-})
+export default [
+  {
+    path: '/',
+    component: HomePage,
+  },
 
-export default router
+  {
+    path: '/sobre',
+    component: SobrePage,
+  },
+]

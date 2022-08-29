@@ -1,9 +1,11 @@
 <template>
   <div>
-    <h2>My test component</h2>
+    <h2 class="text-3xl">My test component</h2>
+
+    <p>Here's some paragraph for ya.</p>
 
     <p>
-      Here's some paragraph for ya.
+      And some <Link to="/sobre">Link</Link>
     </p>
   </div>
 </template>
