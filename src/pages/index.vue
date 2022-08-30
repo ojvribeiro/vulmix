@@ -9,11 +9,13 @@
 </template>
 
 <style scoped lang="scss">
+  // Importing Sass utilities
   @import '@sass/utils';
 
   h1 {
     color: #d43d3d;
 
+    // Using breakpoint based media-queries
     @include media(sm) {
       color: #3b3bcc;
     }
@@ -35,6 +37,8 @@
     }
 
     @include media('3xl') {
+      // Using the `color` function to get a color
+      // from the ./assets/sass/_variables.scss color palette.
       color: color(sample-gold-400);
     }
   }
