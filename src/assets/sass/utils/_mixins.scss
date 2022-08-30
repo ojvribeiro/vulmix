@@ -1,0 +1,22 @@
+$breakpoints: (
+  sm: 576,
+  md: 768,
+  lg: 992,
+  xl: 1200,
+  '2xl': 1400,
+  '3xl': 1600,
+);
+
+// Creates a media query based on Bootstrap's breakpoints
+// @@param $breakpoint - The breakpoint name (sm, md, lg, xl, xxl)
+@mixin media($breakpoint) {
+
+  @each $bp-name,
+  $bp-value in $breakpoints {
+    @if $breakpoint ==$bp-name {
+      @media screen and (min-width: #{$bp-value}px) {
+        @content;
+      }
+    }
+  }
+}

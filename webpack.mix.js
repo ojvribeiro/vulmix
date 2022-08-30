@@ -14,6 +14,7 @@ mix
     '@composables': path.join(__dirname, 'src/composables'),
     '@pages': path.join(__dirname, 'src/pages'),
     '@router': path.join(__dirname, 'src/router'),
+    '@sass': path.join(__dirname, 'src/assets/sass'),
   })
 
   .sass('src/assets/sass/main.scss', 'dist/css')
