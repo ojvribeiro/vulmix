@@ -35,7 +35,7 @@
     }
 
     @include media('3xl') {
-      color: #7150cc;
+      color: color(sample-gold-400);
     }
   }
 </style>

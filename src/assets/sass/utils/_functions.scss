@@ -1,0 +1,6 @@
+@use '@sass/variables' as var;
+
+// Todo: document this function
+@function color($color-name) {
+  @return map-get(var.$colors, #{$color-name});
+}
