@@ -1,9 +1,36 @@
 import { createApp } from 'vue'
-import router from '@router/routes'
+import { createRouter, createWebHistory } from 'vue-router'
 
 import App from './App.vue'
 
 const app = createApp(App)
+
+let routes = []
+
+const pageFiles = require.context('./pages/', true, /\.(vue|js)$/i)
+
+pageFiles
+  .keys()
+  .map(key => {
+    let slugName = key
+      .split('/')
+      .pop()
+      .split('.')[0]
+      .replace(/([A-Z])/g, '-$1')
+      .replace(/(^-)/g, '')
+      .toLowerCase()
+
+      routes.push({
+        path: slugName === 'index' ? '/' : `/${slugName}`,
+        component: pageFiles(key).default,
+      })
+    }
+  )
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes: routes,
+})
 
 app.use(router)
 
