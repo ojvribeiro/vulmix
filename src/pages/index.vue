@@ -12,14 +12,30 @@
   @import '@sass/utils';
 
   h1 {
-    color: red;
+    color: #d43d3d;
+
+    @include media(sm) {
+      color: #3b3bcc;
+    }
+
+    @include media(md) {
+      color: #ff0062;
+    }
+
+    @include media(lg) {
+      color: #c78800;
+    }
 
     @include media(xl) {
-      color: blue;
+      color: #00a767;
     }
 
     @include media('2xl') {
-      @apply text-[#c850cc];
+      color: #c850cc;
+    }
+
+    @include media('3xl') {
+      color: #7150cc;
     }
   }
 </style>
