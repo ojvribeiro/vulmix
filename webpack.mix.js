@@ -1,45 +1,19 @@
 const mix = require('laravel-mix')
 const path = require('path')
 
-require('laravel-mix-serve')
+require('./.vue-mix/mix.js')
 
 mix
-  .setPublicPath('.')
-
-  .serve(
-    'npx http-server -p 8000 -a localhost -c-1 --proxy http://localhost:8000?',
-    {
-      verbose: false,
-      build: false,
-      dev: true,
-      prod: false,
-    }
-  )
-
-  .webpackConfig({
-    devtool: 'source-map',
-  })
+  .vueMix()
 
   .alias({
     '@': path.join(__dirname, '.vue-mix'),
-    '@assets': path.join(__dirname, 'src/assets'),
-    '@components': path.join(__dirname, 'src/components'),
-    '@composables': path.join(__dirname, 'src/composables'),
-    '@pages': path.join(__dirname, 'src/pages'),
-    '@router': path.join(__dirname, 'src/router'),
-    '@sass': path.join(__dirname, 'src/assets/sass'),
+    '@assets': path.join(__dirname, 'assets'),
+    '@components': path.join(__dirname, 'components'),
+    '@composables': path.join(__dirname, 'composables'),
+    '@pages': path.join(__dirname, 'pages'),
+    '@sass': path.join(__dirname, 'assets/sass'),
   })
 
-  .sass('src/assets/sass/main.scss', 'dist/css')
+  .sass('assets/sass/main.scss', '.dist/css')
 
-  .js('src/main.js', 'dist/js')
-  .vue()
-
-  .sourceMaps()
-
-  .extract()
-
-  .browserSync({
-    proxy: 'http://localhost:8000/',
-    files: ['./*.{html,ejs,php}', './{src,.vue-mix}/**/*.{js,vue,scss}'],
-  })

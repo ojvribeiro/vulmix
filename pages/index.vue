@@ -1,6 +1,6 @@
 <template>
   <div class="p-6 space-y-6">
-    <h1 class="text-5xl">Home</h1>
+    <h1 class="text-5xl">Home dawdwa</h1>
 
     <MyComponent />
 
@@ -11,7 +11,7 @@
 
 <style scoped lang="scss">
   // Importing Sass utilities
-  @import '@sass/utils';
+  @import '@/assets/sass/utils';
 
   h1 {
     color: #d43d3d;
