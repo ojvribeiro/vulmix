@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h1>Home</h1>
+  <div class="p-6 space-y-6">
+    <h1 class="text-5xl">Home</h1>
 
     <MyComponent />
 
@@ -41,5 +41,9 @@
       // from the ./assets/sass/_variables.scss color palette.
       color: color(sample-gold-400);
     }
+  }
+
+  a {
+    @apply text-blue-400;
   }
 </style>
