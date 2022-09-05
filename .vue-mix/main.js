@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
-import App from './App.vue'
+import App from '@/App.vue'
 
 const app = createApp(App)
 
@@ -47,6 +47,10 @@ nativePageComponents.keys().map(key => {
   })
 })
 
+
+/**
+ * Pages
+ */
 const pageComponents = require.context('@pages/', true, /\.(vue|js)$/i)
 pageComponents
   .keys()
