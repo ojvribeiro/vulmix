@@ -1,8 +1,20 @@
 const mix = require('laravel-mix')
 const path = require('path')
 
+require('laravel-mix-serve')
+
 mix
   .setPublicPath('.')
+
+  .serve(
+    'npx http-server -p 8000 -a localhost -c-1 --proxy http://localhost:8000?',
+    {
+      verbose: false,
+      watch: true,
+      dev: true,
+      prod: false,
+    }
+  )
 
   .webpackConfig({
     devtool: 'source-map',
