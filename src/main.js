@@ -5,18 +5,50 @@ import App from './App.vue'
 
 const app = createApp(App)
 
-const files = require.context('./', true, /\.vue$/i)
-files
+/**
+ * Built-in components
+ */
+const nativeComponents = require.context('@/components/', true, /\.(vue|js)$/i)
+nativeComponents
   .keys()
   .map(key =>
-    app.component(key.split('/').pop().split('.')[0], files(key).default)
+    app.component(key.split('/').pop().split('.')[0], nativeComponents(key).default)
   )
+
+/**
+ * Components
+ */
+const componentFiles = require.context('@components/', true, /\.(vue|js)$/i)
+componentFiles
+  .keys()
+  .map(key =>
+    app.component(key.split('/').pop().split('.')[0], componentFiles(key).default)
+  )
+
 
 let routes = []
 
-const pageFiles = require.context('./pages/', true, /\.(vue|js)$/i)
+/**
+ * Built-in pages
+ */
+const nativePageComponents = require.context('@/pages/', true, /\.(vue|js)$/i)
+nativePageComponents.keys().map(key => {
+  let slugName = key
+    .split('/')
+    .pop()
+    .split('.')[0]
+    .replace(/([A-Z])/g, '-$1')
+    .replace(/(^-)/g, '')
+    .toLowerCase()
 
-pageFiles
+  routes.push({
+    path: slugName === 'index' ? '/' : `/${slugName}`,
+    component: nativePageComponents(key).default,
+  })
+})
+
+const pageComponents = require.context('@pages/', true, /\.(vue|js)$/i)
+pageComponents
   .keys()
   .map(key => {
     let slugName = key
@@ -29,10 +61,15 @@ pageFiles
 
       routes.push({
         path: slugName === 'index' ? '/' : `/${slugName}`,
-        component: pageFiles(key).default,
+        component: pageComponents(key).default,
       })
     }
   )
+
+routes.push({
+  path: '/:pathMatch(.*)*',
+  component: require('@/pages/404.vue').default,
+})
 
 const router = createRouter({
   history: createWebHistory(),

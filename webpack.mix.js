@@ -9,6 +9,7 @@ mix
   })
 
   .alias({
+    '@': path.join(__dirname, '.vue-mix'),
     '@assets': path.join(__dirname, 'src/assets'),
     '@components': path.join(__dirname, 'src/components'),
     '@composables': path.join(__dirname, 'src/composables'),
@@ -28,5 +29,5 @@ mix
 
   .browserSync({
     proxy: 'http://localhost:8000/',
-    files: ['./*.{html,ejs,php}', './src/**/*.{js,vue,scss}'],
+    files: ['./*.{html,ejs,php}', './{src,.vue-mix}/**/*.{js,vue,scss}'],
   })
