@@ -5,6 +5,7 @@
     <MyComponent />
 
     <p>And some <Link to="/test-page">Test Page</Link></p>
+    <p>And some <Link to="/non-existing-page">404 page</Link></p>
   </div>
 </template>
 
