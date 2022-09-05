@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h2>My test component</h2>
+  <div class="p-8 bg-slate-600 rounded-xl w-fit">
+    <h2 class="text-3xl mb-6">My test component</h2>
 
     <p>Here's some paragraph for ya.</p>
   </div>
