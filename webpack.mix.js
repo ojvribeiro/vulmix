@@ -10,7 +10,6 @@ mix
     'npx http-server -p 8000 -a localhost -c-1 --proxy http://localhost:8000?',
     {
       verbose: false,
-      watch: false,
       build: false,
       dev: true,
       prod: false,

@@ -32,7 +32,9 @@ npm install
 yarn install
 ```
 
-Run the project locally:
+## Running the project
+
+Run the project locally by running the following command:
 
 ```bash
 # With NPM
@@ -43,6 +45,8 @@ yarn dev
 ```
 
 This should open your project on the port `3000` with fast refresh.
+
+## Serving without fast refresh
 
 If you don't want fast refresh for some reason, you can serve your project with this command:
 
@@ -56,7 +60,7 @@ yarn serve
 
 This should serve your project onto the port `8000` _without_ fast refresh.
 
-> ⚠️ You need to `npm run build` or `npm run watch` in a separate terminal to recompile your files without serving them.
+> ⚠️ You need to `npm run build` in a separate terminal to recompile your files without serving them.
 
 ## Preparing for production
 
