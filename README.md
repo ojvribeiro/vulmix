@@ -28,28 +28,46 @@ Install the dependencies:
 # With NPM
 npm install
 
-# With Yarn
+# Or with Yarn
 yarn install
 ```
 
-Run the local server:
-
-```bash
-# With NPM
-npm run serve
-
-# With Yarn
-yarn serve
-```
-
-Then, in a separate terminal, run:
+Run the project locally:
 
 ```bash
 # With NPM
 npm run dev
 
-# With Yarn
+# Or with Yarn
 yarn dev
 ```
 
-This should open your project on the `3000` port with fast refresh.
+This should open your project on the port `3000` with fast refresh.
+
+If you don't want fast refresh for some reason, you can serve your project with this command:
+
+```bash
+# With NPM
+npm run serve
+
+# Or with Yarn
+yarn serve
+```
+
+This should serve your project onto the port `8000` _without_ fast refresh.
+
+> ⚠️ You need to `npm run build` or `npm run watch` in a separate terminal to recompile your files without serving them.
+
+## Preparing for production
+
+To compile a optimized code, you need to run the following command:
+
+```bash
+# With NPM
+npm run prod
+
+# Or with Yarn
+yarn prod
+```
+
+This will minify and optimize your project code.
