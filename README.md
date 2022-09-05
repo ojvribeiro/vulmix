@@ -1,6 +1,6 @@
 # vue-mix
 
-Tiny boilerplate to work with Vue and Laravel Mix.
+Tiny boilerplate to work with Vue and Laravel Mix (outside Laravel).
 
 > ⚠️ This is just an experimental work and should not, under any circumstances, be used in production. Use instead well tested and faster tools like [Vite](https://github.com/vitejs/vite). Or, if you need the auto import functionality, you can use [Nuxt](https://nuxtjs.org/) instead.
 
