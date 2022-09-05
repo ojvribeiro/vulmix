@@ -1,6 +1,10 @@
 @import "variables";
 @import "utils";
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
   font-family: Arial, Helvetica, sans-serif;
