@@ -1,7 +1,7 @@
 {
-  "name": "vue-mix",
-  "version": "1.0.0",
   "description": "",
+  "name": "vulmix",
+  "version": "0.0.2-alpha",
   "main": "index.js",
   "scripts": {
     "serve": "npx http-server -p 8000 -a localhost -c-1 --proxy http://localhost:8000?",

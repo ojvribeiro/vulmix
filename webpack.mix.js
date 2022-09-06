@@ -1,13 +1,13 @@
 const mix = require('laravel-mix')
 const path = require('path')
 
-require('./.vue-mix/mix.js')
+require('./.vulmix/mix.js')
 
 mix
   .vueMix()
 
   .alias({
-    '@': path.join(__dirname, '.vue-mix'),
+    '@': path.join(__dirname, '.vulmix'),
     '@assets': path.join(__dirname, 'assets'),
     '@components': path.join(__dirname, 'components'),
     '@composables': path.join(__dirname, 'composables'),

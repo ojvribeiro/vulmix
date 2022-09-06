@@ -2,8 +2,8 @@
 module.exports = {
   content: [
     './index.html',
-    './.vue-mix/**/pages/*.{vue,html,js}',
-    './.vue-mix/**/components/*.{vue,html,js}',
+    './.vulmix/**/pages/*.{vue,html,js}',
+    './.vulmix/**/components/*.{vue,html,js}',
     './pages/*.{vue,html,js}',
     './components/*.{vue,html,js}',
   ],

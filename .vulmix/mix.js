@@ -25,9 +25,9 @@ class VueMixInit {
         devtool: 'source-map',
       })
 
-      .sass('.vue-mix/assets/sass/main.scss', '.dist/.vue-mix/dist/css')
+      .sass('.vulmix/assets/sass/main.scss', '.dist/.vulmix/dist/css')
 
-      .js('.vue-mix/main.js', '.dist/.vue-mix/dist/js')
+      .js('.vulmix/main.js', '.dist/.vulmix/dist/js')
       .vue()
 
       .sourceMaps()
@@ -38,7 +38,7 @@ class VueMixInit {
         proxy: 'http://localhost:8000/',
         files: [
           './*.{html,ejs,php}',
-          './.vue-mix/**/*.{js,vue,scss}',
+          './.vulmix/**/*.{js,vue,scss}',
           './assets/**/*.{js,vue,scss}',
           './components/**/*.{js,vue,scss}',
           './composables/**/*.{js,vue,scss}',
