@@ -1,8 +1,10 @@
 {
-  "name": "vue-mix",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "vulmix",
+  "version": "0.0.1-alpha",
+  "description": "Tiny boilerplate to work with Vue and Laravel Mix.",
+  "bin": {
+    "create-vulmix-app": "./bin/cli.js"
+  },
   "scripts": {
     "serve": "npx http-server -p 8000 -a localhost -c-1 --proxy http://localhost:8000?",
     "build": "mix",
