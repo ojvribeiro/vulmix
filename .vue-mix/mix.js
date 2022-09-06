@@ -45,6 +45,8 @@ class VueMixInit {
           './pages/**/*.{js,vue,scss}',
         ],
       })
+
+      .disableSuccessNotifications()
   }
 }
 
