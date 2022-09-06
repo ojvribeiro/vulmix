@@ -1,6 +1,6 @@
 <template>
   <div class="p-6 space-y-6">
-    <h1 class="text-5xl">Home dawdwa</h1>
+    <h1 class="text-5xl">Home</h1>
 
     <MyComponent />
 
