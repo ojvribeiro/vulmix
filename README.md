@@ -1,40 +1,22 @@
-# vue-mix
+# Vulmix
 
-Tiny boilerplate to work with Vue and Laravel Mix (outside Laravel).
+Tiny boilerplate to work with Vue 3 and Laravel Mix (outside Laravel).
 
 > ⚠️ This is just an experimental work and should not, under any circumstances, be used in production. Use instead well tested and faster tools like [Vite](https://github.com/vitejs/vite). Or, if you need the auto import functionality, you can use [Nuxt](https://nuxtjs.org/) instead.
 
 ## Installation
 
-First clone the repository:
+The easiest way to install Vulmix is by running:
 
 ```bash
-git clone https://github.com/ojvribeiro/vue-mix
+npx create-vulmix-app your-app-name
 ```
 
-> 📌 Tip:
->
-> You can clone the repository into an existing folder by `cd`ing to your project folder, then running the `clone` command with a `.` at the end.
->
-> ```bash
-> cd path/to/project
->
-> git clone https://github.com/ojvribeiro/vue-mix .
-> ```
-
-Install the dependencies:
-
-```bash
-# With NPM
-npm install
-
-# Or with Yarn
-yarn install
-```
+...and follow the instructions on the terminal.
 
 ## Running the project
 
-Run the project locally by running the following command:
+Run the project locally by `cd`ing into the project directory and then running the following command:
 
 ```bash
 # With NPM
