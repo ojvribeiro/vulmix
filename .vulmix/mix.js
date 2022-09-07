@@ -1,6 +1,8 @@
 const mix = require('laravel-mix')
+const config = require('../webpack.config.js')
 
 require('laravel-mix-serve')
+require('laravel-mix-simple-image-processing')
 
 class VueMixInit {
   name() {
@@ -10,6 +12,8 @@ class VueMixInit {
   register() {
     mix
       .setPublicPath('.dist/')
+
+      .webpackConfig(config)
 
       .serve(
         'npx http-server -p 8000 -a localhost -c-1 --proxy http://localhost:8000?',
@@ -23,6 +27,18 @@ class VueMixInit {
 
       .webpackConfig({
         devtool: 'source-map',
+      })
+
+      .imgs({
+        source: 'assets/img',
+        destination: '.vulmix/assets/img',
+        webp: true,
+        thumbnailsSizes: [1920, 1200, 900, 600, 300],
+        smallerThumbnailsOnly: true,
+        thumbnailsOnly: true,
+        imageminWebpOptions: {
+          quality: 80,
+        },
       })
 
       .sass('.vulmix/assets/sass/main.scss', '.dist/.vulmix/dist/css')
