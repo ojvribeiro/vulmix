@@ -61,7 +61,7 @@
     const img = new Image()
     img.src = image.value
 
-    img.onload = function () {
+    img.onload = () => {
       image.value = props.src.replace(
         /\/assets\/img\/(|.*)([a-zA-Z0-9_-])\.(png|jpg|jpeg|gif)$/i,
         `/.vulmix/assets/img/$1$2@${size}.${
@@ -70,15 +70,17 @@
       )
     }
 
-    img.onerror = function () {
+    img.onerror = () => {
       image.value = props.src.replace(
         /\/assets\/img\/(|.*)([a-zA-Z0-9_-])\.(png|jpg|jpeg|gif)$/i,
-        `/.vulmix/assets/img/$1$2@${sizes[currentIndex - 1]}.${
-          props.webp === 'true' ? 'webp' : '$3'
-        }`
+        `/.vulmix/assets/img/$1$2@${
+          currentIndex > 0 ? sizes[currentIndex - 1] : sizes[0]
+        }.${props.webp === 'true' ? 'webp' : '$3'}`
       )
 
-      replace(sizes[currentIndex - 1])
+      if (currentIndex > 0) {
+        replace(sizes[currentIndex - 1])
+      }
     }
   }
 
