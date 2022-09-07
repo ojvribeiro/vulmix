@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-  import { ref, onMounted } from 'vue'
+  import { ref } from 'vue'
   import { useWindowSize } from '@vueuse/core'
 
   const { width: windowWidth, height: windowHeight } = useWindowSize()
@@ -59,15 +59,16 @@
     })
 
     const img = new Image()
-
-    image.value = props.src.replace(
-      /\/assets\/img\/(|.*)([a-zA-Z0-9_-])\.(png|jpg|jpeg|gif)$/i,
-      `/.vulmix/assets/img/$1$2@${size}.${
-        props.webp === 'true' ? 'webp' : '$3'
-      }`
-    )
-
     img.src = image.value
+
+    img.onload = function () {
+      image.value = props.src.replace(
+        /\/assets\/img\/(|.*)([a-zA-Z0-9_-])\.(png|jpg|jpeg|gif)$/i,
+        `/.vulmix/assets/img/$1$2@${size}.${
+          props.webp === 'true' ? 'webp' : '$3'
+        }`
+      )
+    }
 
     img.onerror = function () {
       image.value = props.src.replace(
@@ -95,9 +96,5 @@
     }
   }
 
-  onMounted(() => {
-    window.addEventListener('load', () => {
-      loadImage()
-    })
-  })
+  loadImage()
 </script>
