@@ -27,7 +27,7 @@
     },
     alt: {
       type: String,
-      default: 'Imagem',
+      default: 'Image',
     },
     title: {
       type: String,
@@ -43,7 +43,6 @@
     },
   })
 
-  const image = ref('')
   const imageEl = ref(null)
   const imgSrc = ref(props.src)
 
