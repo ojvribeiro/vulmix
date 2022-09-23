@@ -33,7 +33,7 @@ class VueMixInit {
         source: 'assets/img',
         destination: '.vulmix/assets/img',
         webp: true,
-        thumbnailsSizes: [1920, 1200, 900, 600, 300],
+        thumbnailsSizes: [1920, 1200, 900, 600, 300, 50],
         smallerThumbnailsOnly: true,
         thumbnailsOnly: true,
         imageminWebpOptions: {
