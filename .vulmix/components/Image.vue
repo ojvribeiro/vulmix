@@ -1,21 +1,18 @@
 <template>
   <img
-    :src="image"
-    :width="props.width && props.width.replace(/(\d+)(px|rem|em|%|)/i, '$1')"
-    :height="props.height && props.height.replace(/(\d+)(px|rem|em|%|)/i, '$1')"
+    :src="props.src"
+    :width="width"
+    :height="height"
     :alt="props.alt"
     :title="props.title"
     :loading="props.loading"
+    ref="imageEl"
   />
 </template>
 
 <script setup>
-  import { ref } from 'vue'
-  import { useWindowSize } from '@vueuse/core'
-
-  const { width: windowWidth, height: windowHeight } = useWindowSize()
-
-  const imageSize = ref({})
+  import { ref, onMounted } from 'vue'
+  import { useElementSize } from '@vueuse/core'
 
   const props = defineProps({
     src: {
@@ -47,56 +44,31 @@
   })
 
   const image = ref('')
+  const imageEl = ref(null)
+  const imgSrc = ref(props.src)
+
+  const { width, height } = useElementSize(imageEl)
 
   function replace(size) {
-    let currentIndex
-    const sizes = ['300', '600', '900', '1200', '1920']
-
-    sizes.forEach((item, i) => {
-      if (item === size) {
-        currentIndex = i
-      }
-    })
-
-    const img = new Image()
-    img.src = image.value
-
-    img.onload = () => {
-      image.value = props.src.replace(
-        /\/assets\/img\/(|.*)([a-zA-Z0-9_-])\.(png|jpg|jpeg|gif)$/i,
-        `/.vulmix/assets/img/$1$2@${size}.${
-          props.webp === 'true' ? 'webp' : '$3'
-        }`
-      )
-    }
-
-    img.onerror = () => {
-      image.value = props.src.replace(
-        /\/assets\/img\/(|.*)([a-zA-Z0-9_-])\.(png|jpg|jpeg|gif)$/i,
-        `/.vulmix/assets/img/$1$2@${
-          currentIndex > 0 ? sizes[currentIndex - 1] : sizes[0]
-        }.${props.webp === 'true' ? 'webp' : '$3'}`
-      )
-
-      if (currentIndex > 0) {
-        replace(sizes[currentIndex - 1])
-      }
-    }
+    imageEl.value.src = props.src.replace(
+      /\/assets\/img\/(|.*)([a-zA-Z0-9_-])\.(png|jpg|jpeg|gif)$/i,
+      `/.vulmix/assets/img/$1$2@${size}.${
+        props.webp === 'true' ? 'webp' : '$3'
+      }`
+    )
   }
 
-  function loadImage() {
-    if (windowWidth.value < 320) {
+  onMounted(() => {
+    if (imageEl.value.width < 300) {
       replace('300')
-    } else if (windowWidth.value >= 320 && windowWidth.value < 578) {
+    } else if (imageEl.value.width >= 301 && imageEl.value.width < 600) {
       replace('600')
-    } else if (windowWidth.value >= 578 && windowWidth.value < 768) {
+    } else if (imageEl.value.width >= 601 && imageEl.value.width < 900) {
       replace('900')
-    } else if (windowWidth.value >= 992 && windowWidth.value < 1600) {
+    } else if (imageEl.value.width >= 901 && imageEl.value.width < 1200) {
       replace('1200')
     } else {
       replace('1920')
     }
-  }
-
-  loadImage()
+  })
 </script>
