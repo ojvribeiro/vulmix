@@ -1,6 +1,6 @@
 <template>
   <img
-    :src="props.src"
+    :src="imgSrc"
     :width="width"
     :height="height"
     :alt="props.alt"
@@ -49,7 +49,7 @@
   const { width, height } = useElementSize(imageEl)
 
   function replace(size) {
-    imageEl.value.src = props.src.replace(
+    imgSrc.value = props.src.replace(
       /\/assets\/img\/(|.*)([a-zA-Z0-9_-])\.(png|jpg|jpeg|gif)$/i,
       `/.vulmix/assets/img/$1$2@${size}.${
         props.webp === 'true' ? 'webp' : '$3'
