@@ -37,7 +37,7 @@ class VueMixInit {
         smallerThumbnailsOnly: true,
         thumbnailsOnly: true,
         imageminWebpOptions: {
-          quality: 80,
+          quality: 90,
         },
       })
 
