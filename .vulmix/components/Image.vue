@@ -5,14 +5,14 @@
     :height="height"
     :alt="props.alt"
     :title="props.title"
-    :loading="props.loading"
+    :loading="targetIsVisible ? 'eager' : 'lazy'"
     ref="imageEl"
   />
 </template>
 
 <script setup>
   import { ref, onMounted } from 'vue'
-  import { useElementSize } from '@vueuse/core'
+  import { useElementSize, useElementVisibility } from '@vueuse/core'
 
   const props = defineProps({
     src: {
@@ -33,10 +33,6 @@
       type: String,
       default: '',
     },
-    loading: {
-      type: String,
-      default: 'eager', // or 'lazy'
-    },
     webp: {
       type: String,
       default: 'true',
@@ -47,6 +43,7 @@
   const imgSrc = ref(props.src)
 
   const { width, height } = useElementSize(imageEl)
+  const targetIsVisible = useElementVisibility(imageEl)
 
   function replace(size) {
     imgSrc.value = props.src.replace(
