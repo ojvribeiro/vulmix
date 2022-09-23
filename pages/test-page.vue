@@ -4,7 +4,7 @@
       <h1 class="text-5xl text-blue-200 font-black">Test page!</h1>
 
       <p>
-        <code>src/pages/test-page.vue</code>
+        <code>pages/test-page.vue</code>
       </p>
 
       <p class="text-blue-400">
