@@ -1,5 +1,5 @@
 const mix = require('laravel-mix')
-const config = require('../webpack.config.js')
+const config = require('./webpack.config.js')
 
 require('laravel-mix-serve')
 require('laravel-mix-simple-image-processing')
