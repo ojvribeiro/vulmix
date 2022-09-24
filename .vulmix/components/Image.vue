@@ -48,7 +48,7 @@
   function replace(size) {
     imgSrc.value = props.src.replace(
       /\/assets\/img\/(|.*)([a-zA-Z0-9_-])\.(png|jpg|jpeg|gif)$/i,
-      `/.vulmix/assets/img/$1$2@${size}.${
+      `/build/img/$1$2@${size}.${
         props.webp === 'true' ? 'webp' : '$3'
       }`
     )
