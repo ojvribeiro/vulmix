@@ -1,14 +1,13 @@
 {
   "name": "vulmix",
-  "version": "0.2.3-alpha",
+  "version": "0.3.0-alpha",
   "description": "Tiny boilerplate to work with Vue and Laravel Mix.",
   "main": "index.js",
   "scripts": {
+    "build": "[ -d build\\img ] && mix || mkdir build\\img && mix",
+    "dev": "[ -d build\\img ] && mix watch || mkdir build\\img && mix watch",
     "serve": "npx http-server -p 8000 -a localhost --proxy http://localhost:8000?",
-    "build": "mix",
-    "watch": "mix watch",
-    "dev": "mix watch",
-    "prod": "mix --production"
+    "prod": "[ -d _dist\\assets\\img ] && mix --production || mkdir _dist\\assets\\img && mix --production && echo \n\nDeploy the `_dist` folder after compilation"
   },
   "author": "Victor Ribeiro",
   "license": "MIT",
@@ -20,10 +19,12 @@
     "browser-sync-webpack-plugin": "^2.3.0",
     "imagemin-jpegtran": "^7.0.0",
     "laravel-mix": "^6.0.49",
+    "laravel-mix-replace-in-file": "^0.1.0",
     "laravel-mix-serve": "^2.2.2",
     "laravel-mix-simple-image-processing": "^1.0.7",
     "path": "^0.12.7",
     "postcss": "^8.4.16",
+    "replace-in-file": "^6.3.5",
     "resolve-url-loader": "^5.0.0",
     "sass": "^1.54.5",
     "sass-loader": "^10.3.1",
