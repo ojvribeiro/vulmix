@@ -19,6 +19,7 @@ class VulmixInit {
     if (mix.inProduction()) {
       mix
         .copy('index.html', '_dist')
+        .copy('.vulmix/utils/deploy/.htaccess', '_dist')
 
         .sass(
           '.vulmix/assets/sass/main.scss',
