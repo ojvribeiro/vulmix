@@ -1,5 +1,3 @@
 <template>
-  <div>
-    <VulmixWelcome />
-  </div>
+  <VulmixWelcome />
 </template>
