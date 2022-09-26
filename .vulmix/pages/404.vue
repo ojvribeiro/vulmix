@@ -1,5 +1,5 @@
 <template>
-  <div class="grid place-items-center h-full text-center">
+  <div class="grid place-items-center h-full text-center bg-zinc-800">
     <div class="space-y-4">
       <h1 class="text-8xl text-blue-200 font-black">404</h1>
 
