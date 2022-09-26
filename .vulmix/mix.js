@@ -1,5 +1,4 @@
 const mix = require('laravel-mix')
-const config = require('./webpack.config.js')
 
 require('laravel-mix-serve')
 require('laravel-mix-simple-image-processing')
@@ -14,7 +13,19 @@ class VulmixInit {
     mix
       .setPublicPath('.')
 
-      .webpackConfig(config)
+      .webpackConfig({
+        resolve: {
+          extensions: ['.js', '.vue'],
+          alias: {
+            '@': path.resolve(__dirname, '../.vulmix'),
+            '@assets': path.resolve(__dirname, '../assets'),
+            '@components': path.resolve(__dirname, '../components'),
+            '@composables': path.resolve(__dirname, '../composables'),
+            '@pages': path.resolve(__dirname, '../pages'),
+            '@sass': path.resolve(__dirname, '../assets/sass'),
+          },
+        },
+      })
 
     if (mix.inProduction()) {
       mix
