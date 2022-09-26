@@ -4,10 +4,13 @@
   "description": "Tiny boilerplate to work with Vue and Laravel Mix.",
   "main": "index.js",
   "scripts": {
-    "build": "[ -d build\\img ] && mix || mkdir build\\img && mix",
-    "dev": "[ -d build\\img ] && mix watch || mkdir build\\img && mix watch",
+    "create-dev-img-dir": "npx mkdirp build/img",
+    "create-prod-img-dir": "npx mkdirp _dist/assets/img",
+    "build": "npm run create-dev-img-dir && mix",
+    "dev": "npm run create-dev-img-dir && mix watch",
+    "hot": "npm run create-dev-img-dir && mix watch --hot",
     "serve": "npx http-server -p 8000 -a localhost --proxy http://localhost:8000?",
-    "prod": "[ -d _dist\\assets\\img ] && mix --production || mkdir _dist\\assets\\img && mix --production && echo \n\nDeploy the `_dist` folder after compilation"
+    "prod": "npm run create-prod-img-dir && mix --production"
   },
   "author": "Victor Ribeiro",
   "license": "MIT",
