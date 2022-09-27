@@ -31,6 +31,8 @@ class VulmixInit {
 
       .ejs('index.ejs', '_dist')
 
+      .copy('.vulmix/assets/icons/favicon-16x16.png', '_dist/assets/icons')
+
       .sass(
         '.vulmix/assets/sass/main.scss',
         '_dist/assets/_vulmix/css/main.vulmix.css'
