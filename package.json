@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "create-img-dir": "mkdirp _dist/assets/img",
-    "remove-dist": "rimraf _dist",
+    "remove-dist": "rimraf _dist/assets/_vulmix _dist/assets/css _dist/assets/js",
     "build": "npm run remove-dist && npm run create-img-dir && mix",
     "dev": "npm run remove-dist && npm run create-img-dir && mix watch",
     "serve": "npx http-server -p 8000 -a localhost _dist --gzip --proxy http://localhost:8000?",
