@@ -5,11 +5,10 @@
   "main": "index.js",
   "scripts": {
     "create-img-dir": "mkdirp _dist/assets/img",
-    "remove-dist": "rimraf _dist",
+    "remove-dist": "rimraf _dist/assets/_vulmix _dist/assets/css _dist/assets/js",
     "build": "npm run remove-dist && npm run create-img-dir && mix",
     "dev": "npm run remove-dist && npm run create-img-dir && mix watch",
-    "hot": "npm run remove-dist && npm run create-img-dir && mix watch --hot",
-    "serve": "npx http-server -p 8000 -a localhost _dist -c-1 --gzip --proxy http://localhost:8000?",
+    "serve": "npx http-server -p 8000 -a localhost _dist --gzip --proxy http://localhost:8000?",
     "prod": "npm run remove-dist && npm run create-img-dir && mix --production"
   },
   "author": "Victor Ribeiro",

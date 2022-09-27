@@ -29,7 +29,16 @@ class VulmixInit {
         },
       })
 
-      .ejs('index.ejs', '_dist')
+      .ejs(
+        ['index.ejs', '_dist/mix-manifest.json'],
+        '_dist',
+        {},
+        {
+          base: '_dist',
+          partials: ['_dist/mix-manifest.json'],
+          mixVersioning: true,
+        }
+      )
 
       .copy('.vulmix/assets/icons/favicon-16x16.png', '_dist/assets/icons')
 
@@ -47,18 +56,16 @@ class VulmixInit {
 
       .extract()
 
-      .after(stats => {
-        mix.imgs({
-          source: 'assets/img',
-          destination: '_dist/assets/img',
-          webp: true,
-          thumbnailsSizes: [1920, 1200, 900, 600, 300, 50],
-          smallerThumbnailsOnly: true,
-          thumbnailsOnly: true,
-          imageminWebpOptions: {
-            quality: 90,
-          },
-        })
+      .imgs({
+        source: 'assets/img',
+        destination: '_dist/assets/img',
+        webp: true,
+        thumbnailsSizes: [1920, 1200, 900, 600, 300, 50],
+        smallerThumbnailsOnly: true,
+        thumbnailsOnly: true,
+        imageminWebpOptions: {
+          quality: 90,
+        },
       })
 
     /**
@@ -73,7 +80,7 @@ class VulmixInit {
        */
       mix
         .serve(
-          'npx http-server -p 8000 -a localhost _dist -c-1 --gzip --proxy http://localhost:8000?',
+          'npx http-server -p 8000 -a localhost _dist --gzip --proxy http://localhost:8000?',
           {
             verbose: false,
             build: false,
