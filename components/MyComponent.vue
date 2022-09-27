@@ -1,7 +1,7 @@
 <template>
   <div class="p-8 bg-slate-600 text-white rounded-xl w-fit max-w-full flex flex-col md:flex-row gap-6">
     <Image
-      class="w-[400px] max-w-full aspect-square object-cover object-bottom rounded-xl"
+      class="w-[400px] aspect-square object-cover object-bottom rounded-xl"
       src="/assets/img/sample.jpg"
     />
 
