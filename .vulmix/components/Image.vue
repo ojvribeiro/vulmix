@@ -68,7 +68,7 @@
   onMounted(() => {
     if (imageEl.value.width < 300) {
       replace('300')
-    } else if (imageEl.value.width >= 301 && imageEl.value.width < 600) {
+    } else if (imageEl.value.width >= 300 && imageEl.value.width < 600) {
       replace('600')
     } else if (imageEl.value.width >= 601 && imageEl.value.width < 900) {
       replace('900')
