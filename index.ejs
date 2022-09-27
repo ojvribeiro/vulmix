@@ -10,15 +10,15 @@
     <meta name="title" content="Your application title">
     <meta name="description" content="Your application description">
 
-    <link rel="stylesheet" href="./build/_vulmix/css/main.vulmix.css">
-    <link rel="stylesheet" href="./build/css/main.css">
+    <link rel="stylesheet" href="<%= mix('/assets/_vulmix/css/main.vulmix.css') %>">
+    <link rel="stylesheet" href="<%= mix('/assets/css/main.css') %>">
   </head>
 
   <body class="h-full">
     <div id="app" class="h-full"></div>
 
-    <script src="./build/_vulmix/js/manifest.js"></script>
-    <script src="./build/_vulmix/js/vendor.js"></script>
-    <script src="./build/_vulmix/js/main.vulmix.js"></script>
+    <script src="<%= mix('/assets/_vulmix/js/manifest.js') %>"></script>
+    <script src="<%= mix('/assets/_vulmix/js/vendor.js') %>"></script>
+    <script src="<%= mix('/assets/_vulmix/js/main.vulmix.js') %>"></script>
   </body>
 </html>
