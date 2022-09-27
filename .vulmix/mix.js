@@ -47,18 +47,16 @@ class VulmixInit {
 
       .extract()
 
-      .after(stats => {
-        mix.imgs({
-          source: 'assets/img',
-          destination: '_dist/assets/img',
-          webp: true,
-          thumbnailsSizes: [1920, 1200, 900, 600, 300, 50],
-          smallerThumbnailsOnly: true,
-          thumbnailsOnly: true,
-          imageminWebpOptions: {
-            quality: 90,
-          },
-        })
+      .imgs({
+        source: 'assets/img',
+        destination: '_dist/assets/img',
+        webp: true,
+        thumbnailsSizes: [1920, 1200, 900, 600, 300, 50],
+        smallerThumbnailsOnly: true,
+        thumbnailsOnly: true,
+        imageminWebpOptions: {
+          quality: 90,
+        },
       })
 
     /**
