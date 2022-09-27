@@ -1,9 +1,10 @@
 const mix = require('laravel-mix')
-const config = require('./webpack.config.js')
+const path = require('path')
 
 require('laravel-mix-serve')
 require('laravel-mix-simple-image-processing')
 require('laravel-mix-replace-in-file')
+require('laravel-mix-ejs')
 
 class VulmixInit {
   name() {
@@ -12,38 +13,42 @@ class VulmixInit {
 
   register() {
     mix
-      .setPublicPath('.')
+      .setPublicPath('_dist')
 
-      .webpackConfig(config)
+      .webpackConfig({
+        resolve: {
+          extensions: ['.js', '.vue'],
+          alias: {
+            '@': path.resolve(__dirname, '../.vulmix'),
+            '@assets': path.resolve(__dirname, '../assets'),
+            '@components': path.resolve(__dirname, '../components'),
+            '@composables': path.resolve(__dirname, '../composables'),
+            '@pages': path.resolve(__dirname, '../pages'),
+            '@sass': path.resolve(__dirname, '../assets/sass'),
+          },
+        },
+      })
 
-    if (mix.inProduction()) {
-      mix
-        .copy('index.html', '_dist')
-        .copy('.vulmix/utils/deploy/.htaccess', '_dist')
+      .ejs('index.ejs', '_dist')
 
-        .sass(
-          '.vulmix/assets/sass/main.scss',
-          '_dist/assets/_vulmix/css/main.vulmix.css'
-        )
+      .copy('.vulmix/assets/icons/favicon-16x16.png', '_dist/assets/icons')
 
-        .sass('assets/sass/main.scss', '_dist/assets/css')
+      .sass(
+        '.vulmix/assets/sass/main.scss',
+        '_dist/assets/_vulmix/css/main.vulmix.css'
+      )
 
-        .js('.vulmix/main.js', '_dist/assets/_vulmix/js/main.vulmix.js')
-        .vue()
+      .sass('assets/sass/main.scss', '_dist/assets/css')
 
-        .replaceInFile({
-          files: '_dist/index.html',
-          from: /build(|\/_vulmix)/g,
-          to: 'assets',
-        })
+      .js('.vulmix/main.js', '_dist/assets/_vulmix/js/main.vulmix.js')
+      .vue()
 
-        .replaceInFile({
-          files: '_dist/assets/**/*',
-          from: /build\/img/g,
-          to: 'assets/img',
-        })
+      .version()
 
-        .imgs({
+      .extract()
+
+      .after(stats => {
+        mix.imgs({
           source: 'assets/img',
           destination: '_dist/assets/img',
           webp: true,
@@ -54,17 +59,21 @@ class VulmixInit {
             quality: 90,
           },
         })
+      })
 
-        .version()
-
-        .extract()
-    } else {
+    /**
+     * Production mode
+     */
+    if (mix.inProduction()) {
       mix
-        .webpackConfig({
-          devtool: 'source-map',
-        })
+        .copy('.vulmix/utils/deploy/.htaccess', '_dist')
+    } else {
+      /**
+       * Development mode
+       */
+      mix
         .serve(
-          'npx http-server -p 8000 -a localhost -c-1 --proxy http://localhost:8000?',
+          'npx http-server -p 8000 -a localhost _dist -c-1 --gzip --proxy http://localhost:8000?',
           {
             verbose: false,
             build: false,
@@ -73,39 +82,21 @@ class VulmixInit {
           }
         )
 
-        .sass(
-          '.vulmix/assets/sass/main.scss',
-          'build/_vulmix/css/main.vulmix.css'
-        )
-
-        .sass('assets/sass/main.scss', 'build/css')
-
-        .js('.vulmix/main.js', 'build/_vulmix/js/main.vulmix.js')
-        .vue()
+        .webpackConfig({
+          devtool: 'source-map',
+        })
 
         .sourceMaps()
-
-        .imgs({
-          source: 'assets/img',
-          destination: 'build/img',
-          webp: true,
-          thumbnailsSizes: [1920, 1200, 900, 600, 300, 50],
-          smallerThumbnailsOnly: true,
-          thumbnailsOnly: true,
-          imageminWebpOptions: {
-            quality: 90,
-          },
-        })
 
         .browserSync({
           proxy: 'http://localhost:8000/',
           files: [
-            './*.{html,ejs,php}',
+            './index.ejs',
             './.vulmix/**/*.{js,vue,scss}',
             './assets/**/*.{js,vue,scss}',
-            './components/**/*.{js,vue,scss}',
-            './composables/**/*.{js,vue,scss}',
-            './pages/**/*.{js,vue,scss}',
+            './components/**/*.{js,vue}',
+            './composables/**/*.{js,vue}',
+            './pages/**/*.{js,vue}',
           ],
         })
 
