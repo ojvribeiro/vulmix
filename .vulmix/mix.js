@@ -13,7 +13,7 @@ class VulmixInit {
 
   register() {
     mix
-      .setPublicPath('.')
+      .setPublicPath('_dist')
 
       .webpackConfig({
         resolve: {
