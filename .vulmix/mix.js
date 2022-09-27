@@ -4,6 +4,7 @@ const path = require('path')
 require('laravel-mix-serve')
 require('laravel-mix-simple-image-processing')
 require('laravel-mix-replace-in-file')
+require('laravel-mix-ejs')
 
 class VulmixInit {
   name() {
