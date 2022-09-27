@@ -29,34 +29,24 @@ class VulmixInit {
         },
       })
 
-    if (mix.inProduction()) {
-      mix
-        .copy('index.html', '_dist')
-        .copy('.vulmix/utils/deploy/.htaccess', '_dist')
+      .ejs('index.ejs', '_dist')
 
-        .sass(
-          '.vulmix/assets/sass/main.scss',
-          '_dist/assets/_vulmix/css/main.vulmix.css'
-        )
+      .sass(
+        '.vulmix/assets/sass/main.scss',
+        '_dist/assets/_vulmix/css/main.vulmix.css'
+      )
 
-        .sass('assets/sass/main.scss', '_dist/assets/css')
+      .sass('assets/sass/main.scss', '_dist/assets/css')
 
-        .js('.vulmix/main.js', '_dist/assets/_vulmix/js/main.vulmix.js')
-        .vue()
+      .js('.vulmix/main.js', '_dist/assets/_vulmix/js/main.vulmix.js')
+      .vue()
 
-        .replaceInFile({
-          files: '_dist/index.html',
-          from: /build(|\/_vulmix)/g,
-          to: 'assets',
-        })
+      .version()
 
-        .replaceInFile({
-          files: '_dist/assets/**/*',
-          from: /build\/img/g,
-          to: 'assets/img',
-        })
+      .extract()
 
-        .imgs({
+      .after(stats => {
+        mix.imgs({
           source: 'assets/img',
           destination: '_dist/assets/img',
           webp: true,
@@ -67,17 +57,21 @@ class VulmixInit {
             quality: 90,
           },
         })
+      })
 
-        .version()
-
-        .extract()
-    } else {
+    /**
+     * Production mode
+     */
+    if (mix.inProduction()) {
       mix
-        .webpackConfig({
-          devtool: 'source-map',
-        })
+        .copy('.vulmix/utils/deploy/.htaccess', '_dist')
+    } else {
+      /**
+       * Development mode
+       */
+      mix
         .serve(
-          'npx http-server -p 8000 -a localhost -c-1 --proxy http://localhost:8000?',
+          'npx http-server -p 8000 -a localhost _dist -c-1 --gzip --proxy http://localhost:8000?',
           {
             verbose: false,
             build: false,
@@ -86,39 +80,21 @@ class VulmixInit {
           }
         )
 
-        .sass(
-          '.vulmix/assets/sass/main.scss',
-          'build/_vulmix/css/main.vulmix.css'
-        )
-
-        .sass('assets/sass/main.scss', 'build/css')
-
-        .js('.vulmix/main.js', 'build/_vulmix/js/main.vulmix.js')
-        .vue()
+        .webpackConfig({
+          devtool: 'source-map',
+        })
 
         .sourceMaps()
-
-        .imgs({
-          source: 'assets/img',
-          destination: 'build/img',
-          webp: true,
-          thumbnailsSizes: [1920, 1200, 900, 600, 300, 50],
-          smallerThumbnailsOnly: true,
-          thumbnailsOnly: true,
-          imageminWebpOptions: {
-            quality: 90,
-          },
-        })
 
         .browserSync({
           proxy: 'http://localhost:8000/',
           files: [
-            './*.{html,ejs,php}',
+            './index.ejs',
             './.vulmix/**/*.{js,vue,scss}',
             './assets/**/*.{js,vue,scss}',
-            './components/**/*.{js,vue,scss}',
-            './composables/**/*.{js,vue,scss}',
-            './pages/**/*.{js,vue,scss}',
+            './components/**/*.{js,vue}',
+            './composables/**/*.{js,vue}',
+            './pages/**/*.{js,vue}',
           ],
         })
 
