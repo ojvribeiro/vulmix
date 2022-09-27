@@ -73,7 +73,7 @@ class VulmixInit {
        */
       mix
         .serve(
-          'npx http-server -p 8000 -a localhost _dist -c-1 --gzip --proxy http://localhost:8000?',
+          'npx http-server -p 8000 -a localhost _dist --gzip --proxy http://localhost:8000?',
           {
             verbose: false,
             build: false,
