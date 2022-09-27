@@ -29,7 +29,16 @@ class VulmixInit {
         },
       })
 
-      .ejs('index.ejs', '_dist')
+      .ejs(
+        ['index.ejs', '_dist/mix-manifest.json'],
+        '_dist',
+        {},
+        {
+          base: '_dist',
+          partials: ['_dist/mix-manifest.json'],
+          mixVersioning: true,
+        }
+      )
 
       .copy('.vulmix/assets/icons/favicon-16x16.png', '_dist/assets/icons')
 
