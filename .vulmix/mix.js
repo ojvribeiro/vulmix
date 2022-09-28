@@ -30,11 +30,10 @@ class VulmixInit {
       })
 
       .ejs(
-        ['index.ejs', '_dist/mix-manifest.json'],
+        ['.vulmix/index.ejs', '_dist/mix-manifest.json'],
         '_dist',
         {},
         {
-          base: '_dist',
           partials: ['_dist/mix-manifest.json'],
           mixVersioning: true,
         }
@@ -98,7 +97,8 @@ class VulmixInit {
         .browserSync({
           proxy: 'http://localhost:8000/',
           files: [
-            './index.ejs',
+            './.vulmix/index.ejs',
+            './app.vue',
             './.vulmix/**/*.{js,vue,scss}',
             './assets/**/*.{js,vue,scss}',
             './components/**/*.{js,vue}',

@@ -1,9 +1,11 @@
 import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
-import App from '@/App.vue'
+import App from '../app.vue'
 
 const app = createApp(App)
+
+app.component('App', require('@/App.vue').default)
 
 /**
  * Built-in components
