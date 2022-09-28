@@ -1,9 +1,11 @@
 import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
+import { createHead } from '@vueuse/head'
 
 import App from '@/App.vue'
 
 const app = createApp(App)
+const head = createHead()
 
 /**
  * Built-in components
@@ -81,5 +83,6 @@ const router = createRouter({
 })
 
 app.use(router)
+app.use(head)
 
 app.mount('#app')
