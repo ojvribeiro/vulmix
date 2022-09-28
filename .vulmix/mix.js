@@ -99,6 +99,7 @@ class VulmixInit {
           proxy: 'http://localhost:8000/',
           files: [
             './index.ejs',
+            './app.vue',
             './.vulmix/**/*.{js,vue,scss}',
             './assets/**/*.{js,vue,scss}',
             './components/**/*.{js,vue}',
