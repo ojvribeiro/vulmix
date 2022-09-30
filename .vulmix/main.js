@@ -41,7 +41,7 @@ let routes = []
  */
 const nativePageComponents = require.context('@/pages/', true, /\.(vue|js)$/i)
 nativePageComponents.keys().map(key => {
-  let slugName = key
+  const slugName = key
     .split('/')
     .pop()
     .split('.')[0]
