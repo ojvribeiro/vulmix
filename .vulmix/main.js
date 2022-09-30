@@ -15,9 +15,11 @@ app.component('App', require('@/App.vue').default)
 const nativeComponents = require.context('@/components/', true, /\.(vue|js)$/i)
 nativeComponents
   .keys()
-  .map(key =>
-    app.component(key.split('/').pop().split('.')[0], nativeComponents(key).default)
-  )
+  .map(key => {
+    const nativeComponentName = key.split('.')[1].replace(/\//g, '')
+
+    app.component(nativeComponentName, nativeComponents(key).default)
+  })
 
 /**
  * Components
@@ -25,9 +27,11 @@ nativeComponents
 const componentFiles = require.context('@components/', true, /\.(vue|js)$/i)
 componentFiles
   .keys()
-  .map(key =>
-    app.component(key.split('/').pop().split('.')[0], componentFiles(key).default)
-  )
+  .map(key => {
+    const componentName = key.split('.')[1].replace(/\//g, '')
+
+    app.component(componentName, componentFiles(key).default)
+  })
 
 
 let routes = []
@@ -38,15 +42,17 @@ let routes = []
 const nativePageComponents = require.context('@/pages/', true, /\.(vue|js)$/i)
 nativePageComponents.keys().map(key => {
   let slugName = key
-    .split('/')
-    .pop()
-    .split('.')[0]
+    .split('.')[1]
     .replace(/([A-Z])/g, '-$1')
     .replace(/(^-)/g, '')
     .toLowerCase()
 
+  if (slugName.match(/\/index$/)) {
+    slugName = slugName.replace('/index', '/')
+  }
+
   routes.push({
-    path: slugName === 'index' ? '/' : `/${slugName}`,
+    path: slugName === '/index' ? '/' : `/${slugName}`,
     component: nativePageComponents(key).default,
   })
 })
@@ -60,19 +66,20 @@ pageComponents
   .keys()
   .map(key => {
     let slugName = key
-      .split('/')
-      .pop()
-      .split('.')[0]
+      .split('.')[1]
       .replace(/([A-Z])/g, '-$1')
       .replace(/(^-)/g, '')
       .toLowerCase()
 
-      routes.push({
-        path: slugName === 'index' ? '/' : `/${slugName}`,
-        component: pageComponents(key).default,
-      })
+    if (slugName.match(/\/index$/)) {
+      slugName = slugName.replace('/index', '/')
     }
-  )
+
+    routes.push({
+      path: slugName === '/index' ? '/' : `/${slugName}`,
+      component: pageComponents(key).default,
+    })
+  })
 
 routes.push({
   path: '/:pathMatch(.*)*',
