@@ -15,9 +15,11 @@ app.component('App', require('@/App.vue').default)
 const nativeComponents = require.context('@/components/', true, /\.(vue|js)$/i)
 nativeComponents
   .keys()
-  .map(key =>
-    app.component(key.split('/').pop().split('.')[0], nativeComponents(key).default)
-  )
+  .map(key => {
+    const nativeComponentName = key.split('.')[1].replace(/\//g, '')
+
+    app.component(nativeComponentName, nativeComponents(key).default)
+  })
 
 /**
  * Components
@@ -25,9 +27,11 @@ nativeComponents
 const componentFiles = require.context('@components/', true, /\.(vue|js)$/i)
 componentFiles
   .keys()
-  .map(key =>
-    app.component(key.split('/').pop().split('.')[0], componentFiles(key).default)
-  )
+  .map(key => {
+    const componentName = key.split('.')[1].replace(/\//g, '')
+
+    app.component(componentName, componentFiles(key).default)
+  })
 
 
 let routes = []
