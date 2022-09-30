@@ -95,6 +95,25 @@ const router = createRouter({
 /**
  * Layouts
  */
+const nativeLayoutFiles = require.context('@/layouts/', true, /\.(vue|js)$/i)
+nativeLayoutFiles
+  .keys()
+  .map(key => {
+    const nativeLayoutName =
+      'layout-' +
+      key
+        .split('.')[1]
+        .replace(/\//g, '')
+        .replace(/([A-Z])/g, '-$1')
+        .replace(/(^-)/g, '')
+        .toLowerCase()
+
+    app.component(nativeLayoutName, nativeLayoutFiles(key).default)
+  })
+
+/**
+ * Layouts
+ */
 const layoutFiles = require.context('@layouts/', true, /\.(vue|js)$/i)
 layoutFiles
   .keys()
