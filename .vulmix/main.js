@@ -81,6 +81,31 @@ pageComponents
     })
   })
 
+/**
+ * Dynamic Pages
+ */
+const dynamicPageComponents = require.context('@pages/', true, /\[(.*)\]\.(vue|js)$/i)
+dynamicPageComponents
+  .keys()
+  .map(key => {
+    let slugName = key
+      .split('.')[1]
+      .replace(/([A-Z])/g, '-$1')
+      .replace(/(^-)/g, '')
+      .toLowerCase()
+
+    if (slugName.match(/\/index$/)) {
+      slugName = slugName.replace('/index', '/')
+    } else {
+      slugName = slugName.replace(/\/\[(.*)\]/, '/:$1')
+    }
+
+    routes.push({
+      path: slugName === '/index' ? '/' : `/${slugName}`,
+      component: dynamicPageComponents(key).default,
+    })
+  })
+
 routes.push({
   path: '/:pathMatch(.*)*',
   component: require('@/pages/404.vue').default,
