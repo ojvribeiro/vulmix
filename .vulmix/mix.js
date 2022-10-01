@@ -23,6 +23,7 @@ class VulmixInit {
             '@assets': path.resolve(__dirname, '../assets'),
             '@components': path.resolve(__dirname, '../components'),
             '@composables': path.resolve(__dirname, '../composables'),
+            '@layouts': path.resolve(__dirname, '../layouts'),
             '@pages': path.resolve(__dirname, '../pages'),
             '@sass': path.resolve(__dirname, '../assets/sass'),
           },
