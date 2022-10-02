@@ -73,14 +73,14 @@ class VulmixInit {
     }
 
     /**
-     * Production mode
+     * Production mode only
      */
     if (mix.inProduction()) {
       mix
         .copy('.vulmix/utils/deploy/.htaccess', '_dist')
     } else {
       /**
-       * Development mode
+       * Development mode only
        */
       mix
         .serve(
