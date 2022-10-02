@@ -67,6 +67,19 @@ class VulmixInit {
         },
       })
 
+      .after(stats => {
+        /**
+         * Only prints user files to the terminal
+         */
+        const assets = { ...stats.compilation.assets }
+        stats.compilation.assets = {}
+
+        for (const [path, asset] of Object.entries(assets)) {
+          if (!path.match(/((\.|_)vulmix|\.map)/)) {
+            stats.compilation.assets[path] = asset
+          }
+        }
+      })
 
     if (fs.existsSync('assets/icons/')) {
       mix.copy('assets/icons', '_dist/assets/icons')
