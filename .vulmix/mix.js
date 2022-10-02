@@ -20,6 +20,7 @@ class VulmixInit {
         resolve: {
           extensions: ['.js', '.vue'],
           alias: {
+            '~': path.resolve(__dirname, '../'),
             '@': path.resolve(__dirname, '../.vulmix'),
             '@assets': path.resolve(__dirname, '../assets'),
             '@components': path.resolve(__dirname, '../components'),
