@@ -1,16 +1,22 @@
 <!doctype html>
-<html lang="en" class="h-full">
+<html lang="en">
   <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="<%= mix('/assets/_vulmix/css/main.vulmix.css') %>">
     <link rel="stylesheet" href="<%= mix('/assets/css/main.css') %>">
+
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
+
+    <style>
+      html,body,body>#app{height: 100%;}
+    </style>
   </head>
 
-  <body class="h-full">
-    <div id="app" class="h-full"></div>
+  <body>
+    <div id="app"></div>
 
     <script src="<%= mix('/assets/_vulmix/js/manifest.js') %>"></script>
     <script src="<%= mix('/assets/_vulmix/js/vendor.js') %>"></script>
