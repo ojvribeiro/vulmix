@@ -11,12 +11,12 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
 
     <style>
-      html,body,body>#app{height: 100%;}
+      html,body,body>[data-app]{height: 100%;}
     </style>
   </head>
 
   <body>
-    <div id="app"></div>
+    <div data-app></div>
 
     <script src="<%= mix('/assets/_vulmix/js/manifest.js') %>"></script>
     <script src="<%= mix('/assets/_vulmix/js/vendor.js') %>"></script>

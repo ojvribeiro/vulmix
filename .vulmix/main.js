@@ -140,4 +140,4 @@ layoutFiles
 app.use(router)
 app.use(head)
 
-app.mount('#app')
+app.mount('[data-app]')
