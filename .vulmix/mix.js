@@ -1,5 +1,6 @@
 const mix = require('laravel-mix')
 const path = require('path')
+const fs = require('fs')
 
 require('laravel-mix-serve')
 require('laravel-mix-simple-image-processing')
@@ -40,8 +41,6 @@ class VulmixInit {
         }
       )
 
-      .copy('.vulmix/assets/icons/favicon-16x16.png', '_dist/assets/icons')
-
       .sass(
         '.vulmix/assets/sass/main.scss',
         '_dist/assets/_vulmix/css/main.vulmix.css'
@@ -68,15 +67,33 @@ class VulmixInit {
         },
       })
 
+      .after(stats => {
+        /**
+         * Only prints user files to the terminal
+         */
+        const assets = { ...stats.compilation.assets }
+        stats.compilation.assets = {}
+
+        for (const [path, asset] of Object.entries(assets)) {
+          if (!path.match(/((\.|_)vulmix|\.map)/)) {
+            stats.compilation.assets[path] = asset
+          }
+        }
+      })
+
+    if (fs.existsSync('assets/icons/')) {
+      mix.copy('assets/icons', '_dist/assets/icons')
+    }
+
     /**
-     * Production mode
+     * Production mode only
      */
     if (mix.inProduction()) {
       mix
         .copy('.vulmix/utils/deploy/.htaccess', '_dist')
     } else {
       /**
-       * Development mode
+       * Development mode only
        */
       mix
         .serve(
