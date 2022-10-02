@@ -1,5 +1,6 @@
 const mix = require('laravel-mix')
 const path = require('path')
+const fs = require('fs')
 
 require('laravel-mix-serve')
 require('laravel-mix-simple-image-processing')
@@ -40,8 +41,6 @@ class VulmixInit {
         }
       )
 
-      .copy('.vulmix/assets/icons/favicon-16x16.png', '_dist/assets/icons')
-
       .sass(
         '.vulmix/assets/sass/main.scss',
         '_dist/assets/_vulmix/css/main.vulmix.css'
@@ -67,6 +66,11 @@ class VulmixInit {
           quality: 90,
         },
       })
+
+
+    if (fs.existsSync('assets/icons/')) {
+      mix.copy('assets/icons', '_dist/assets/icons')
+    }
 
     /**
      * Production mode
