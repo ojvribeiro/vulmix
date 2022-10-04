@@ -35,6 +35,10 @@
       type: String,
       default: 'true',
     },
+    original: {
+      type: String,
+      default: 'false',
+    },
   })
 
   const imageEl = ref(null)
