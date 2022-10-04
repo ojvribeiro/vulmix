@@ -47,16 +47,16 @@
   const { width, height } = useElementSize(imageEl)
   const targetIsVisible = useElementVisibility(imageEl)
 
+  const _image = new Image()
+  _image.src = props.src.replace(
+    /\/assets\/img\/(|.*)([a-zA-Z0-9_-])\.(png|jpg|jpeg|gif)$/i,
+    `/assets/img/$1$2@50.${props.webp === 'true' ? 'webp' : '$3'}`
+  )
+
+  imgSrc.value = _image.src
+
   onMounted(() => {
     function replace(size) {
-      const _image = new Image()
-      _image.src = props.src.replace(
-        /\/assets\/img\/(|.*)([a-zA-Z0-9_-])\.(png|jpg|jpeg|gif)$/i,
-        `/assets/img/$1$2@50.${props.webp === 'true' ? 'webp' : '$3'}`
-      )
-
-      imgSrc.value = _image.src
-
       _image.onload = function () {
         if (props.original === 'false') {
           imgSrc.value = props.src.replace(
