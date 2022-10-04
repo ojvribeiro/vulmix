@@ -21,7 +21,7 @@ class VulmixInit {
           extensions: ['.js', '.vue'],
           alias: {
             '~': path.resolve(__dirname, '../'),
-            '@': path.resolve(__dirname, '../.vulmix'),
+            '@': path.resolve(__dirname, '../node_modules/vulmix/src'),
             '@assets': path.resolve(__dirname, '../assets'),
             '@components': path.resolve(__dirname, '../components'),
             '@composables': path.resolve(__dirname, '../composables'),
@@ -33,7 +33,7 @@ class VulmixInit {
       })
 
       .ejs(
-        ['.vulmix/index.ejs', '_dist/mix-manifest.json'],
+        ['node_modules/vulmix/src/index.ejs', '_dist/mix-manifest.json'],
         '_dist',
         {},
         {
@@ -43,13 +43,13 @@ class VulmixInit {
       )
 
       .sass(
-        '.vulmix/assets/sass/main.scss',
+        'node_modules/vulmix/src/assets/sass/main.scss',
         '_dist/assets/_vulmix/css/main.vulmix.css'
       )
 
       .sass('assets/sass/main.scss', '_dist/assets/css')
 
-      .js('.vulmix/main.js', '_dist/assets/_vulmix/js/main.vulmix.js')
+      .js('node_modules/vulmix/src/main.js', '_dist/assets/_vulmix/js/main.vulmix.js')
       .vue()
 
       .version()
@@ -91,7 +91,7 @@ class VulmixInit {
      */
     if (mix.inProduction()) {
       mix
-        .copy('.vulmix/utils/deploy/.htaccess', '_dist')
+        .copy('node_modules/vulmix/utils/deploy/.htaccess', '_dist')
     } else {
       /**
        * Development mode only
@@ -116,9 +116,9 @@ class VulmixInit {
         .browserSync({
           proxy: 'http://localhost:8000/',
           files: [
-            './.vulmix/index.ejs',
+            './node_modules/vulmix/src/index.ejs',
             './app.vue',
-            './.vulmix/**/*.{js,vue,scss}',
+            './node_modules/vulmix/src/**/*.{js,vue,scss}',
             './assets/**/*.{js,vue,scss}',
             './components/**/*.{js,vue}',
             './composables/**/*.{js,vue}',

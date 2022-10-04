@@ -1,6 +1,6 @@
 {
   "name": "vulmix",
-  "version": "0.5.2-alpha",
+  "version": "0.5.3-alpha",
   "description": "Tiny boilerplate to work with Vue and Laravel Mix.",
   "main": "./src/mix.js",
   "scripts": {
