@@ -16,7 +16,11 @@ const nativeComponents = require.context('@/components/', true, /\.(vue|js)$/i)
 nativeComponents
   .keys()
   .map(key => {
-    const nativeComponentName = key.split('.')[1].replace(/\//g, '')
+    let nativeComponentName = key.split('.')[1].replace(/\//g, '')
+
+    if (nativeComponentName.match(/index$/)) {
+      nativeComponentName = nativeComponentName.replace('index', '')
+    }
 
     app.component(nativeComponentName, nativeComponents(key).default)
   })
@@ -28,7 +32,11 @@ const componentFiles = require.context('@components/', true, /\.(vue|js)$/i)
 componentFiles
   .keys()
   .map(key => {
-    const componentName = key.split('.')[1].replace(/\//g, '')
+    let componentName = key.split('.')[1].replace(/\//g, '')
+
+    if (componentName.match(/index$/)) {
+      componentName = componentName.replace('index', '')
+    }
 
     app.component(componentName, componentFiles(key).default)
   })
