@@ -78,9 +78,3 @@
     }
   })
 </script>
-
-<style scoped lang="scss">
-  img {
-    background-color: rgba(#000, 10%);
-  }
-</style>
