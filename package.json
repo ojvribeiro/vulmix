@@ -1,8 +1,8 @@
 {
   "name": "vulmix",
-  "version": "0.4.4-alpha",
+  "version": "0.5.2-alpha",
   "description": "Tiny boilerplate to work with Vue and Laravel Mix.",
-  "main": "index.js",
+  "main": "./src/mix.js",
   "scripts": {
     "create-img-dir": "mkdirp _dist/assets/img",
     "remove-dist": "rimraf _dist/assets/_vulmix _dist/assets/css _dist/assets/js",
@@ -13,7 +13,8 @@
   },
   "author": "Victor Ribeiro",
   "license": "MIT",
-  "devDependencies": {
+  "devDependencies": {},
+  "dependencies": {
     "@vue/compiler-sfc": "^3.2.37",
     "@vueuse/core": "^9.2.0",
     "@vueuse/head": "^0.8.0",
@@ -40,6 +41,5 @@
     "vue-loader": "^17.0.0",
     "vue-router": "^4.1.3",
     "webpack": "^5.74.0"
-  },
-  "dependencies": {}
+  }
 }

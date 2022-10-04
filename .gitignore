@@ -1,6 +1,3 @@
 node_modules
-_dist
-build
-mix-manifest.json
 package-lock.json
 yarn.lock
