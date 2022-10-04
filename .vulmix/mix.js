@@ -62,7 +62,7 @@ class VulmixInit {
         webp: true,
         thumbnailsSizes: [1920, 1200, 900, 600, 300, 50],
         smallerThumbnailsOnly: true,
-        thumbnailsOnly: true,
+        thumbnailsOnly: false,
         imageminWebpOptions: {
           quality: 90,
         },
