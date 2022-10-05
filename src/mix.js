@@ -124,16 +124,6 @@ class VulmixInit {
        * Development mode only
        */
       mix
-        .serve(
-          'npx http-server -p 8000 -a localhost _dist --gzip --proxy http://localhost:8000?',
-          {
-            verbose: false,
-            build: false,
-            dev: true,
-            prod: false,
-          }
-        )
-
         .webpackConfig({
           devtool: 'source-map',
         })
@@ -141,16 +131,16 @@ class VulmixInit {
         .sourceMaps()
 
         .browserSync({
-          proxy: 'http://localhost:8000/',
           files: [
-            './node_modules/vulmix/src/index.ejs',
             './app.vue',
-            './node_modules/vulmix/src/**/*.{js,vue,scss}',
             './assets/**/*.{js,vue,scss}',
             './components/**/*.{js,vue}',
             './composables/**/*.{js,vue}',
             './pages/**/*.{js,vue}',
           ],
+          online: false,
+          open: false,
+          server: '_dist',
         })
 
         .disableSuccessNotifications()
