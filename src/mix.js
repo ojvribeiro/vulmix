@@ -57,7 +57,10 @@ class VulmixInit {
 
       .sass('assets/sass/main.scss', '_dist/assets/css')
 
-      .js('node_modules/vulmix/src/main.js', '_dist/assets/_vulmix/js/main.vulmix.js')
+      .js(
+        'node_modules/vulmix/src/main.js',
+        '_dist/assets/_vulmix/js/main.vulmix.js'
+      )
       .vue()
 
       .version()
@@ -98,8 +101,7 @@ class VulmixInit {
      * Production mode only
      */
     if (mix.inProduction()) {
-      mix
-        .copy('node_modules/vulmix/utils/deploy/.htaccess', '_dist')
+      mix.copy('node_modules/vulmix/utils/deploy/.htaccess', '_dist')
     } else {
       /**
        * Development mode only
