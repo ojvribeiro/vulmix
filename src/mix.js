@@ -28,14 +28,14 @@ class VulmixInit {
         resolve: {
           extensions: ['.js', '.vue'],
           alias: {
-            '~': path.resolve(__dirname, '../'),
-            '@': path.resolve(__dirname, '../node_modules/vulmix/src'),
-            '@assets': path.resolve(__dirname, '../assets'),
-            '@components': path.resolve(__dirname, '../components'),
-            '@composables': path.resolve(__dirname, '../composables'),
-            '@layouts': path.resolve(__dirname, '../layouts'),
-            '@pages': path.resolve(__dirname, '../pages'),
-            '@sass': path.resolve(__dirname, '../assets/sass'),
+            '~': path.resolve(__dirname, '../../../'),
+            '@': path.resolve(__dirname, '../../../node_modules/vulmix/src'),
+            '@assets': path.resolve(__dirname, '../../../assets'),
+            '@components': path.resolve(__dirname, '../../../components'),
+            '@composables': path.resolve(__dirname, '../../../composables'),
+            '@layouts': path.resolve(__dirname, '../../../layouts'),
+            '@pages': path.resolve(__dirname, '../../../pages'),
+            '@sass': path.resolve(__dirname, '../../../assets/sass'),
           },
         },
       })
