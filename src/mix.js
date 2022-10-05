@@ -13,8 +13,16 @@ class VulmixInit {
   }
 
   register() {
+    console.log(
+      // Cyan
+      '\x1b[36m%s\x1b[0m',
+      '\n\nVulmix 0.5.4-beta...\n\n'
+    )
+
     mix
       .before(() => {
+        console.log('Warming up...\n\n')
+
         fs.rmSync('_dist/assets', { recursive: true, force: true })
 
         if (!fs.existsSync('./_dist/assets/img')) {
@@ -101,7 +109,16 @@ class VulmixInit {
      * Production mode only
      */
     if (mix.inProduction()) {
-      mix.copy('node_modules/vulmix/utils/deploy/.htaccess', '_dist')
+      mix
+        .before(() => {
+          console.log(
+            // Cyan
+            '\x1b[36m%s\x1b[0m',
+            '\n\nPreparing production bundle...\n\n'
+          )
+        })
+
+        .copy('node_modules/vulmix/utils/deploy/.htaccess', '_dist')
     } else {
       /**
        * Development mode only
