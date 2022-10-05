@@ -2,6 +2,8 @@ const mix = require('laravel-mix')
 const path = require('path')
 const fs = require('fs')
 
+const package = require('../package.json')
+
 require('laravel-mix-serve')
 require('laravel-mix-simple-image-processing')
 require('laravel-mix-replace-in-file')
@@ -16,7 +18,7 @@ class VulmixInit {
     console.log(
       // Cyan
       '\x1b[36m%s\x1b[0m',
-      '\n\nVulmix 0.5.4-beta...\n\n'
+      `\n\nVulmix ${package.version}.\n\n`
     )
 
     mix
