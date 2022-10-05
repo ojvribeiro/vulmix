@@ -15,7 +15,7 @@ class VulmixInit {
   register() {
     mix
       .before(() => {
-        fs.rmSync('_dist', { recursive: true, force: true })
+        fs.rmSync('_dist/assets', { recursive: true, force: true })
 
         if (!fs.existsSync('./_dist/assets/img')) {
           fs.mkdirSync('./_dist/assets/img', { recursive: true })
