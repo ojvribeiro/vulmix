@@ -75,19 +75,20 @@ class VulmixInit {
 
       .extract()
 
-      .imgs({
-        source: 'assets/img',
-        destination: '_dist/assets/img',
-        webp: true,
-        thumbnailsSizes: [1920, 1200, 900, 600, 300, 50],
-        smallerThumbnailsOnly: true,
-        thumbnailsOnly: false,
-        imageminWebpOptions: {
-          quality: 90,
-        },
-      })
-
       .after(stats => {
+        setTimeout(() => {
+          mix.imgs({
+            source: 'assets/img',
+            destination: '_dist/assets/img',
+            webp: true,
+            thumbnailsSizes: [1920, 1200, 900, 600, 300, 50],
+            smallerThumbnailsOnly: true,
+            thumbnailsOnly: false,
+            imageminWebpOptions: {
+              quality: 90,
+            },
+          })
+        })
         /**
          * Only prints user files to the terminal
          */
