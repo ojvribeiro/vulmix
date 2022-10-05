@@ -154,7 +154,7 @@ class VulmixInit {
             './pages/**/*.{js,vue}',
           ],
           online: false,
-          open: false,
+          open: true,
           server: '_dist',
         })
 
