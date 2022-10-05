@@ -40,12 +40,24 @@ class VulmixInit {
           alias: {
             '~': path.resolve(__dirname, '../../../'),
             '@': path.resolve(__dirname, '../../../node_modules/vulmix/src'),
-            '@assets': path.resolve(__dirname, '../../../assets'),
-            '@components': path.resolve(__dirname, '../../../components'),
-            '@composables': path.resolve(__dirname, '../../../composables'),
-            '@layouts': path.resolve(__dirname, '../../../layouts'),
-            '@pages': path.resolve(__dirname, '../../../pages'),
-            '@sass': path.resolve(__dirname, '../../../assets/sass'),
+            '@assets':
+              fs.existsSync(path.resolve(__dirname, '../../../assets')) &&
+              path.resolve(__dirname, '../../../assets'),
+            '@components':
+              fs.existsSync(path.resolve(__dirname, '../../../components')) &&
+              path.resolve(__dirname, '../../../components'),
+            '@composables':
+              fs.existsSync(path.resolve(__dirname, '../../../composables')) &&
+              path.resolve(__dirname, '../../../composables'),
+            '@layouts':
+              fs.existsSync(path.resolve(__dirname, '../../../layouts')) &&
+              path.resolve(__dirname, '../../../layouts'),
+            '@pages':
+              fs.existsSync(path.resolve(__dirname, '../../../pages')) &&
+              path.resolve(__dirname, '../../../pages'),
+            '@sass':
+              fs.existsSync(path.resolve(__dirname, '../../../assets/sass')) &&
+              path.resolve(__dirname, '../../../assets/sass'),
           },
         },
       })
