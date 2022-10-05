@@ -4,12 +4,10 @@
   "description": "Tiny boilerplate to work with Vue and Laravel Mix.",
   "main": "./src/mix.js",
   "scripts": {
-    "create-img-dir": "mkdirp _dist/assets/img",
-    "remove-dist": "rimraf _dist/assets/_vulmix _dist/assets/css _dist/assets/js",
-    "build": "npm run remove-dist && npm run create-img-dir && mix",
-    "dev": "npm run remove-dist && npm run create-img-dir && mix watch",
-    "serve": "npx http-server -p 8000 -a localhost _dist --gzip --proxy http://localhost:8000?",
-    "prod": "npm run remove-dist && npm run create-img-dir && mix --production"
+    "build": "mix",
+    "dev": "mix watch",
+    "prod": "mix --production",
+    "serve": "npx http-server -p 8000 -a localhost _dist --gzip --proxy http://localhost:8000?"
   },
   "author": "Victor Ribeiro",
   "license": "MIT",
