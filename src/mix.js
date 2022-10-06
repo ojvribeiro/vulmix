@@ -145,7 +145,18 @@ class VulmixInit {
 
         .sourceMaps()
 
+        .serve(
+          'npx http-server -p 8000 -a localhost _dist --gzip --proxy http://localhost:8000?',
+          {
+            verbose: false,
+            build: false,
+            dev: true,
+            prod: false,
+          }
+        )
+
         .browserSync({
+          proxy: 'localhost:8000',
           files: [
             './app.vue',
             './assets/**/*.{js,vue,scss}',
@@ -154,8 +165,6 @@ class VulmixInit {
             './pages/**/*.{js,vue}',
           ],
           online: false,
-          open: true,
-          server: '_dist',
         })
 
         .disableSuccessNotifications()
