@@ -15,10 +15,11 @@
   i {
     display: inline-block;
     vertical-align: middle;
-    background-size: 100% 100%;
+    background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
     mask-size: contain;
+    mask-repeat: no-repeat;
     mask-position: center;
     width: 1em;
     height: 1em;
