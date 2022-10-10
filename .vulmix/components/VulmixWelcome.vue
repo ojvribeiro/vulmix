@@ -1,4 +1,15 @@
 <template>
+  <Head>
+    <title>
+      Vue + Laravel Mix = Vulmix
+    </title>
+
+    <meta name="title" content="Vulmix starter application">
+    <meta name="description" content="Vulmix starter application description">
+
+    <link rel="icon" href="/assets/icons/favicon.png">
+  </Head>
+
   <div class="p-6 space-y-6 bg-zinc-800 text-white h-full">
     <h1 class="text-5xl">Home</h1>
 
