@@ -35,7 +35,7 @@
   @import url('https://fonts.googleapis.com/css2?family=Inconsolata&family=Roboto+Flex:opsz@8..144&display=swap');
 
   .vulmix-welcome {
-    background-color: #2C2C2C;
+    background-color: #181818;
     height: 100%;
     display: grid;
     place-items: center;
