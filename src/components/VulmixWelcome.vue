@@ -35,6 +35,7 @@
   @import url('https://fonts.googleapis.com/css2?family=Inconsolata&family=Roboto+Flex:opsz@8..144&display=swap');
 
   .vulmix-welcome {
+    position: relative;
     background-color: #181818;
     height: 100%;
     display: grid;
@@ -43,6 +44,33 @@
     padding: 24px;
     font-size: 1rem;
     font-family: 'Roboto Flex', Arial, Helvetica, sans-serif;
+    overflow: hidden;
+  }
+
+  .vulmix-welcome>div {
+    z-index: 0;
+  }
+
+  .vulmix-welcome::before, .vulmix-welcome::after {
+    content: "";
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    filter: blur(180.627px);
+    position: absolute;
+    z-index: 0;
+  }
+
+  .vulmix-welcome::before {
+    background-color: #3DDA98;
+    bottom: -37%;
+    left: -6%;
+  }
+
+  .vulmix-welcome::after {
+    background-color: #F3A1F0;
+    top: -37%;
+    right: -10%;
   }
 
   .vulmix-welcome code {
