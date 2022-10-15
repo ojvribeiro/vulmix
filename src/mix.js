@@ -30,6 +30,20 @@ class VulmixInit {
         if (!fs.existsSync('./_dist/assets/img')) {
           fs.mkdirSync('./_dist/assets/img', { recursive: true })
         }
+
+        setTimeout(() => {
+          mix.imgs({
+            source: 'assets/img',
+            destination: '_dist/assets/img',
+            webp: true,
+            thumbnailsSizes: [1920, 1200, 900, 600, 300, 50],
+            smallerThumbnailsOnly: true,
+            thumbnailsOnly: false,
+            imageminWebpOptions: {
+              quality: 90,
+            },
+          })
+        }, 1000)
       })
 
       .setPublicPath('_dist')
@@ -90,19 +104,6 @@ class VulmixInit {
       .extract()
 
       .after(stats => {
-        setTimeout(() => {
-          mix.imgs({
-            source: 'assets/img',
-            destination: '_dist/assets/img',
-            webp: true,
-            thumbnailsSizes: [1920, 1200, 900, 600, 300, 50],
-            smallerThumbnailsOnly: true,
-            thumbnailsOnly: false,
-            imageminWebpOptions: {
-              quality: 90,
-            },
-          })
-        })
         /**
          * Only prints user files to the terminal
          */
@@ -145,8 +146,9 @@ class VulmixInit {
 
         .sourceMaps()
 
+      mix
         .serve(
-          'npx http-server -p 8000 -a localhost _dist --gzip --proxy http://localhost:8000?',
+          'npx http-server -p 8000 -a localhost _dist --proxy http://localhost:8000?',
           {
             verbose: false,
             build: false,
