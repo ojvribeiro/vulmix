@@ -15,7 +15,7 @@
   "dependencies": {
     "@vue/compiler-sfc": "^3.2.37",
     "@vueuse/core": "^9.2.0",
-    "@vueuse/head": "^0.8.0",
+    "@vueuse/head": "^0.9.7",
     "@vueuse/router": "^9.3.0",
     "autoprefixer": "^10.4.8",
     "browser-sync": "^2.27.10",
