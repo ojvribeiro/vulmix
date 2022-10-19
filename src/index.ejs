@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="<%= mix('/assets/_vulmix/css/main.vulmix.css') %>">
+    <link rel="stylesheet" href="<%= mix('/assets/css/main.css') %>">
+
+    <style>
+      html,body,body>[data-app]{height: 100%;}
+    </style>
+  </head>
+
+  <body>
+    <div data-app></div>
+
+    <script src="<%= mix('/assets/_vulmix/js/manifest.js') %>"></script>
+    <script src="<%= mix('/assets/_vulmix/js/vendor.js') %>"></script>
+    <script src="<%= mix('/assets/_vulmix/js/main.vulmix.js') %>"></script>
+  </body>
+</html>
