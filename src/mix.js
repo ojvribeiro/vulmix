@@ -4,6 +4,8 @@ const fs = require('fs')
 
 const pkg = require('../package.json')
 
+let isImgGenerated = false
+
 require('laravel-mix-serve')
 require('laravel-mix-simple-image-processing')
 require('laravel-mix-replace-in-file')
@@ -118,6 +120,8 @@ class VulmixInit {
                 quality: 90,
               },
             })
+
+            isImgGenerated = true
           }
         })
       })
