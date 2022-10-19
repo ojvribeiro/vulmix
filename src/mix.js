@@ -123,6 +123,14 @@ class VulmixInit {
 
             isImgGenerated = true
           }
+
+          console.log('\nServing on:')
+          console.log(
+            // Cyan
+            '\x1b[36m%s\x1b[0m',
+            'http://localhost:3000 (Live reload)\n' +
+            'http://localhost:8000 (No live reload)\n'
+          )
         })
       })
 
