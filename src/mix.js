@@ -30,20 +30,6 @@ class VulmixInit {
         if (!fs.existsSync('./_dist/assets/img')) {
           fs.mkdirSync('./_dist/assets/img', { recursive: true })
         }
-
-        setTimeout(() => {
-          mix.imgs({
-            source: 'assets/img',
-            destination: '_dist/assets/img',
-            webp: true,
-            thumbnailsSizes: [1920, 1200, 900, 600, 300, 50],
-            smallerThumbnailsOnly: true,
-            thumbnailsOnly: false,
-            imageminWebpOptions: {
-              quality: 90,
-            },
-          })
-        }, 1000)
       })
 
       .setPublicPath('_dist')
@@ -115,6 +101,25 @@ class VulmixInit {
             stats.compilation.assets[path] = asset
           }
         }
+
+        // Synchronous run
+        setTimeout(() => {
+          if (isImgGenerated === false) {
+            console.log('Generating optimized images...\n\n')
+
+            mix.imgs({
+              source: 'assets/img',
+              destination: '_dist/assets/img',
+              webp: true,
+              thumbnailsSizes: [1920, 1200, 900, 600, 300, 50],
+              smallerThumbnailsOnly: true,
+              thumbnailsOnly: false,
+              imageminWebpOptions: {
+                quality: 90,
+              },
+            })
+          }
+        })
       })
 
     if (fs.existsSync('assets/icons/')) {
