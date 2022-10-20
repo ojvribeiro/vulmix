@@ -175,6 +175,7 @@ class VulmixInit {
         )
 
         .browserSync({
+          open: false,
           proxy: 'localhost:8000',
           files: [
             './app.vue',
