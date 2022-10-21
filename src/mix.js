@@ -4,6 +4,8 @@ const fs = require('fs')
 
 const pkg = require('../package.json')
 
+let isImgGenerated = false
+
 require('laravel-mix-serve')
 require('laravel-mix-simple-image-processing')
 require('laravel-mix-replace-in-file')
@@ -30,20 +32,6 @@ class VulmixInit {
         if (!fs.existsSync('./_dist/assets/img')) {
           fs.mkdirSync('./_dist/assets/img', { recursive: true })
         }
-
-        setTimeout(() => {
-          mix.imgs({
-            source: 'assets/img',
-            destination: '_dist/assets/img',
-            webp: true,
-            thumbnailsSizes: [1920, 1200, 900, 600, 300, 50],
-            smallerThumbnailsOnly: true,
-            thumbnailsOnly: false,
-            imageminWebpOptions: {
-              quality: 90,
-            },
-          })
-        }, 1000)
       })
 
       .setPublicPath('_dist')
@@ -115,6 +103,35 @@ class VulmixInit {
             stats.compilation.assets[path] = asset
           }
         }
+
+        // Synchronous run
+        setTimeout(() => {
+          if (isImgGenerated === false) {
+            console.log('Generating optimized images...\n\n')
+
+            mix.imgs({
+              source: 'assets/img',
+              destination: '_dist/assets/img',
+              webp: true,
+              thumbnailsSizes: [1920, 1200, 900, 600, 300, 50],
+              smallerThumbnailsOnly: true,
+              thumbnailsOnly: false,
+              imageminWebpOptions: {
+                quality: 90,
+              },
+            })
+
+            isImgGenerated = true
+          }
+
+          console.log('\nServing on:')
+          console.log(
+            // Cyan
+            '\x1b[36m%s\x1b[0m',
+            'http://localhost:3000 (Live reload)\n' +
+            'http://localhost:8000 (No live reload)\n'
+          )
+        })
       })
 
     if (fs.existsSync('assets/icons/')) {
@@ -158,6 +175,7 @@ class VulmixInit {
         )
 
         .browserSync({
+          open: false,
           proxy: 'localhost:8000',
           files: [
             './app.vue',
