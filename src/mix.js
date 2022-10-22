@@ -158,20 +158,6 @@ class VulmixInit {
 
         .sourceMaps()
 
-      mix
-        .browserSync({
-          open: false,
-          proxy: 'localhost:8000',
-          files: [
-            './app.vue',
-            './assets/**/*.{js,vue,scss}',
-            './components/**/*.{js,vue}',
-            './composables/**/*.{js,vue}',
-            './pages/**/*.{js,vue}',
-          ],
-          online: false,
-        })
-
         .disableSuccessNotifications()
     }
   }
