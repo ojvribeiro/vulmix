@@ -1,8 +1,8 @@
-name: "Publish new release to NPM"
+name: "Publish Preview release to NPM"
 on:
   push:
     branches:
-      - main
+      - dev
 
 jobs:
   publish:
@@ -18,3 +18,4 @@ jobs:
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
+          tag: "preview"
