@@ -29,7 +29,7 @@ class VulmixInit {
       })
 
       .before(() => {
-        console.log('Warming up...\n\n')
+        console.log(`\n\nWarming up...`)
 
         fs.rmSync('_dist/assets', { recursive: true, force: true })
 
@@ -111,8 +111,6 @@ class VulmixInit {
         // Synchronous run
         setTimeout(() => {
           if (isImgGenerated === false) {
-            console.log('Generating optimized images...\n\n')
-
             mix.imgs({
               source: 'assets/img',
               destination: '_dist/assets/img',
@@ -128,7 +126,6 @@ class VulmixInit {
             isImgGenerated = true
           }
 
-          console.log('\nServing on:')
           console.log(
             clc.white('\nServing on:'),
             clc.magentaBright.underline(`http://localhost:${port}\n`)
