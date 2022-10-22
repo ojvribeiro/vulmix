@@ -11,6 +11,7 @@ require('laravel-mix-simple-image-processing')
 require('laravel-mix-replace-in-file')
 require('laravel-mix-ejs')
 
+const port = '3000'
 class VulmixInit {
   name() {
     return 'vulmix'
@@ -24,6 +25,13 @@ class VulmixInit {
     )
 
     mix
+      .options({
+        hmrOptions: {
+          host: 'localhost',
+          port: port,
+        },
+      })
+
       .before(() => {
         console.log('Warming up...\n\n')
 
