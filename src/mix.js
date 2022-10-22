@@ -2,16 +2,16 @@ const mix = require('laravel-mix')
 const path = require('path')
 const fs = require('fs')
 
-const pkg = require('../package.json')
-
-let isImgGenerated = false
-
 require('laravel-mix-serve')
 require('laravel-mix-simple-image-processing')
 require('laravel-mix-replace-in-file')
 require('laravel-mix-ejs')
 
+const pkg = require('../package.json')
+
 const port = '3000'
+let isImgGenerated = false
+
 class VulmixInit {
   name() {
     return 'vulmix'
