@@ -2,7 +2,6 @@ const mix = require('laravel-mix')
 const path = require('path')
 const fs = require('fs')
 
-require('laravel-mix-serve')
 require('laravel-mix-simple-image-processing')
 require('laravel-mix-replace-in-file')
 require('laravel-mix-ejs')
@@ -172,16 +171,6 @@ class VulmixInit {
         .sourceMaps()
 
       mix
-        .serve(
-          'npx http-server -p 8000 -a localhost _dist --proxy http://localhost:8000?',
-          {
-            verbose: false,
-            build: false,
-            dev: true,
-            prod: false,
-          }
-        )
-
         .browserSync({
           open: false,
           proxy: 'localhost:8000',
