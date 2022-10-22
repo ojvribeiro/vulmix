@@ -1,6 +1,7 @@
 const mix = require('laravel-mix')
 const path = require('path')
 const fs = require('fs')
+const clc = require('cli-color')
 
 require('laravel-mix-simple-image-processing')
 require('laravel-mix-replace-in-file')
@@ -17,11 +18,7 @@ class VulmixInit {
   }
 
   register() {
-    console.log(
-      // Cyan
-      '\x1b[36m%s\x1b[0m',
-      `\n\nVulmix ${pkg.version}.\n\n`
-    )
+    console.log(clc.cyan.underline(`\n\nVulmix ${pkg.version}`))
 
     mix
       .options({
@@ -133,10 +130,8 @@ class VulmixInit {
 
           console.log('\nServing on:')
           console.log(
-            // Cyan
-            '\x1b[36m%s\x1b[0m',
-            'http://localhost:3000 (Live reload)\n' +
-            'http://localhost:8000 (No live reload)\n'
+            clc.white('\nServing on:'),
+            clc.magentaBright.underline(`http://localhost:${port}\n`)
           )
         })
       })
@@ -151,11 +146,7 @@ class VulmixInit {
     if (mix.inProduction()) {
       mix
         .before(() => {
-          console.log(
-            // Cyan
-            '\x1b[36m%s\x1b[0m',
-            '\n\nPreparing production bundle...\n\n'
-          )
+          console.log(clc.cyan('\n\nPreparing production bundle...\n\n'))
         })
 
         .copy('node_modules/vulmix/utils/deploy/.htaccess', '_dist')
