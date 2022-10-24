@@ -93,7 +93,7 @@
     display: grid;
     place-items: center;
     align-items: center;
-    padding: 24px;
+    padding-inline: 24px;
     font-size: 1rem;
     font-family: 'Roboto Flex', Arial, Helvetica, sans-serif;
     overflow: hidden;
