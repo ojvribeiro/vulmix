@@ -1,15 +1,22 @@
 const mix = require('laravel-mix')
 const path = require('path')
 const fs = require('fs')
+const clc = require('cli-color')
 
-const pkg = require('../package.json')
-
-let isImgGenerated = false
-
-require('laravel-mix-serve')
 require('laravel-mix-simple-image-processing')
 require('laravel-mix-replace-in-file')
 require('laravel-mix-ejs')
+
+const pkg = require('../package.json')
+
+const port = '3000'
+let isImgGenerated = false
+
+fs.rmSync('_dist/assets', { recursive: true, force: true })
+
+if (!fs.existsSync('./_dist/assets/img')) {
+  fs.mkdirSync('./_dist/assets/img', { recursive: true })
+}
 
 class VulmixInit {
   name() {
@@ -17,21 +24,18 @@ class VulmixInit {
   }
 
   register() {
-    console.log(
-      // Cyan
-      '\x1b[36m%s\x1b[0m',
-      `\n\nVulmix ${pkg.version}.\n\n`
-    )
+    console.log(clc.cyan.underline(`\n\nVulmix ${pkg.version}`))
 
     mix
+      .options({
+        hmrOptions: {
+          host: 'localhost',
+          port: port,
+        },
+      })
+
       .before(() => {
-        console.log('Warming up...\n\n')
-
-        fs.rmSync('_dist/assets', { recursive: true, force: true })
-
-        if (!fs.existsSync('./_dist/assets/img')) {
-          fs.mkdirSync('./_dist/assets/img', { recursive: true })
-        }
+        console.log(`\n\nWarming up...`)
       })
 
       .setPublicPath('_dist')
@@ -107,8 +111,6 @@ class VulmixInit {
         // Synchronous run
         setTimeout(() => {
           if (isImgGenerated === false) {
-            console.log('Generating optimized images...\n\n')
-
             mix.imgs({
               source: 'assets/img',
               destination: '_dist/assets/img',
@@ -124,12 +126,9 @@ class VulmixInit {
             isImgGenerated = true
           }
 
-          console.log('\nServing on:')
           console.log(
-            // Cyan
-            '\x1b[36m%s\x1b[0m',
-            'http://localhost:3000 (Live reload)\n' +
-            'http://localhost:8000 (No live reload)\n'
+            clc.white('\nServing on:'),
+            clc.magentaBright.underline(`http://localhost:${port}\n`)
           )
         })
       })
@@ -144,11 +143,7 @@ class VulmixInit {
     if (mix.inProduction()) {
       mix
         .before(() => {
-          console.log(
-            // Cyan
-            '\x1b[36m%s\x1b[0m',
-            '\n\nPreparing production bundle...\n\n'
-          )
+          console.log(clc.cyan('\n\nPreparing production bundle...\n\n'))
         })
 
         .copy('node_modules/vulmix/utils/deploy/.htaccess', '_dist')
@@ -162,30 +157,6 @@ class VulmixInit {
         })
 
         .sourceMaps()
-
-      mix
-        .serve(
-          'npx http-server -p 8000 -a localhost _dist --proxy http://localhost:8000?',
-          {
-            verbose: false,
-            build: false,
-            dev: true,
-            prod: false,
-          }
-        )
-
-        .browserSync({
-          open: false,
-          proxy: 'localhost:8000',
-          files: [
-            './app.vue',
-            './assets/**/*.{js,vue,scss}',
-            './components/**/*.{js,vue}',
-            './composables/**/*.{js,vue}',
-            './pages/**/*.{js,vue}',
-          ],
-          online: false,
-        })
 
         .disableSuccessNotifications()
     }
