@@ -1,5 +1,7 @@
 ![vulmix-logo](https://user-images.githubusercontent.com/8026741/192224953-9fad0854-0610-4c71-bcf0-55f40206bea8.svg)
 
+[![npm](https://img.shields.io/npm/v/vulmix?color=%231DBA78&style=for-the-badge)](https://www.npmjs.com/package/vulmix) [![NPM](https://img.shields.io/npm/l/vulmix?color=%23F3A1F0&style=for-the-badge)](https://github.com/ojvribeiro/vulmix/blob/main/LICENCE)
+
 Vue(3) SPA meta-framework that uses [Laravel Mix](https://www.npmjs.com/package/laravel-mix).
 
 > ⚠️ This is just an experimental work and should not be used in production (yet). Use instead well tested and faster tools like [Vite](https://github.com/vitejs/vite). Or, if you need the auto-import functionality, you can use [Nuxt](https://nuxtjs.org/) instead.
