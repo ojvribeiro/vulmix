@@ -12,6 +12,12 @@ const pkg = require('../package.json')
 const port = '3000'
 let isImgGenerated = false
 
+fs.rmSync('_dist/assets', { recursive: true, force: true })
+
+if (!fs.existsSync('./_dist/assets/img')) {
+  fs.mkdirSync('./_dist/assets/img', { recursive: true })
+}
+
 class VulmixInit {
   name() {
     return 'vulmix'
@@ -30,12 +36,6 @@ class VulmixInit {
 
       .before(() => {
         console.log(`\n\nWarming up...`)
-
-        fs.rmSync('_dist/assets', { recursive: true, force: true })
-
-        if (!fs.existsSync('./_dist/assets/img')) {
-          fs.mkdirSync('./_dist/assets/img', { recursive: true })
-        }
       })
 
       .setPublicPath('_dist')
