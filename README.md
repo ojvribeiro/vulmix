@@ -10,7 +10,7 @@ Vue(3) SPA meta-framework that uses [Laravel Mix](https://www.npmjs.com/package/
 
 - Components auto-import;
 - File based routing;
-- Hot Module Replacemente;
+- Hot Module Replacement;
 - Image asset optimization with the `<Image />` built-in component;
 - Sass out-of-the-box;
 - ... [and some things more](https://vulmix.vercel.app/).
