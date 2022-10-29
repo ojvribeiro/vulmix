@@ -4,7 +4,9 @@
 
 Vue(3) SPA meta-framework that uses [Laravel Mix](https://www.npmjs.com/package/laravel-mix).
 
-> ⚠️ This project is still in beta and it's not quite ready for production use.
+> **Warning**
+>
+> This project is still in beta and it's not quite ready for production use. Until the 1.0.0 stable version, its features and structure are likely to change.
 
 ## ✨ Features
 
