@@ -1,4 +1,4 @@
-![vulmix-logo](https://user-images.githubusercontent.com/8026741/192224953-9fad0854-0610-4c71-bcf0-55f40206bea8.svg)
+![vulmix](https://user-images.githubusercontent.com/8026741/200081212-36088231-c703-4e89-a827-9393b048299d.svg)
 
 [![npm](https://img.shields.io/npm/v/vulmix?color=%231DBA78&style=for-the-badge)](https://www.npmjs.com/package/vulmix) [![NPM](https://img.shields.io/npm/l/vulmix?color=%23F3A1F0&style=for-the-badge)](https://github.com/ojvribeiro/vulmix/blob/main/LICENCE)
 
