@@ -1,0 +1,3 @@
+<template>
+  <VulmixWelcome />
+</template>

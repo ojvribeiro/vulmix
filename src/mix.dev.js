@@ -10,12 +10,10 @@ require('laravel-mix-ejs')
 let isImgGenerated = false
 
 const port = '3000'
-const rootPath = path.join(__dirname, '../../..')
-const packagePath = path.join(__dirname, '../')
+const rootPath = path.join(__dirname, '../demo')
+const packagePath = path.resolve(__dirname, '..')
 
 const pkg = require(`${packagePath}/package.json`)
-
-console.log({ rootPath, packagePath })
 
 fs.rmSync(`${rootPath}/_dist/assets`, { recursive: true, force: true })
 
@@ -32,7 +30,7 @@ class VulmixInit {
     console.log(clc.cyan.underline(`\n\nVulmix ${pkg.version}`))
 
     mix
-      .setPublicPath('_dist')
+      .setPublicPath('demo/_dist')
 
       .options({
         hmrOptions: {
@@ -50,7 +48,7 @@ class VulmixInit {
           extensions: ['.js', '.vue'],
           alias: {
             '~': rootPath,
-            '@': `${packagePath}/src`,
+            '@': path.resolve(__dirname, `${packagePath}/src`),
             '@assets':
               fs.existsSync(`${rootPath}/assets`) && `${rootPath}/assets`,
             '@components':
@@ -113,8 +111,8 @@ class VulmixInit {
         setTimeout(() => {
           if (isImgGenerated === false) {
             mix.imgs({
-              source: 'assets/img',
-              destination: '_dist/assets/img',
+              source: 'demo/assets/img',
+              destination: 'demo/_dist/assets/img',
               webp: true,
               thumbnailsSizes: [1920, 1200, 900, 600, 300, 50],
               smallerThumbnailsOnly: true,
