@@ -22,7 +22,7 @@
     "laravel-mix": "^6.0.49",
     "laravel-mix-ejs": "^2.0.0",
     "laravel-mix-replace-in-file": "^0.1.0",
-    "laravel-mix-simple-image-processing": "^1.0.8",
+    "laravel-mix-simple-image-processing": "1.0.10",
     "path": "^0.12.7",
     "postcss": "^8.4.16",
     "replace-in-file": "^6.3.5",
