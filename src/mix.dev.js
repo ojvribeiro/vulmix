@@ -4,7 +4,6 @@ const fs = require('fs')
 const clc = require('cli-color')
 
 require('laravel-mix-simple-image-processing')
-require('laravel-mix-replace-in-file')
 require('laravel-mix-ejs')
 
 let isImgGenerated = false
