@@ -45,36 +45,44 @@
   imgSrc.value = _image.src
 
   onMounted(() => {
-    function replace(size) {
-      _image.onload = function () {
-        if (props.original === 'false') {
-          imgSrc.value = props.src.replace(
-            /\/assets\/img\/(|.*)([a-zA-Z0-9_-])\.(png|jpg|jpeg|gif)$/i,
-            `/assets/img/$1$2@${size}.${
-              props.webp === 'true' ? 'webp' : '$3'
-            }`
-          )
-        } else {
-          imgSrc.value = props.src.replace(
-            /\/assets\/img\/(|.*)([a-zA-Z0-9_-])\.(png|jpg|jpeg|gif)$/i,
-            `/assets/img/$1$2.${
-              props.webp === 'true' ? 'webp' : '$3'
-            }`
-          )
-        }
-      }
-    }
+    _image.onload = function () {
+      let size
 
-    if (imageEl.value.width < 300) {
-      replace('300')
-    } else if (imageEl.value.width >= 300 && imageEl.value.width < 600) {
-      replace('600')
-    } else if (imageEl.value.width >= 601 && imageEl.value.width < 900) {
-      replace('900')
-    } else if (imageEl.value.width >= 901 && imageEl.value.width < 1200) {
-      replace('1200')
-    } else {
-      replace('1920')
+      if (_image.width < 300) {
+        size = _image.width
+      } else if (_image.width >= 300 && _image.width < 600) {
+        size = 600
+      } else if (_image.width >= 601 && _image.width < 900) {
+        size = 900
+      } else if (_image.width >= 901 && _image.width < 1200) {
+        size = 1200
+      } else {
+        size = 1920
+      }
+
+      console.log(props.webp)
+
+      if (size !== undefined && size >= 300) {
+        imgSrc.value = props.src.replace(
+          /\/assets\/img\/(|.*)([a-zA-Z0-9_-])\.(png|jpg|jpeg|gif)$/i,
+          `/assets/img/$1$2${props.webp !== 'false' ? '@' + size : ''}.${
+            props.webp !== 'false' ? 'webp' : '$3'
+          }`
+        )
+      } else {
+        imgSrc.value = props.src.replace(
+          /\/assets\/img\/(|.*)([a-zA-Z0-9_-])\.(png|jpg|jpeg|gif)$/i,
+          `/assets/img/$1$2.${props.webp === 'true' ? 'webp' : '$3'}`
+        )
+      }
     }
   })
 </script>
+
+<style scoped>
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+</style>
