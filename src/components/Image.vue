@@ -10,18 +10,12 @@
 
 <script setup>
   import { ref, onMounted } from 'vue'
-  import { useElementSize, useElementVisibility } from '@vueuse/core'
+  import { useElementVisibility } from '@vueuse/core'
 
   const props = defineProps({
     src: {
       type: String,
       default: '',
-    },
-    width: {
-      type: String,
-    },
-    height: {
-      type: String,
     },
     alt: {
       type: String,
@@ -35,16 +29,11 @@
       type: String,
       default: 'true',
     },
-    original: {
-      type: String,
-      default: 'false',
-    },
   })
 
   const imageEl = ref(null)
   const imgSrc = ref(props.src)
 
-  const { width, height } = useElementSize(imageEl)
   const targetIsVisible = useElementVisibility(imageEl)
 
   const _image = new Image()
