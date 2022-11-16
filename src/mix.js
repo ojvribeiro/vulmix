@@ -115,10 +115,11 @@ class VulmixInit {
             mix.imgs({
               source: 'assets/img',
               destination: '_dist/assets/img',
-              webp: true,
               thumbnailsSizes: [1920, 1200, 900, 600, 300, 50],
               smallerThumbnailsOnly: true,
-              thumbnailsOnly: false,
+              thumbnailsWebpOnly: true,
+              processOriginalImage: true,
+              thumbnailsWebp: true,
               imageminWebpOptions: {
                 quality: 90,
               },
