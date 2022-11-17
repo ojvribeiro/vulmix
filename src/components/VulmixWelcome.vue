@@ -137,9 +137,7 @@
     width: 326px;
     height: 114px;
     max-width: 100%;
-    margin: 0;
-    margin-inline: auto;
-    margin-bottom: 56px;
+    margin: 0 auto 56px;
   }
 
   .vulmix-welcome .vulmix-card {
