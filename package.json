@@ -1,6 +1,6 @@
 {
   "name": "vulmix",
-  "version": "0.6.0-beta.preview",
+  "version": "0.5.5-beta.12.preview.5",
   "description": "Vue(3) meta-framework that uses Laravel Mix.",
   "main": "./src/mix.js",
   "scripts": {
@@ -29,3 +29,4 @@
     "vue-router": "^4.1.3"
   }
 }
+
