@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import { createHead } from '@vueuse/head'
 
-import App from '../../../app.vue'
+import App from '~/app.vue'
 
 const app = createApp(App)
 const head = createHead()

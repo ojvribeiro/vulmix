@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "mix watch --hot",
     "prod": "mix --production",
-    "serve": "npx http-server -p 8000 -a localhost _dist --gzip --proxy http://localhost:8000?"
+    "serve": "npx http-server -p 8000 -a localhost demo/_dist --gzip --proxy http://localhost:8000?"
   },
   "author": "Victor Ribeiro",
   "license": "MIT",
