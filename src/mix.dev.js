@@ -114,7 +114,6 @@ class VulmixInit {
               source: 'demo/assets/img',
               destination: publicPath + '/assets/img',
               webp: true,
-              thumbnailsSizes: [1920, 1200, 900, 600, 300, 50, 4],
               smallerThumbnailsOnly: true,
               thumbnailsWebpOnly: true,
               processOriginalImage: true,
