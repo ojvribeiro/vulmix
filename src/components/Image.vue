@@ -1,8 +1,8 @@
 <template>
   <img
     :src="imgSrc"
-    :alt="props.alt"
-    :title="props.title"
+    :alt="props.alt ? props.alt : ''"
+    :title="props.title ? props.title : ''"
     :loading="targetIsVisible ? 'eager' : 'lazy'"
     ref="imageEl"
   />
