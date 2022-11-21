@@ -15,8 +15,6 @@ const publicPath = '_dist'
 
 const pkg = require(`${packagePath}/package.json`)
 
-console.log({ rootPath, packagePath })
-
 fs.rmSync(`${rootPath}/_dist/assets`, { recursive: true, force: true })
 
 if (!fs.existsSync(`${rootPath}/_dist/assets/img`)) {
