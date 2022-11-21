@@ -11,6 +11,7 @@ let isImgGenerated = false
 const port = '3000'
 const rootPath = path.join(__dirname, '../../..')
 const packagePath = path.join(__dirname, '../')
+const publicPath = '_dist'
 
 const pkg = require(`${packagePath}/package.json`)
 
@@ -31,7 +32,7 @@ class VulmixInit {
     console.log(clc.cyan.underline(`\n\nVulmix ${pkg.version}`))
 
     mix
-      .setPublicPath('_dist')
+      .setPublicPath(publicPath)
 
       .options({
         hmrOptions: {
@@ -49,7 +50,7 @@ class VulmixInit {
           extensions: ['.js', '.vue'],
           alias: {
             '~': rootPath,
-            '@': `${packagePath}/src`,
+            '@': path.resolve(__dirname, `${packagePath}/src`),
             '@assets':
               fs.existsSync(`${rootPath}/assets`) && `${rootPath}/assets`,
             '@components':
@@ -113,8 +114,9 @@ class VulmixInit {
           if (isImgGenerated === false) {
             mix.imgs({
               source: 'assets/img',
-              destination: '_dist/assets/img',
-              thumbnailsSizes: [1920, 1200, 900, 600, 300, 50],
+              destination: publicPath + '/assets/img',
+              webp: true,
+              thumbnailsSizes: [1920, 1200, 900, 600, 300, 50, 4],
               smallerThumbnailsOnly: true,
               thumbnailsWebpOnly: true,
               processOriginalImage: true,
