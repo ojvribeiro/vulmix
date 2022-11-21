@@ -82,8 +82,6 @@ class VulmixInit {
         '_dist/assets/_vulmix/css/main.vulmix.css'
       )
 
-      .sass('assets/sass/main.scss', '_dist/assets/css')
-
       .js(
         'node_modules/vulmix/src/main.js',
         '_dist/assets/_vulmix/js/main.vulmix.js'
