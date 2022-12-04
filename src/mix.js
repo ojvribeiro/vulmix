@@ -110,7 +110,7 @@ class VulmixInit {
         // Synchronous run
         setTimeout(() => {
           if (isImgGenerated === false) {
-            if (fs.existsSync(`${rootPath}/demo/assets/img`)) {
+            if (fs.existsSync(`${rootPath}/assets/img`)) {
               mix.imgs({
                 source: 'assets/img',
                 destination: publicPath + '/assets/img',
