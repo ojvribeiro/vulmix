@@ -10,7 +10,8 @@ let isImgGenerated = false
 
 const port = '3000'
 const rootPath = path.join(__dirname, '../demo')
-const packagePath = path.resolve(__dirname, '..')
+const packagePath = path.resolve(__dirname, '../')
+const publicPath = 'demo/_dist'
 
 const pkg = require(`${packagePath}/package.json`)
 
@@ -29,7 +30,7 @@ class VulmixInit {
     console.log(clc.cyan.underline(`\n\nVulmix ${pkg.version}`))
 
     mix
-      .setPublicPath('demo/_dist')
+      .setPublicPath(publicPath)
 
       .options({
         hmrOptions: {
@@ -109,19 +110,20 @@ class VulmixInit {
         // Synchronous run
         setTimeout(() => {
           if (isImgGenerated === false) {
-            mix.imgs({
-              source: 'demo/assets/img',
-              destination: 'demo/_dist/assets/img',
-              webp: true,
-              thumbnailsSizes: [1920, 1200, 900, 600, 300, 50],
-              smallerThumbnailsOnly: true,
-              thumbnailsWebpOnly: true,
-              processOriginalImage: true,
-              thumbnailsWebp: true,
-              imageminWebpOptions: {
-                quality: 90,
-              },
-            })
+            if (fs.existsSync(`${rootPath}/demo/assets/img`)) {
+              mix.imgs({
+                source: 'demo/assets/img',
+                destination: publicPath + '/assets/img',
+                webp: true,
+                smallerThumbnailsOnly: true,
+                thumbnailsWebpOnly: true,
+                processOriginalImage: true,
+                thumbnailsWebp: true,
+                imageminWebpOptions: {
+                  quality: 90,
+                },
+              })
+            }
 
             isImgGenerated = true
           }

@@ -11,10 +11,9 @@ let isImgGenerated = false
 const port = '3000'
 const rootPath = path.join(__dirname, '../../..')
 const packagePath = path.join(__dirname, '../')
+const publicPath = '_dist'
 
 const pkg = require(`${packagePath}/package.json`)
-
-console.log({ rootPath, packagePath })
 
 fs.rmSync(`${rootPath}/_dist/assets`, { recursive: true, force: true })
 
@@ -31,7 +30,7 @@ class VulmixInit {
     console.log(clc.cyan.underline(`\n\nVulmix ${pkg.version}`))
 
     mix
-      .setPublicPath('_dist')
+      .setPublicPath(publicPath)
 
       .options({
         hmrOptions: {
@@ -49,7 +48,7 @@ class VulmixInit {
           extensions: ['.js', '.vue'],
           alias: {
             '~': rootPath,
-            '@': `${packagePath}/src`,
+            '@': path.resolve(__dirname, `${packagePath}/src`),
             '@assets':
               fs.existsSync(`${rootPath}/assets`) && `${rootPath}/assets`,
             '@components':
@@ -111,18 +110,20 @@ class VulmixInit {
         // Synchronous run
         setTimeout(() => {
           if (isImgGenerated === false) {
-            mix.imgs({
-              source: 'assets/img',
-              destination: '_dist/assets/img',
-              thumbnailsSizes: [1920, 1200, 900, 600, 300, 50],
-              smallerThumbnailsOnly: true,
-              thumbnailsWebpOnly: true,
-              processOriginalImage: true,
-              thumbnailsWebp: true,
-              imageminWebpOptions: {
-                quality: 90,
-              },
-            })
+            if (fs.existsSync(`${rootPath}/assets/img`)) {
+              mix.imgs({
+                source: 'assets/img',
+                destination: publicPath + '/assets/img',
+                webp: true,
+                smallerThumbnailsOnly: true,
+                thumbnailsWebpOnly: true,
+                processOriginalImage: true,
+                thumbnailsWebp: true,
+                imageminWebpOptions: {
+                  quality: 90,
+                },
+              })
+            }
 
             isImgGenerated = true
           }

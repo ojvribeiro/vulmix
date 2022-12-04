@@ -148,4 +148,4 @@ layoutFiles
 app.use(router)
 app.use(head)
 
-app.mount('[data-app]')
+app.mount('[data-vulmix-app]')
