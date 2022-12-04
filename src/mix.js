@@ -6,19 +6,15 @@ const clc = require('cli-color')
 require('laravel-mix-simple-image-processing')
 require('laravel-mix-ejs')
 
-let isImgGenerated = false
+const pkg = require('../package.json')
 
 const port = '3000'
-const rootPath = path.join(__dirname, '../../..')
-const packagePath = path.join(__dirname, '../')
-const publicPath = '_dist'
+let isImgGenerated = false
 
-const pkg = require(`${packagePath}/package.json`)
+fs.rmSync('_dist/assets', { recursive: true, force: true })
 
-fs.rmSync(`${rootPath}/_dist/assets`, { recursive: true, force: true })
-
-if (!fs.existsSync(`${rootPath}/_dist/assets/img`)) {
-  fs.mkdirSync(`${rootPath}/_dist/assets/img`, { recursive: true })
+if (!fs.existsSync('./_dist/assets/img')) {
+  fs.mkdirSync('./_dist/assets/img', { recursive: true })
 }
 
 class VulmixInit {
@@ -30,8 +26,6 @@ class VulmixInit {
     console.log(clc.cyan.underline(`\n\nVulmix ${pkg.version}`))
 
     mix
-      .setPublicPath(publicPath)
-
       .options({
         hmrOptions: {
           host: 'localhost',
@@ -43,50 +37,54 @@ class VulmixInit {
         console.log(`\n\nWarming up...`)
       })
 
+      .setPublicPath('_dist')
+
       .webpackConfig({
         resolve: {
           extensions: ['.js', '.vue'],
           alias: {
-            '~': rootPath,
-            '@': path.resolve(__dirname, `${packagePath}/src`),
+            '~': path.resolve(__dirname, '../../../'),
+            '@': path.resolve(__dirname, '../../../node_modules/vulmix/src'),
             '@assets':
-              fs.existsSync(`${rootPath}/assets`) && `${rootPath}/assets`,
+              fs.existsSync(path.resolve(__dirname, '../../../assets')) &&
+              path.resolve(__dirname, '../../../assets'),
             '@components':
-              fs.existsSync(`${rootPath}/components`) &&
-              `${rootPath}/components`,
+              fs.existsSync(path.resolve(__dirname, '../../../components')) &&
+              path.resolve(__dirname, '../../../components'),
             '@composables':
-              fs.existsSync(`${rootPath}/composables`) &&
-              `${rootPath}/composables`,
+              fs.existsSync(path.resolve(__dirname, '../../../composables')) &&
+              path.resolve(__dirname, '../../../composables'),
             '@layouts':
-              fs.existsSync(`${rootPath}/layouts`) && `${rootPath}/layouts`,
-            '@pages': fs.existsSync(`${rootPath}/pages`) && `${rootPath}/pages`,
+              fs.existsSync(path.resolve(__dirname, '../../../layouts')) &&
+              path.resolve(__dirname, '../../../layouts'),
+            '@pages':
+              fs.existsSync(path.resolve(__dirname, '../../../pages')) &&
+              path.resolve(__dirname, '../../../pages'),
             '@sass':
-              fs.existsSync(`${rootPath}/assets/sass`) &&
-              `${rootPath}/assets/sass`,
+              fs.existsSync(path.resolve(__dirname, '../../../assets/sass')) &&
+              path.resolve(__dirname, '../../../assets/sass'),
           },
         },
       })
 
       .ejs(
-        [`${packagePath}/src/index.ejs`, `${rootPath}/_dist/mix-manifest.json`],
-        `${rootPath}/_dist`,
+        ['node_modules/vulmix/src/index.ejs', '_dist/mix-manifest.json'],
+        '_dist',
         {},
         {
-          partials: [`${rootPath}/_dist/mix-manifest.json`],
+          partials: ['_dist/mix-manifest.json'],
           mixVersioning: true,
         }
       )
 
       .sass(
-        `${packagePath}/src/assets/sass/main.scss`,
-        `${rootPath}/_dist/assets/_vulmix/css/main.vulmix.css`
+        'node_modules/vulmix/src/assets/sass/main.scss',
+        '_dist/assets/_vulmix/css/main.vulmix.css'
       )
 
-      .sass(`${rootPath}/assets/sass/main.scss`, `${rootPath}/_dist/assets/css`)
-
       .js(
-        `${packagePath}/src/main.js`,
-        `${rootPath}/_dist/assets/_vulmix/js/main.vulmix.js`
+        'node_modules/vulmix/src/main.js',
+        '_dist/assets/_vulmix/js/main.vulmix.js'
       )
       .vue()
 
@@ -110,20 +108,17 @@ class VulmixInit {
         // Synchronous run
         setTimeout(() => {
           if (isImgGenerated === false) {
-            if (fs.existsSync(`${rootPath}/assets/img`)) {
-              mix.imgs({
-                source: 'assets/img',
-                destination: publicPath + '/assets/img',
-                webp: true,
-                smallerThumbnailsOnly: true,
-                thumbnailsWebpOnly: true,
-                processOriginalImage: true,
-                thumbnailsWebp: true,
-                imageminWebpOptions: {
-                  quality: 90,
-                },
-              })
-            }
+            mix.imgs({
+              source: 'assets/img',
+              destination: '_dist/assets/img',
+              webp: true,
+              thumbnailsSizes: [1920, 1200, 900, 600, 300, 50],
+              smallerThumbnailsOnly: true,
+              thumbnailsOnly: false,
+              imageminWebpOptions: {
+                quality: 90,
+              },
+            })
 
             isImgGenerated = true
           }
@@ -135,8 +130,8 @@ class VulmixInit {
         })
       })
 
-    if (fs.existsSync(`${rootPath}/assets/icons/`)) {
-      mix.copy(`${rootPath}/assets/icons`, `${rootPath}/_dist/assets/icons`)
+    if (fs.existsSync('assets/icons/')) {
+      mix.copy('assets/icons', '_dist/assets/icons')
     }
 
     /**
@@ -148,7 +143,7 @@ class VulmixInit {
           console.log(clc.cyan('\n\nPreparing production bundle...\n\n'))
         })
 
-        .copy(`${packagePath}/utils/deploy/.htaccess`, `${rootPath}/_dist`)
+        .copy('node_modules/vulmix/utils/deploy/.htaccess', '_dist')
     } else {
       /**
        * Development mode only
