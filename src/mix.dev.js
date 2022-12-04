@@ -9,9 +9,9 @@ require('laravel-mix-ejs')
 let isImgGenerated = false
 
 const port = '3000'
-const rootPath = path.join(__dirname, '../../..')
-const packagePath = path.join(__dirname, '../')
-const publicPath = '_dist'
+const rootPath = path.join(__dirname, '../demo')
+const packagePath = path.resolve(__dirname, '../')
+const publicPath = 'demo/_dist'
 
 const pkg = require(`${packagePath}/package.json`)
 
@@ -110,9 +110,9 @@ class VulmixInit {
         // Synchronous run
         setTimeout(() => {
           if (isImgGenerated === false) {
-            if (fs.existsSync(`${rootPath}/assets/img`)) {
+            if (fs.existsSync(`${rootPath}/demo/assets/img`)) {
               mix.imgs({
-                source: 'assets/img',
+                source: 'demo/assets/img',
                 destination: publicPath + '/assets/img',
                 webp: true,
                 smallerThumbnailsOnly: true,
