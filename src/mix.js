@@ -110,18 +110,20 @@ class VulmixInit {
         // Synchronous run
         setTimeout(() => {
           if (isImgGenerated === false) {
-            mix.imgs({
-              source: 'assets/img',
-              destination: publicPath + '/assets/img',
-              webp: true,
-              smallerThumbnailsOnly: true,
-              thumbnailsWebpOnly: true,
-              processOriginalImage: true,
-              thumbnailsWebp: true,
-              imageminWebpOptions: {
-                quality: 90,
-              },
-            })
+            if (fs.existsSync(`${rootPath}/demo/assets/img`)) {
+              mix.imgs({
+                source: 'assets/img',
+                destination: publicPath + '/assets/img',
+                webp: true,
+                smallerThumbnailsOnly: true,
+                thumbnailsWebpOnly: true,
+                processOriginalImage: true,
+                thumbnailsWebp: true,
+                imageminWebpOptions: {
+                  quality: 90,
+                },
+              })
+            }
 
             isImgGenerated = true
           }
