@@ -1,5 +1,5 @@
 <template>
-  <i
+  <i v-if="!props.icon"
     :style="
       props.font === 'true'
         ? {
@@ -8,7 +8,9 @@
           }
         : { 'background-image': `url(${maskSrc})` }
     "
-  />
+  ></i>
+
+  <Icon v-else :icon="props.icon" />
 </template>
 
 <style scoped lang="scss">
@@ -28,9 +30,13 @@
 
 <script setup>
   import { computed } from 'vue'
+  import { Icon } from '@iconify/vue'
 
   const props = defineProps({
     name: {
+      type: String,
+    },
+    icon: {
       type: String,
     },
     font: {
