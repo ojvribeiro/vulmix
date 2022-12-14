@@ -25,4 +25,14 @@ The easiest way to get started with Vulmix is by running:
 npx create-vulmix-app your-app-name
 ```
 
+To download the current preview version, run:
+
+```bash
+npx  create-vulmix-app your-app-name --beta
+```
+
+> **Warning**
+>
+> The preview version may contain some bugs.
+
 Head up to [the online documentation](https://vulmix.vercel.app/guide/get-started) for more info on how to run your project.
