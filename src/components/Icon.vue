@@ -20,7 +20,7 @@
   ></component>
 </template>
 
-<style scoped lang="scss">
+<style scoped>
   .icon {
     display: inline-block;
     vertical-align: middle;
