@@ -10,7 +10,11 @@
     "
   ></i>
 
-  <Icon v-else :icon="props.icon" />
+  <component
+    v-else
+    :is="props.icon && Icon"
+    :icon="props.icon"
+  ></component>
 </template>
 
 <style scoped lang="scss">
