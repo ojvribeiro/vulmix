@@ -1,5 +1,7 @@
 <template>
-  <i v-if="!props.icon"
+  <i
+    v-if="!props.icon"
+    class="icon"
     :style="
       props.font === 'true'
         ? {
@@ -14,21 +16,25 @@
     v-else
     :is="props.icon && Icon"
     :icon="props.icon"
+    class="icon"
   ></component>
 </template>
 
 <style scoped lang="scss">
-  i {
+  .icon {
     display: inline-block;
     vertical-align: middle;
+    width: 1em;
+    height: 1em;
+  }
+
+  i.icon {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
     mask-size: contain;
     mask-repeat: no-repeat;
     mask-position: center;
-    width: 1em;
-    height: 1em;
   }
 </style>
 
