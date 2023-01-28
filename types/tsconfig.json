@@ -19,8 +19,6 @@
   },
   "includes": [
     "src/vue/*",
-    "src/pages/*",
-    "src/components/*",
     "demo/**/*",
     "components.d.ts",
     "vue-shims.d.ts"
