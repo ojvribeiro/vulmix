@@ -1,42 +1,20 @@
-<template>
-  <img
-    :src="imgSrc"
-    :alt="props.alt ? props.alt : ''"
-    :title="props.title ? props.title : ''"
-    :loading="targetIsVisible ? 'eager' : 'lazy'"
-    ref="imageEl"
-  />
-</template>
-
-<script setup>
-  import { ref, onMounted } from 'vue'
+<script setup lang="ts">
+  import { ref, onMounted, Ref } from 'vue'
   import { useElementVisibility } from '@vueuse/core'
 
-  const props = defineProps({
-    src: {
-      type: String,
-      default: '',
-    },
-    alt: {
-      type: String,
-      default: 'Image',
-    },
-    title: {
-      type: String,
-      default: '',
-    },
-    webp: {
-      type: String,
-      default: 'true',
-    },
-  })
+  const props = defineProps<{
+    src: string
+    alt?: string | 'Image'
+    title?: string | ''
+    webp?: string | 'true'
+  }>()
 
-  const imageEl = ref(null)
-  const imgSrc = ref(props.src)
+  const imageEl = ref<HTMLImageElement>(null)
+  const imgSrc = ref<string>(props.src)
 
-  const targetIsVisible = useElementVisibility(imageEl)
+  const targetIsVisible: Ref<boolean> = useElementVisibility(imageEl)
 
-  const _image = new Image()
+  const _image: HTMLImageElement = new Image()
   _image.src = props.src.replace(
     /\/assets\/img\/(|.*)([a-zA-Z0-9_-])\.(png|jpg|jpeg|gif)$/i,
     `/assets/img/$1$2.${props.webp === 'true' ? 'webp' : '$3'}`
@@ -53,6 +31,16 @@
     }
   })
 </script>
+
+<template>
+  <img
+    :src="imgSrc"
+    :alt="props.alt ? props.alt : ''"
+    :title="props.title ? props.title : ''"
+    :loading="targetIsVisible ? 'eager' : 'lazy'"
+    ref="imageEl"
+  />
+</template>
 
 <style scoped>
   img {

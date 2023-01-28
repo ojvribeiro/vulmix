@@ -1,14 +1,11 @@
 <template>
-  <component :is="`layout-${name}`">
+  <component :is="`layout-${props.name}`">
     <slot />
   </component>
 </template>
 
-<script setup>
-  defineProps({
-    name: {
-      type: String,
-      default: 'default',
-    },
-  })
+<script setup lang="ts">
+  const props = defineProps<{
+    name: string | 'default',
+  }>()
 </script>
