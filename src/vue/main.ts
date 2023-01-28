@@ -1,11 +1,11 @@
-import { createApp } from 'vue'
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import { createHead } from '@vueuse/head'
+import { createApp, App as VueApp } from 'vue'
+import { createRouter, createWebHistory, Router } from 'vue-router'
+import { createHead, HeadClient } from '@vueuse/head'
 
 import App from '~/app.vue'
 
-const app = createApp(App)
-const head = createHead()
+const app: VueApp<Element> = createApp(App)
+const head: HeadClient<{}> = createHead()
 
 app.component('App', require('@/App.vue').default)
 
@@ -18,7 +18,7 @@ const nativeComponents = require.context(
   /\.(vue|js|ts)$/i
 )
 nativeComponents.keys().map((key: string) => {
-  let nativeComponentName = key.split('.')[1].replace(/\//g, '')
+  let nativeComponentName: string = key.split('.')[1].replace(/\//g, '')
 
   if (nativeComponentName.match(/index$/)) {
     nativeComponentName = nativeComponentName.replace('index', '')
@@ -32,7 +32,7 @@ nativeComponents.keys().map((key: string) => {
  */
 const componentFiles = require.context('@components/', true, /\.(vue|js|ts)$/i)
 componentFiles.keys().map((key: string) => {
-  let componentName = key.split('.')[1].replace(/\//g, '')
+  let componentName: string = key.split('.')[1].replace(/\//g, '')
 
   if (componentName.match(/index$/)) {
     componentName = componentName.replace('index', '')
@@ -41,7 +41,7 @@ componentFiles.keys().map((key: string) => {
   app.component(componentName, componentFiles(key).default)
 })
 
-let routes: Array<RouteRecordRaw> = []
+let routes: Array<{ path: string; component: any }> = []
 
 /**
  * Built-in pages
@@ -52,7 +52,7 @@ const nativePageComponents = require.context(
   /\.(vue|js|ts)$/i
 )
 nativePageComponents.keys().map((key: string) => {
-  let slugName = key
+  let slugName: string = key
     .split('.')[1]
     .replace(/([A-Z])/g, '-$1')
     .replace(/(^-)/g, '')
@@ -73,7 +73,7 @@ nativePageComponents.keys().map((key: string) => {
  */
 const pageComponents = require.context('@pages/', true, /\.(vue|js|ts)$/i)
 pageComponents.keys().map((key: string) => {
-  let slugName = key
+  let slugName: string = key
     .split('.')[1]
     .replace(/([A-Z])/g, '-$1')
     .replace(/(^-)/g, '')
@@ -98,7 +98,7 @@ const dynamicPageComponents = require.context(
   /\[(.*)\]\.(vue|js|ts)$/i
 )
 dynamicPageComponents.keys().map((key: string) => {
-  let slugName = key
+  let slugName: string = key
     .split('.')[1]
     .replace(/([A-Z])/g, '-$1')
     .replace(/(^-)/g, '')
@@ -121,7 +121,7 @@ routes.push({
   component: require('@/pages/404.vue').default,
 })
 
-const router = createRouter({
+const router: Router = createRouter({
   history: createWebHistory(),
   routes: routes,
 })
@@ -132,7 +132,7 @@ const router = createRouter({
 const layoutFiles = require.context('@layouts/', true, /\.(vue|js|ts)$/i)
 
 layoutFiles.keys().map((key: string) => {
-  const layoutName =
+  const layoutName: string =
     'layout-' +
     key
       .split('.')[1]
