@@ -13,7 +13,7 @@ app.component('App', require('@/vue/App.vue').default)
  * Built-in components
  */
 const nativeComponents = require.context(
-  '@/components/',
+  '@/vue/components/',
   true,
   /\.(vue|js|ts)$/i
 )
@@ -47,7 +47,7 @@ let routes: Array<{ path: string; component: any }> = []
  * Built-in pages
  */
 const nativePageComponents = require.context(
-  '@/pages/',
+  '@/vue/pages/',
   true,
   /\.(vue|js|ts)$/i
 )
@@ -118,7 +118,7 @@ dynamicPageComponents.keys().map((key: string) => {
 
 routes.push({
   path: '/:pathMatch(.*)*',
-  component: require('@/pages/404.vue').default,
+  component: require('@/vue/pages/404.vue').default,
 })
 
 const router: Router = createRouter({
