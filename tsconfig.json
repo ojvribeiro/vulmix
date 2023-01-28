@@ -1,16 +1,3 @@
 {
-  "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
-    "strict": true,
-    "jsx": "preserve",
-    "moduleResolution": "node",
-    "types": [
-      "node",
-      "webpack-env"
-    ],
-    "noImplicitAny": false
-  },
-  "includes": ["./src/**/*", "./demo/**/*"],
-  "exclude": ["node_modules"],
+  "extends": "./types/tsconfig.json"
 }

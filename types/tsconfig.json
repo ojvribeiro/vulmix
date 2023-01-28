@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "strict": false,
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "Node",
+    "types": ["node", "webpack-env"],
+    "jsx": "preserve",
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": false,
+    "outDir": "demo/_dist",
+    "baseUrl": "..",
+    "paths": {
+      "~": ["."]
+    }
+  },
+  "includes": [
+    "src/vue/*",
+    "src/pages/*",
+    "src/components/*",
+    "demo/**/*",
+    "components.d.ts",
+    "vue-shims.d.ts"
+  ],
+  "exclude": ["node_modules", "demo/_dist"]
+}
