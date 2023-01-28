@@ -93,7 +93,7 @@ class VulmixInit {
       )
 
       .ts(
-        `${packagePath}/src/main.ts`,
+        `${packagePath}/src/vue/main.ts`,
         `${rootPath}/_dist/assets/_vulmix/js/main.vulmix.js`
       )
       .vue({ version: 3 })
