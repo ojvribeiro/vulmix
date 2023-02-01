@@ -45,7 +45,7 @@ class VulmixInit {
 
       .webpackConfig({
         resolve: {
-          extensions: ['.js', '.vue'],
+          extensions: ['.js', '.vue', '.ts'],
           alias: {
             '~': rootPath,
             '@': path.resolve(__dirname, `${packagePath}/src`),
@@ -65,6 +65,16 @@ class VulmixInit {
               `${rootPath}/assets/sass`,
           },
         },
+        module: {
+          rules: [
+            // ... other rules omitted
+            {
+              test: /\.ts$/,
+              loader: 'ts-loader',
+              options: { appendTsSuffixTo: [/\.vue$/] },
+            },
+          ],
+        },
       })
 
       .ejs(
@@ -82,13 +92,11 @@ class VulmixInit {
         `${rootPath}/_dist/assets/_vulmix/css/main.vulmix.css`
       )
 
-      .sass(`${rootPath}/assets/sass/main.scss`, `${rootPath}/_dist/assets/css`)
-
-      .js(
-        `${packagePath}/src/main.js`,
+      .ts(
+        `${packagePath}/src/vue/main.ts`,
         `${rootPath}/_dist/assets/_vulmix/js/main.vulmix.js`
       )
-      .vue()
+      .vue({ version: 3 })
 
       .version()
 

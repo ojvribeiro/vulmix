@@ -128,7 +128,7 @@
   </section>
 </template>
 
-<style>
+<style scoped>
   @import url('https://fonts.googleapis.com/css2?family=Inconsolata&family=Roboto+Flex:opsz@8..144&display=swap');
 
   .vulmix-welcome {

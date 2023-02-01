@@ -4,7 +4,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
   .vx-container {
     margin-left: auto;
     margin-right: auto;
