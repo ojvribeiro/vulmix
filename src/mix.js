@@ -8,25 +8,28 @@ require('laravel-mix-ejs')
 
 let isImgGenerated = false
 
-const port = '3000'
-const rootPath = path.join(__dirname, '../../..')
-const packagePath = path.join(__dirname, '../')
-const publicPath = '_dist'
-
-const pkg = require(`${packagePath}/package.json`)
-
-fs.rmSync(`${rootPath}/_dist/assets`, { recursive: true, force: true })
-
-if (!fs.existsSync(`${rootPath}/_dist/assets/img`)) {
-  fs.mkdirSync(`${rootPath}/_dist/assets/img`, { recursive: true })
-}
-
 class VulmixInit {
   name() {
     return 'vulmix'
   }
 
-  register() {
+  register(options) {
+    const port = '3000'
+    const rootPath =
+      options.dev === true
+        ? path.join(__dirname, '../demo')
+        : path.join(__dirname, '../../..')
+    const packagePath = path.join(__dirname, '../')
+    const publicPath = options.dev === true ? 'demo/_dist' : '_dist'
+
+    const pkg = require(`${packagePath}/package.json`)
+
+    fs.rmSync(`${rootPath}/_dist/assets`, { recursive: true, force: true })
+
+    if (!fs.existsSync(`${rootPath}/_dist/assets/img`)) {
+      fs.mkdirSync(`${rootPath}/_dist/assets/img`, { recursive: true })
+    }
+
     console.log(clc.cyan.underline(`\n\nVulmix ${pkg.version}`))
 
     mix
@@ -118,9 +121,11 @@ class VulmixInit {
         // Synchronous run
         setTimeout(() => {
           if (isImgGenerated === false) {
-            if (fs.existsSync(`${rootPath}/assets/img`)) {
+            if (
+              fs.existsSync(`${rootPath}/${options.dev && 'demo/'}assets/img`)
+            ) {
               mix.imgs({
-                source: 'assets/img',
+                source: `${options.dev && 'demo/'}assets/img`,
                 destination: publicPath + '/assets/img',
                 webp: true,
                 smallerThumbnailsOnly: true,
