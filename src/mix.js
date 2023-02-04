@@ -13,7 +13,7 @@ class VulmixInit {
     return 'vulmix'
   }
 
-  register(options) {
+  register(options = { dev: false }) {
     const port = '3000'
     const rootPath =
       options.dev === true
