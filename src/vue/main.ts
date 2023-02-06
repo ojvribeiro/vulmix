@@ -7,7 +7,6 @@ import App from '~/app.vue'
 const app: VueApp<Element> = createApp(App)
 const head: HeadClient<{}> = createHead()
 
-app.component('App', require('@/vue/App.vue').default)
 
 /**
  * Built-in components
