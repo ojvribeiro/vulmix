@@ -63,9 +63,6 @@ class VulmixInit {
             '@layouts':
               fs.existsSync(`${rootPath}/layouts`) && `${rootPath}/layouts`,
             '@pages': fs.existsSync(`${rootPath}/pages`) && `${rootPath}/pages`,
-            '@sass':
-              fs.existsSync(`${rootPath}/assets/sass`) &&
-              `${rootPath}/assets/sass`,
           },
         },
         module: {
@@ -88,11 +85,6 @@ class VulmixInit {
           partials: [`${rootPath}/_dist/mix-manifest.json`],
           mixVersioning: true,
         }
-      )
-
-      .sass(
-        `${packagePath}/src/assets/sass/main.scss`,
-        `${rootPath}/_dist/assets/_vulmix/css/main.vulmix.css`
       )
 
       .ts(
