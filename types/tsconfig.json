@@ -21,7 +21,8 @@
     "src/vue/*",
     "demo/**/*",
     "components.d.ts",
-    "vue-shims.d.ts"
+    "vue-shims.d.ts",
+    "auto-imports.d.ts"
   ],
-  "exclude": ["node_modules", "demo/_dist"]
+  "exclude": ["node_modules", "demo/_dist", "_dist"]
 }
