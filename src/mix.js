@@ -47,6 +47,64 @@ class VulmixInit {
       })
 
       .webpackConfig({
+        plugins: [
+          require('unplugin-vue-components/webpack')({
+            /* options */
+            dirs: [`${packagePath}/src/vue/components/**`],
+
+            dts: './types/components.d.ts',
+          }),
+
+          require('unplugin-auto-import/webpack')({
+            // targets to transform
+            include: [
+              /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
+              /\.vue$/,
+              /\.vue\?vue/, // .vue
+              /\.md$/, // .md
+            ],
+
+            // global imports to register
+            imports: [
+              // presets
+              'vue',
+              'vue-router',
+              // custom
+              {
+                '@vueuse/core': [
+                  // named imports
+                  'useFetch', // import { useMouse } from '@vueuse/core',
+                ],
+              },
+            ],
+            // Enable auto import by filename for default module exports under directories
+            defaultExportByFilename: false,
+
+            // Auto import for module exports under directories
+            // by default it only scan one level of modules under the directory
+            dirs: [
+              // './hooks',
+              // './composables' // only root modules
+              // './composables/**', // all nested modules
+            ],
+
+            // Filepath to generate corresponding .d.ts file.
+            // Defaults to './auto-imports.d.ts' when `typescript` is installed locally.
+            // Set `false` to disable.
+            dts: './types/auto-imports.d.ts',
+
+            // Auto import inside Vue template
+            // see https://github.com/unjs/unimport/pull/15 and https://github.com/unjs/unimport/pull/72
+            vueTemplate: true,
+
+            // Custom resolvers, compatible with `unplugin-vue-components`
+            // see https://github.com/antfu/unplugin-auto-import/pull/23/
+            resolvers: [
+              /* ... */
+            ],
+          }),
+        ],
+
         resolve: {
           extensions: ['.js', '.vue', '.ts'],
           alias: {
