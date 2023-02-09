@@ -50,7 +50,13 @@ class VulmixInit {
         plugins: [
           require('unplugin-vue-components/webpack')({
             /* options */
-            dirs: [`${packagePath}/src/vue/components/**`],
+            dirs: [
+              `${rootPath}/components/**`,
+              `${rootPath}/layouts/**`,
+              `${packagePath}/src/vue/components/**`,
+              `${packagePath}/demo/components/**`,
+              `${packagePath}/demo/layouts/**`,
+            ],
 
             dts: './types/components.d.ts',
           }),
