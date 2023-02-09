@@ -7,19 +7,6 @@ import App from '~/app.vue'
 const app: VueApp<Element> = createApp(App)
 const head: HeadClient<{}> = createHead()
 
-/**
- * Components
- */
-const componentFiles = require.context('@components/', true, /\.(vue|js|ts)$/i)
-componentFiles.keys().map((key: string) => {
-  let componentName: string = key.split('.')[1].replace(/\//g, '')
-
-  if (componentName.match(/index$/)) {
-    componentName = componentName.replace('index', '')
-  }
-
-  app.component(componentName, componentFiles(key).default)
-})
 
 let routes: Array<{ path: string; component: any }> = []
 
@@ -104,24 +91,6 @@ routes.push({
 const router: Router = createRouter({
   history: createWebHistory(),
   routes: routes,
-})
-
-/**
- * Layouts
- */
-const layoutFiles = require.context('@layouts/', true, /\.(vue|js|ts)$/i)
-
-layoutFiles.keys().map((key: string) => {
-  const layoutName: string =
-    'layout-' +
-    key
-      .split('.')[1]
-      .replace(/\//g, '')
-      .replace(/([A-Z])/g, '-$1')
-      .replace(/(^-)/g, '')
-      .toLowerCase()
-
-  app.component(layoutName, layoutFiles(key).default)
 })
 
 app.use(router)
