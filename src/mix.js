@@ -3,7 +3,6 @@ const path = require('path')
 const fs = require('fs')
 const clc = require('cli-color')
 
-require('laravel-mix-simple-image-processing')
 require('laravel-mix-ejs')
 
 let isImgGenerated = false
@@ -176,25 +175,10 @@ class VulmixInit {
 
         // Synchronous run
         setTimeout(() => {
-          if (isImgGenerated === false) {
-            if (
-              fs.existsSync(`${rootPath}/${options.dev && 'demo/'}assets/img`)
-            ) {
-              mix.imgs({
-                source: `${options.dev && 'demo/'}assets/img`,
-                destination: publicPath + '/assets/img',
-                webp: true,
-                smallerThumbnailsOnly: true,
-                thumbnailsWebpOnly: true,
-                processOriginalImage: true,
-                thumbnailsWebp: true,
-                imageminWebpOptions: {
-                  quality: 90,
-                },
-              })
-            }
+          if (isFirstRun === false) {
+            // ...
 
-            isImgGenerated = true
+            isFirstRun = true
           }
 
           console.log(
