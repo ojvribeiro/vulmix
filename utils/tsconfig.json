@@ -22,5 +22,5 @@
     "vue-shims.d.ts",
     "auto-imports.d.ts"
   ],
-  "exclude": ["node_modules", "_dist"]
+  "exclude": ["_dist"]
 }
