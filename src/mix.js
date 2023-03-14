@@ -45,10 +45,9 @@ class VulmixInit {
         console.log(`\n\nWarming up...`)
 
         if (options.dev === false) {
-          mix.copy(
-            `${packagePath}/utils/webpack.mix.js`,
-            `${rootPath}/\.vulmix/laravel-mix`
-          )
+          if (!fs.existsSync(`${rootPath}/vercel.json`)) {
+            mix.copy(`${packagePath}/deploy/vercel.json`, rootPath)
+          }
         }
       })
 
