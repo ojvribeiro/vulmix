@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "strict": false,
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "Node",
+    "types": ["node", "webpack-env"],
+    "jsx": "preserve",
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": false,
+    "outDir": "_dist",
+    "baseUrl": "..",
+    "paths": {
+      "~": ["."]
+    }
+  },
+  "includes": [
+    "components.d.ts",
+    "vue-shims.d.ts",
+    "auto-imports.d.ts"
+  ],
+  "exclude": ["node_modules", "_dist"]
+}

@@ -48,6 +48,8 @@ class VulmixInit {
           if (!fs.existsSync(`${rootPath}/vercel.json`)) {
             mix.copy(`${packagePath}/utils/deploy/vercel.json`, rootPath)
           }
+
+          mix.copy(`${packagePath}/utils/tsconfig.json`, `${rootPath}/.vulmix/types`)
         }
       })
 
