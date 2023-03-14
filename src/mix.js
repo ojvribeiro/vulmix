@@ -58,10 +58,7 @@ class VulmixInit {
             /* options */
             dirs: [
               `${rootPath}/components/**`,
-              `${rootPath}/layouts/**`,
               `${packagePath}/src/vue/components/**`,
-              `${packagePath}/demo/components/**`,
-              `${packagePath}/demo/layouts/**`,
             ],
 
             dts: './types/components.d.ts',
@@ -98,6 +95,7 @@ class VulmixInit {
               // './hooks',
               // './composables' // only root modules
               // './composables/**', // all nested modules
+              `${rootPath}/composables/**`, // all nested modules
             ],
 
             // Filepath to generate corresponding .d.ts file.
