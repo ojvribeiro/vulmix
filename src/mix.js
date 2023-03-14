@@ -44,10 +44,12 @@ class VulmixInit {
       .before(() => {
         console.log(`\n\nWarming up...`)
 
-        mix.copy(
-          `${packagePath}/utils/webpack.mix.js`,
-          `${rootPath}/\.vulmix/laravel-mix`
-        )
+        if (options.dev === false) {
+          mix.copy(
+            `${packagePath}/utils/webpack.mix.js`,
+            `${rootPath}/\.vulmix/laravel-mix`
+          )
+        }
       })
 
       .webpackConfig({
