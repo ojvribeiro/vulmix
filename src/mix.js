@@ -46,7 +46,7 @@ class VulmixInit {
 
         if (options.dev === false) {
           if (!fs.existsSync(`${rootPath}/vercel.json`)) {
-            mix.copy(`${packagePath}/deploy/vercel.json`, rootPath)
+            mix.copy(`${packagePath}/utils/deploy/vercel.json`, rootPath)
           }
         }
       })
