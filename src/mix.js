@@ -5,7 +5,7 @@ const clc = require('cli-color')
 
 require('laravel-mix-ejs')
 
-let isImgGenerated = false
+let isFirstRun = false
 
 class VulmixInit {
   name() {
