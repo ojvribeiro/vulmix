@@ -61,7 +61,10 @@ class VulmixInit {
               `${packagePath}/src/vue/components/**`,
             ],
 
-            dts: './types/components.d.ts',
+            dts:
+              options.dev === true
+                ? `${packagePath}/types/components.d.ts`
+                : `${rootPath}/.vulmix/types/components.d.ts`,
           }),
 
           require('unplugin-auto-import/webpack')({
@@ -101,7 +104,10 @@ class VulmixInit {
             // Filepath to generate corresponding .d.ts file.
             // Defaults to './auto-imports.d.ts' when `typescript` is installed locally.
             // Set `false` to disable.
-            dts: './types/auto-imports.d.ts',
+            dts:
+              options.dev === true
+                ? `${packagePath}/types/auto-imports.d.ts`
+                : `${rootPath}/.vulmix/types/auto-imports.d.ts`,
 
             // Auto import inside Vue template
             // see https://github.com/unjs/unimport/pull/15 and https://github.com/unjs/unimport/pull/72
