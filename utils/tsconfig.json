@@ -12,7 +12,7 @@
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": false,
     "outDir": "_dist",
-    "baseUrl": "..",
+    "baseUrl": "../..",
     "paths": {
       "~": ["."]
     }
