@@ -50,6 +50,7 @@ class VulmixInit {
           }
 
           mix.copy(`${packagePath}/utils/tsconfig.json`, `${rootPath}/.vulmix/types`)
+          mix.copy(`${packagePath}/types/vue-shims.d.ts`, `${rootPath}/.vulmix/types`)
         }
       })
 
