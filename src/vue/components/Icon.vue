@@ -2,11 +2,15 @@
   import { computed } from 'vue'
   import { Icon } from '@iconify/vue'
 
-  const props = defineProps<{
+  interface Props {
     name?: string
     icon?: string
     font?: 'true' | 'false'
-  }>()
+  }
+
+  const props = withDefaults(defineProps<Props>(), {
+    font: 'true',
+  })
 
   const maskSrc = computed<string>(() => `/assets/icons/${props.name}.svg`)
 </script>
