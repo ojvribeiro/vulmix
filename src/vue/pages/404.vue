@@ -1,8 +1,6 @@
 <template>
   <Head>
-    <title>
-      Page not found
-    </title>
+    <title>Page not found</title>
   </Head>
 
   <div class="vx-page-outter">
@@ -23,6 +21,7 @@
     height: 100%;
     text-align: center;
     background-color: #27272a;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
   }
 
   .vx-page-outter .vx-page-inner {
@@ -31,13 +30,14 @@
   }
 
   .vx-page-outter .vx-page-inner h1 {
-    font-size: 6rem/* 96px */;
+    font-size: 6rem /* 96px */;
     line-height: 1;
     color: #bfdbfe;
     font-weight: 900;
   }
 
-  .vx-page-outter .vx-page-inner p {
+  .vx-page-outter .vx-page-inner p,
+  .vx-page-outter .vx-page-inner a {
     color: #60a5fa;
   }
 </style>
