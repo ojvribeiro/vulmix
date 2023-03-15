@@ -49,8 +49,15 @@ class VulmixInit {
             mix.copy(`${packagePath}/utils/deploy/vercel.json`, rootPath)
           }
 
-          mix.copy(`${packagePath}/utils/tsconfig.json`, `${rootPath}/.vulmix/types`)
-          mix.copy(`${packagePath}/types/vue-shims.d.ts`, `${rootPath}/.vulmix/types`)
+          mix
+            .copy(
+              `${packagePath}/utils/tsconfig.json`,
+              `${rootPath}/.vulmix/types`
+            )
+            .copy(
+              `${packagePath}/types/vue-shims.d.ts`,
+              `${rootPath}/.vulmix/types`
+            )
         }
       })
 
@@ -58,11 +65,31 @@ class VulmixInit {
         plugins: [
           require('unplugin-vue-components/webpack')({
             /* options */
+
+            // Vue version of project. It will detect automatically if not specified.
+            // Acceptable value: 2 | 2.7 | 3
+            version: 3,
+
+            // relative paths to the directory to search for components.
             dirs: [
-              `${rootPath}/components/**`,
+              `${rootPath}/components`,
               `${packagePath}/src/vue/components/**`,
             ],
 
+            // valid file extensions for components.
+            extensions: ['vue', 'ts', 'js'],
+
+            // Allow subdirectories as namespace prefix for components.
+            directoryAsNamespace: true,
+
+            // Collapse same prefixes (camel-sensitive) of folders and components
+            // to prevent duplication inside namespaced component name.
+            // works when `directoryAsNamespace: true`
+            collapseSamePrefixes: true,
+
+            // generate `components.d.ts` global declarations,
+            // also accepts a path for custom filename
+            // default: `true` if package typescript is installed
             dts:
               options.dev === true
                 ? `${packagePath}/types/components.d.ts`
