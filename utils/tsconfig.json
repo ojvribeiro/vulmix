@@ -17,10 +17,11 @@
       "~": ["../.."]
     }
   },
-  "includes": [
+  "include": [
+    "../../**/*",
     "components.d.ts",
     "vue-shims.d.ts",
     "auto-imports.d.ts"
   ],
-  "exclude": ["_dist"]
+  "exclude": ["../../_dist"]
 }
