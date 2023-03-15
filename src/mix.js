@@ -1,7 +1,7 @@
 const mix = require('laravel-mix')
 const path = require('path')
 const fs = require('fs')
-const clc = require('cli-color')
+const chalk = require('chalk')
 
 require('laravel-mix-ejs')
 
@@ -29,7 +29,7 @@ class VulmixInit {
       fs.mkdirSync(`${rootPath}/_dist/assets/img`, { recursive: true })
     }
 
-    console.log(clc.cyan.underline(`\n\nVulmix ${pkg.version}`))
+    console.log(chalk.cyan.underline(`\n\nVulmix ${pkg.version}`))
 
     mix
       .setPublicPath(publicPath)
@@ -222,8 +222,8 @@ class VulmixInit {
           }
 
           console.log(
-            clc.white('\nServing on:'),
-            clc.magentaBright.underline(`http://localhost:${port}\n`)
+            chalk.white('\nServing on:'),
+            chalk.magentaBright.underline(`http://localhost:${port}\n`)
           )
         })
       })
@@ -238,7 +238,7 @@ class VulmixInit {
     if (mix.inProduction()) {
       mix
         .before(() => {
-          console.log(clc.cyan('\n\nPreparing production bundle...\n\n'))
+          console.log(chalk.cyan('\n\nPreparing production bundle...\n\n'))
         })
 
         .copy(`${packagePath}/utils/deploy/.htaccess`, `${rootPath}/_dist`)
