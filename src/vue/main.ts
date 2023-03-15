@@ -7,8 +7,6 @@ import App from '~/app.vue'
 const app: VueApp<Element> = createApp(App)
 const head: HeadClient<{}> = createHead()
 
-app.component('App', require('@/vue/App.vue').default)
-
 /**
  * Built-in components
  */
@@ -25,20 +23,6 @@ nativeComponents.keys().map((key: string) => {
   }
 
   app.component(nativeComponentName, nativeComponents(key).default)
-})
-
-/**
- * Components
- */
-const componentFiles = require.context('@components/', true, /\.(vue|js|ts)$/i)
-componentFiles.keys().map((key: string) => {
-  let componentName: string = key.split('.')[1].replace(/\//g, '')
-
-  if (componentName.match(/index$/)) {
-    componentName = componentName.replace('index', '')
-  }
-
-  app.component(componentName, componentFiles(key).default)
 })
 
 let routes: Array<{ path: string; component: any }> = []
