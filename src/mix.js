@@ -218,8 +218,6 @@ class VulmixInit {
         // Synchronous run
         setTimeout(() => {
           if (isFirstRun === false) {
-            // ...
-
             isFirstRun = true
           }
 

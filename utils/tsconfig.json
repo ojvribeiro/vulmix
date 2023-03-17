@@ -17,11 +17,6 @@
       "~": ["../.."]
     }
   },
-  "include": [
-    "../../**/*",
-    "components.d.ts",
-    "vue-shims.d.ts",
-    "auto-imports.d.ts"
-  ],
+  "include": ["components.d.ts", "vue-shims.d.ts", "auto-imports.d.ts"],
   "exclude": ["../../_dist"]
 }
