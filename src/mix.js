@@ -3,6 +3,8 @@ const path = require('path')
 const fs = require('fs')
 const chalk = require('chalk')
 
+const VulmixConfig = require('../../../.vulmix/vulmix.config.js')
+
 require('laravel-mix-ejs')
 
 let isFirstRun = false
@@ -183,7 +185,7 @@ class VulmixInit {
       .ejs(
         [`${packagePath}/src/index.ejs`, `${rootPath}/_dist/mix-manifest.json`],
         `${rootPath}/_dist`,
-        {},
+        VulmixConfig.head,
         {
           partials: [`${rootPath}/_dist/mix-manifest.json`],
           mixVersioning: true,

@@ -1,9 +1,14 @@
 <!doctype html>
-<html lang="en">
+<% if (typeof (lang) != 'undefined') { %><html lang="<%= lang %>"><% } else { %><html lang="en"><% } %>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <% if (typeof (title) != 'undefined') { %><title> <%= title %> </title><% } %>
+    <% if (typeof (meta) != 'undefined') { %>
+    <% meta.forEach(item => { %><meta <% if (item.hasOwnProperty('property')) { %>property="<%= item.property %>"<% } else { %>name="<%= item.name %>"<% } %> content="<%= item.content %>">
+    <% }) %><% } %>
 
     <style>
       html,body,body>[data-vulmix-app]{height: 100%;margin: 0;}
