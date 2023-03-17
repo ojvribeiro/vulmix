@@ -232,6 +232,10 @@ class VulmixInit {
       mix.copy(`${rootPath}/assets/icons`, `${rootPath}/_dist/assets/icons`)
     }
 
+    if (fs.existsSync(`${rootPath}/assets/img/`)) {
+      mix.copy(`${rootPath}/assets/img`, `${rootPath}/_dist/assets/img`)
+    }
+
     /**
      * Production mode only
      */
@@ -239,6 +243,16 @@ class VulmixInit {
       mix
         .before(() => {
           console.log(chalk.cyan('\n\nPreparing production bundle...\n\n'))
+
+          mix
+            .copy(
+              `${packagePath}/utils/tsconfig.json`,
+              `${rootPath}/_dist/.vulmix/types`
+            )
+            .copy(
+              `${packagePath}/types/vue-shims.d.ts`,
+              `${rootPath}/_dist/.vulmix/types`
+            )
         })
 
         .copy(`${packagePath}/utils/deploy/.htaccess`, `${rootPath}/_dist`)
