@@ -185,7 +185,7 @@ class VulmixInit {
       .ejs(
         [`${packagePath}/src/index.ejs`, `${rootPath}/_dist/mix-manifest.json`],
         `${rootPath}/_dist`,
-        VulmixConfig.head,
+        VulmixConfig,
         {
           partials: [`${rootPath}/_dist/mix-manifest.json`],
           mixVersioning: true,
