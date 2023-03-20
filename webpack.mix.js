@@ -6,6 +6,6 @@
 
 const mix = require('laravel-mix')
 
-require('./src/mix.dev.js')
+require('./src/mix.js')
 
-mix.vulmix()
+mix.vulmix({ dev: true })

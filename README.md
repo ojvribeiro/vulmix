@@ -6,15 +6,15 @@ Vue(3) SPA meta-framework that uses [Laravel Mix](https://www.npmjs.com/package/
 
 > **Warning**
 >
-> This project is still in beta and it's not quite ready for production use. Until the 1.0.0 stable version, its features and structure are likely to change.
+> This project is experimental and it's not quite ready for production use. Until the stable version, its features and structure are likely to change.
 
 ## ✨ Features
 
-- Components auto-import;
-- File based routing;
+- Auto-imports;
+- File-based routing;
 - Hot Module Replacement;
-- Image asset optimization with the `<Image />` built-in component;
-- Sass out-of-the-box;
+- Sass/SCSS support out-of-the-box;
+- TypeScript support (only `preview` version for now);
 - ... [and some things more](https://vulmix.vercel.app/).
 
 ## 📦 Installation
@@ -25,14 +25,10 @@ The easiest way to get started with Vulmix is by running:
 npx create-vulmix-app your-app-name
 ```
 
-To download the current preview version, run:
+Or, if you want to test the latest `preview` version:
 
 ```bash
-npx  create-vulmix-app your-app-name --beta
+npx create-vulmix-app your-app-name --beta
 ```
 
-> **Warning**
->
-> The preview version may contain some bugs.
-
-Head up to [the online documentation](https://vulmix.vercel.app/guide/get-started) for more info on how to run your project.
+Head up to [the documentation](https://vulmix.vercel.app/guide/get-started) for more info on how to run your project.

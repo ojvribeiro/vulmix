@@ -1,11 +1,6 @@
 <template>
   <Head>
-    <title>Vue + Laravel Mix = Vulmix</title>
-
-    <meta name="title" content="Your application title" />
-    <meta name="description" content="Your application description" />
-
-    <link rel="icon" href="/assets/icons/favicon.png" />
+    <title>New Vulmix app</title>
   </Head>
 
   <section class="vulmix-welcome">
@@ -128,7 +123,7 @@
   </section>
 </template>
 
-<style>
+<style scoped>
   @import url('https://fonts.googleapis.com/css2?family=Inconsolata&family=Roboto+Flex:opsz@8..144&display=swap');
 
   .vulmix-welcome {
