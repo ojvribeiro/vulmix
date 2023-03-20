@@ -3,7 +3,7 @@ const path = require('path')
 const fs = require('fs')
 const chalk = require('chalk')
 
-const VulmixConfig = require('../../../.vulmix/vulmix.config.js')
+let VulmixConfig
 
 require('laravel-mix-ejs')
 
@@ -24,6 +24,8 @@ class VulmixInit {
     const publicPath = options.dev === true ? 'demo/_dist' : '_dist'
 
     const pkg = require(`${packagePath}/package.json`)
+
+    VulmixConfig = require(`${rootPath}/.vulmix/${options.dev ? 'demo/' : ''}vulmix.config.js`)
 
     fs.rmSync(`${rootPath}/_dist/assets`, { recursive: true, force: true })
 
