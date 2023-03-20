@@ -4,7 +4,7 @@
   "description": "Vue(3) meta-framework that uses Laravel Mix.",
   "main": "./src/mix.js",
   "scripts": {
-    "dev": "mix watch --hot",
+    "dev": "tsc ./demo/vulmix.config.ts --outDir ./demo/.vulmix && mix watch --hot",
     "prod": "mix --production",
     "serve": "npx http-server -p 8000 -a localhost demo/_dist --gzip --proxy http://localhost:8000?"
   },
