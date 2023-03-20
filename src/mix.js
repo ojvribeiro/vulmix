@@ -3,6 +3,8 @@ const path = require('path')
 const fs = require('fs')
 const chalk = require('chalk')
 
+let VulmixConfig
+
 require('laravel-mix-ejs')
 
 let isFirstRun = false
@@ -22,6 +24,8 @@ class VulmixInit {
     const publicPath = options.dev === true ? 'demo/_dist' : '_dist'
 
     const pkg = require(`${packagePath}/package.json`)
+
+    VulmixConfig = require(`${rootPath}/.vulmix/${options.dev ? 'demo/' : ''}vulmix.config.js`)
 
     fs.rmSync(`${rootPath}/_dist/assets`, { recursive: true, force: true })
 
@@ -183,7 +187,7 @@ class VulmixInit {
       .ejs(
         [`${packagePath}/src/index.ejs`, `${rootPath}/_dist/mix-manifest.json`],
         `${rootPath}/_dist`,
-        {},
+        VulmixConfig,
         {
           partials: [`${rootPath}/_dist/mix-manifest.json`],
           mixVersioning: true,
@@ -216,8 +220,6 @@ class VulmixInit {
         // Synchronous run
         setTimeout(() => {
           if (isFirstRun === false) {
-            // ...
-
             isFirstRun = true
           }
 
@@ -232,6 +234,10 @@ class VulmixInit {
       mix.copy(`${rootPath}/assets/icons`, `${rootPath}/_dist/assets/icons`)
     }
 
+    if (fs.existsSync(`${rootPath}/assets/img/`)) {
+      mix.copy(`${rootPath}/assets/img`, `${rootPath}/_dist/assets/img`)
+    }
+
     /**
      * Production mode only
      */
@@ -239,6 +245,16 @@ class VulmixInit {
       mix
         .before(() => {
           console.log(chalk.cyan('\n\nPreparing production bundle...\n\n'))
+
+          mix
+            .copy(
+              `${packagePath}/utils/tsconfig.json`,
+              `${rootPath}/_dist/.vulmix/types`
+            )
+            .copy(
+              `${packagePath}/types/vue-shims.d.ts`,
+              `${rootPath}/_dist/.vulmix/types`
+            )
         })
 
         .copy(`${packagePath}/utils/deploy/.htaccess`, `${rootPath}/_dist`)
