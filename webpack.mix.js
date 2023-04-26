@@ -5,7 +5,16 @@
  */
 
 const mix = require('laravel-mix')
+const { argv } = require('yargs')
 
 require('./src/mix.js')
 
-mix.vulmix({ dev: true })
+mix
+  .options({
+    hmrOptions: {
+      host: 'localhost',
+      port: argv.port,
+    },
+  })
+
+  .vulmix({ dev: true })

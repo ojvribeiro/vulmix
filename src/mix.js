@@ -15,15 +15,12 @@ class VulmixInit {
   }
 
   register(options = { dev: false }) {
-    const port = '3000'
     const rootPath =
       options.dev === true
         ? path.join(__dirname, '../demo')
         : path.join(__dirname, '../../..')
     const packagePath = path.join(__dirname, '../')
     const publicPath = options.dev === true ? 'demo/_dist' : '_dist'
-
-    const pkg = require(`${packagePath}/package.json`)
 
     VulmixConfig = require(`${rootPath}/.vulmix/${options.dev ? 'demo/' : ''}vulmix.config.js`)
 
@@ -33,21 +30,10 @@ class VulmixInit {
       fs.mkdirSync(`${rootPath}/_dist/assets/img`, { recursive: true })
     }
 
-    console.log(chalk.cyan.underline(`\n\nVulmix ${pkg.version}`))
-
     mix
       .setPublicPath(publicPath)
 
-      .options({
-        hmrOptions: {
-          host: 'localhost',
-          port: port,
-        },
-      })
-
       .before(() => {
-        console.log(`\n\nWarming up...`)
-
         if (options.dev === false) {
           if (!fs.existsSync(`${rootPath}/vercel.json`)) {
             mix.copy(`${packagePath}/utils/deploy/vercel.json`, rootPath)
@@ -222,11 +208,6 @@ class VulmixInit {
           if (isFirstRun === false) {
             isFirstRun = true
           }
-
-          console.log(
-            chalk.white('\nServing on:'),
-            chalk.magentaBright.underline(`http://localhost:${port}\n`)
-          )
         })
       })
 
