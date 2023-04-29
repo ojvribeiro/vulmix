@@ -1,6 +1,6 @@
 {
   "name": "vulmix",
-  "version": "0.6.0-beta",
+  "version": "0.6.1-beta",
   "description": "Vue(3) meta-framework that uses Laravel Mix.",
   "main": "./src/mix.js",
   "scripts": {
