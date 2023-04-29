@@ -20,7 +20,7 @@
     "chalk": "4.1.2",
     "find-free-port": "^2.0.0",
     "laravel-mix": "^6.0.49",
-    "laravel-mix-ejs": "^2.0.0",
+    "laravel-mix-ejs": "^2.0.1",
     "resolve-url-loader": "^5.0.0",
     "sass": "^1.54.5",
     "sass-loader": "^13.0.2",
