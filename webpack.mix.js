@@ -1,7 +1,6 @@
 /**
  * Vulmix
- * This file is intended to be used for testing purposes
- * only. It is not part of the main package.
+ * This file is intended to be used for testing purposes only.
  */
 
 const mix = require('laravel-mix')
