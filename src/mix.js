@@ -1,6 +1,6 @@
 const mix = require('laravel-mix')
-const path = require('path')
-const fs = require('fs')
+const path = require('node:path')
+const fs = require('node:fs')
 const chalk = require('chalk')
 
 let VulmixConfig
