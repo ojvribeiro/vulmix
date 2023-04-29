@@ -2,6 +2,7 @@ const mix = require('laravel-mix')
 const path = require('node:path')
 const fs = require('node:fs')
 const chalk = require('chalk')
+const { argv } = require('yargs')
 
 let VulmixConfig
 
@@ -29,6 +30,13 @@ class VulmixInit {
     if (!fs.existsSync(`${rootPath}/_dist/assets/img`)) {
       fs.mkdirSync(`${rootPath}/_dist/assets/img`, { recursive: true })
     }
+
+    mix.options({
+      hmrOptions: {
+        host: 'localhost',
+        port: argv.port,
+      },
+    })
 
     mix
       .setPublicPath(publicPath)
