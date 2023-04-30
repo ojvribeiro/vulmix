@@ -31,10 +31,6 @@ class VulmixInit {
         ? path.resolve(__dirname, '../demo/_dist')
         : path.resolve(__dirname, '../../../_dist')
 
-    const relativeRootPath =
-      options.dev === true
-        ? getRelativePath(absolutePackagePath, absoluteRootPath)
-        : getRelativePath(absoluteRootPath, absoluteRootPath)
     const relativePackagePath =
       options.dev === true
         ? getRelativePath(absolutePackagePath, absolutePackagePath)
