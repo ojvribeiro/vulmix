@@ -4,13 +4,13 @@ const fs = require('node:fs')
 const chalk = require('chalk')
 const { argv } = require('yargs')
 
+const pkg = require('../package.json')
+const { useConsole } = require('./utils/console.js')
 const getRelativePath = require('./utils/getRelativePath.js')
-
-let VulmixConfig
 
 require('laravel-mix-ejs')
 
-let isFirstRun = false
+let VulmixConfig
 
 class VulmixInit {
   name() {
@@ -43,6 +43,13 @@ class VulmixInit {
     VulmixConfig = require(`${absoluteRootPath}/.vulmix/${
       options.dev === true ? 'demo/' : ''
     }vulmix.config.js`)
+
+    useConsole.clear()
+    useConsole.log(
+      `${chalk.grey(`Vulmix ${pkg.version}`)}\n${chalk.blueBright(
+        `Warming up...`
+      )}`
+    )
 
     fs.rmSync(`${absoluteRootPath}/_dist/assets`, {
       recursive: true,
@@ -230,27 +237,6 @@ class VulmixInit {
 
       .extract()
 
-      .after(stats => {
-        /**
-         * Only prints user files to the terminal
-         */
-        const assets = { ...stats.compilation.assets }
-        stats.compilation.assets = {}
-
-        for (const [path, asset] of Object.entries(assets)) {
-          if (!path.match(/((\.|_)vulmix|\.map)/)) {
-            stats.compilation.assets[path] = asset
-          }
-        }
-
-        // Synchronous run
-        setTimeout(() => {
-          if (isFirstRun === false) {
-            isFirstRun = true
-          }
-        })
-      })
-
     if (fs.existsSync(`${absoluteRootPath}/assets/icons/`)) {
       mix.copy(
         `${absoluteRootPath}/assets/icons`,
@@ -271,7 +257,12 @@ class VulmixInit {
     if (mix.inProduction()) {
       mix
         .before(() => {
-          console.log(chalk.cyan('\n\nPreparing production bundle...\n\n'))
+          useConsole.clear()
+          useConsole.log(
+            `${chalk.grey(`Vulmix ${pkg.version}`)}\n${chalk.cyan(
+              `Preparing production bundle...\n\n`
+            )}`
+          )
 
           mix
             .copy(
@@ -288,6 +279,38 @@ class VulmixInit {
           `${absolutePackagePath}/utils/deploy/.htaccess`,
           `${absolutePublicPath}`
         )
+
+        .after(stats => {
+          /**
+           * Only prints user files to the terminal
+           */
+          const assets = { ...stats.compilation.assets }
+          stats.compilation.assets = {}
+
+          for (const [path, asset] of Object.entries(assets)) {
+            if (!path.match(/((\.|_)vulmix|\.map)/)) {
+              stats.compilation.assets[path] = asset
+            }
+          }
+
+          setTimeout(() => {
+            useConsole.clear()
+
+            console.log(
+              chalk.greenBright(
+                `${chalk.grey(
+                  `Vulmix ${pkg.version}`
+                )}\n\nOptimized build generated in ${chalk.yellowBright(
+                  options.dev === true
+                    ? getRelativePath(absolutePackagePath, absolutePublicPath)
+                    : getRelativePath(absoluteRootPath, absolutePublicPath)
+                )}. You can deploy its contents\non any static host.\n`
+              )
+            )
+
+            useConsole.log(chalk.blueBright(`Finishing...`))
+          })
+        })
     } else {
       /**
        * Development mode only
@@ -300,6 +323,34 @@ class VulmixInit {
         .sourceMaps()
 
         .disableSuccessNotifications()
+
+        .after(stats => {
+          /**
+           * Only prints user files to the terminal
+           */
+          const assets = { ...stats.compilation.assets }
+          stats.compilation.assets = {}
+
+          for (const [path, asset] of Object.entries(assets)) {
+            if (!path.match(/((\.|_)vulmix|\.map)/)) {
+              stats.compilation.assets[path] = asset
+            }
+          }
+
+          setTimeout(() => {
+            useConsole.clear()
+
+            useConsole.log(
+              chalk.blueBright(
+                `${chalk.grey(
+                  `Vulmix ${pkg.version}`
+                )}\nHMR Server running at: ${chalk.greenBright(
+                  `http://localhost:${argv.port}\n\n`
+                )}`
+              )
+            )
+          })
+        })
     }
   }
 }
