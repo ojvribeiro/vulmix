@@ -1,25 +1,21 @@
 const fp = require('find-free-port')
-const chalk = require('chalk')
-const exec = require('child_process').exec
-const pkg = require('../package.json')
+const execSync = require('child_process').execSync
 
-exec(`tsc ./demo/vulmix.config.ts --outDir ./demo/.vulmix`)
+execSync('tsc ./demo/vulmix.config.ts --outDir ./demo/.vulmix', {
+  stdio: 'inherit',
+})
 
-fp(3000, function (err, freePort) {
+fp(3000, function (fpError, freePort) {
+  if (fpError) {
+    console.log(fpError)
+
+    return
+  }
+
   try {
     const port = freePort
 
-    exec(`mix watch --hot -- --port=${port}`)
-
-    console.log(
-      chalk.blueBright(
-        `${chalk.grey(
-          `\nVulmix ${pkg.version}`
-        )}\nHMR Server running at: ${chalk.greenBright(
-          `http://localhost:${port}`
-        )}`
-      )
-    )
+    execSync(`mix watch --hot -- --port=${port}`, { stdio: 'inherit' })
   } catch (err) {
     console.log(err)
   }

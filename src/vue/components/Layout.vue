@@ -1,7 +1,11 @@
 <script setup lang="ts">
-  const props = defineProps<{
-    name: string | 'default'
-  }>()
+  interface Props {
+    name?: string
+  }
+
+  const props = withDefaults(defineProps<Props>(), {
+    name: 'default',
+  })
 </script>
 
 <template>

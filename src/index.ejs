@@ -1,16 +1,13 @@
 <!doctype html>
 <% if (typeof (lang) != 'undefined') { %><html lang="<%= lang %>"><% } else { %><html lang="en"><% } %>
   <head>
+    <% if (typeof (head) != 'undefined' && typeof (head.meta) != 'undefined') { %><meta charset="<% head.meta.forEach(item => { %><% if (typeof (item.charset) != 'undefined') { %><%= item.charset %><% } %><% }) %>" /><% } else { %><meta charset="utf-8" /><% } %>
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <% if (typeof (head) != 'undefined') { %>
-    <% if (typeof (head.title) != 'undefined') { %><title> <%= head.title %> </title><% } %>
-    <% if (typeof (head.meta) != 'undefined') { %>
-    <% head.meta.forEach(item => { %><meta <% if (typeof (item.charset) != 'undefined') { %>charset="<%= item.charset %>"<% } %><% if (typeof (item.property) != 'undefined') { %> property="<%= item.property %>"<% } %><% if (typeof (item.name) != 'undefined') { %> name="<%= item.name %>"<% } %><% if (typeof (item.content) != 'undefined') { %> content="<%= item.content %>"<% } %> />
-    <% }) %><% } %>
-    <% } %>
-
+    <% if (typeof (head) != 'undefined') { %><% if (typeof (head.title) != 'undefined') { %><title> <%= head.title %> </title><% } %>
+    <% if (typeof (head.meta) != 'undefined') { %><% head.meta.forEach(item => { %><meta <% if (typeof (item.property) != 'undefined') { %> property="<%= item.property %>"<% } %><% if (typeof (item.name) != 'undefined') { %> name="<%= item.name %>"<% } %><% if (typeof (item.content) != 'undefined') { %> content="<%= item.content %>"<% } %> />
+    <% }) %><% } %><% } %>
     <style>
       html,body,body>[data-vulmix-app]{height: 100%;margin: 0;}
     </style>
