@@ -5,7 +5,13 @@ execSync(`tsc ./demo/vulmix.config.ts --outDir ./demo/.vulmix`, {
   stdio: 'inherit',
 })
 
-fp(3000, function (err, freePort) {
+fp(3000, function (fpError, freePort) {
+  if (fpError) {
+    console.log(fpError)
+
+    return
+  }
+
   try {
     const port = freePort
 
