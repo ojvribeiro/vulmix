@@ -10,6 +10,7 @@ const {
   absoluteVulmixPaths,
   relativeVulmixPaths,
 } = require('./config/paths.js')
+const { VulmixAliases } = require('./config/aliases')
 
 require('laravel-mix-ejs')
 
@@ -176,23 +177,7 @@ class VulmixInit {
         resolve: {
           extensions: ['.js', '.vue', '.ts'],
           alias: {
-            '~': absoluteRootPath,
-            '@': path.resolve(__dirname, `${absolutePackagePath}/src`),
-            '@assets':
-              fs.existsSync(`${absoluteRootPath}/assets`) &&
-              `${absoluteRootPath}/assets`,
-            '@components':
-              fs.existsSync(`${absoluteRootPath}/components`) &&
-              `${absoluteRootPath}/components`,
-            '@composables':
-              fs.existsSync(`${absoluteRootPath}/composables`) &&
-              `${absoluteRootPath}/composables`,
-            '@layouts':
-              fs.existsSync(`${absoluteRootPath}/layouts`) &&
-              `${absoluteRootPath}/layouts`,
-            '@pages':
-              fs.existsSync(`${absoluteRootPath}/pages`) &&
-              `${absoluteRootPath}/pages`,
+            ...VulmixAliases(isDevMode),
           },
         },
         module: {
