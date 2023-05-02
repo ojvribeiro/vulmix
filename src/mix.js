@@ -4,7 +4,7 @@ const chalk = require('chalk')
 const { argv } = require('yargs')
 
 const pkg = require('../package.json')
-const { useConsole } = require('./utils/console.js')
+const { useConsole } = require('./utils/useConsole.js')
 const getRelativePath = require('./utils/getRelativePath.js')
 const { UnpluginAutoImports } = require('./config/unplugin.js')
 const {
