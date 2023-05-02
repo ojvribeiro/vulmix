@@ -223,8 +223,6 @@ class VulmixInit {
 
         .sourceMaps()
 
-        .disableSuccessNotifications()
-
         .after(stats => {
           /**
            * Only prints user files to the terminal
