@@ -17,6 +17,7 @@ class VulmixInit {
     return 'vulmix'
   }
 
+
   register(options = { dev: false }) {
     const absoluteRootPath =
       options.dev === true
