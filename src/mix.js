@@ -13,6 +13,7 @@ const {
   relativeVulmixPaths,
 } = require('./config/paths.js')
 const { VulmixAliases } = require('./config/aliases')
+const { useProjectFolderListener } = require('./utils/useProjectFolderListener')
 
 require('laravel-mix-ejs')
 
@@ -271,14 +272,13 @@ class VulmixInit {
           open: false,
           notify: false,
           files: [
-            `${ABSOLUTE_ROOT_PATH}/assets/**/*`,
-            `${ABSOLUTE_ROOT_PATH}/components/**/*.{vue,js,ts}`,
-            `${ABSOLUTE_ROOT_PATH}/layouts/**/*.{vue,js,ts}`,
-            `${ABSOLUTE_ROOT_PATH}/pages/**/*.{vue,js,ts}`,
+            ...useProjectFolderListener(isDevMode),
+
             `${ABSOLUTE_ROOT_PATH}/app.{vue,js,ts}`,
+
             {
               match: `${ABSOLUTE_ROOT_PATH}/vulmix.config.ts`,
-              fn: function (event, file) {
+              fn: (event, file) => {
                 if (event === 'change') {
                   useConsole.log(
                     chalk.cyan('\n\nConfig file changed. Recompiling...')
