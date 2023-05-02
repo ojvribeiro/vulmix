@@ -20,7 +20,6 @@ class VulmixInit {
     return 'vulmix'
   }
 
-
   register(options = { dev: false }) {
     const isDevMode = options.dev
 
