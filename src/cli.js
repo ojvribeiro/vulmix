@@ -1,5 +1,5 @@
 const fp = require('find-free-port')
-const execSync = require('child_process').execSync
+const execSync = require('node:child_process').execSync
 
 execSync('tsc ./demo/vulmix.config.ts --outDir ./demo/.vulmix', {
   stdio: 'inherit',
