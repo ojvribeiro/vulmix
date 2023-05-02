@@ -1,5 +1,6 @@
 const mix = require('laravel-mix')
 const fs = require('node:fs')
+const exec = require('node:child_process').exec
 const chalk = require('chalk')
 const { argv } = require('yargs')
 
@@ -32,10 +33,11 @@ class VulmixInit {
       relativeVulmixPaths(isDevMode).relativePackagePath
     const ABSOLUTE_PUBLIC_PATH =
       absoluteVulmixPaths(isDevMode).absolutePublicPath
-
-    const VulmixConfig = require(`${ABSOLUTE_ROOT_PATH}/.vulmix/${
+    const VULMIX_CONFIG_PATH = `${ABSOLUTE_ROOT_PATH}/.vulmix/${
       isDevMode ? 'demo/' : ''
-    }vulmix.config.js`)
+    }vulmix.config.js`
+
+    const VulmixConfig = require(VULMIX_CONFIG_PATH)
 
     useConsole.clear()
     useConsole.log(
@@ -95,6 +97,7 @@ class VulmixInit {
             ...VulmixAliases(isDevMode),
           },
         },
+
         module: {
           rules: [
             // ... other rules omitted
@@ -260,6 +263,48 @@ class VulmixInit {
               )
             )
           })
+        })
+
+        .browserSync({
+          proxy: `localhost:${argv.port}`,
+          logLevel: 'silent',
+          open: false,
+          notify: false,
+          files: [
+            `${ABSOLUTE_ROOT_PATH}/assets/**/*`,
+            `${ABSOLUTE_ROOT_PATH}/components/**/*.{vue,js,ts}`,
+            `${ABSOLUTE_ROOT_PATH}/layouts/**/*.{vue,js,ts}`,
+            `${ABSOLUTE_ROOT_PATH}/pages/**/*.{vue,js,ts}`,
+            `${ABSOLUTE_ROOT_PATH}/app.{vue,js,ts}`,
+            {
+              match: `${ABSOLUTE_ROOT_PATH}/vulmix.config.ts`,
+              fn: function (event, file) {
+                if (event === 'change') {
+                  useConsole.log(
+                    chalk.cyan('\n\nConfig file changed. Recompiling...')
+                  )
+
+                  exec(
+                    `tsc ${ABSOLUTE_ROOT_PATH}/vulmix.config.ts --outDir ${ABSOLUTE_ROOT_PATH}/.vulmix`,
+                    (error, stdout, stderr) => {
+                      if (error) {
+                        useConsole.log(chalk.red(`exec error: ${error}`))
+                        return
+                      }
+
+                      useConsole.log(
+                        chalk.cyanBright(
+                          `\n\n${chalk.greenBright(
+                            '✓'
+                          )} Recompiling done. Please refresh the page.\n\n`
+                        )
+                      )
+                    }
+                  )
+                }
+              },
+            },
+          ],
         })
     }
   }
