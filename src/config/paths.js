@@ -22,28 +22,21 @@ const absoluteVulmixPaths = (isDevMode = false) => {
 }
 
 const relativeVulmixPaths = (isDevMode = false) => {
+  const ABSOLUTE_ROOT_PATH = absoluteVulmixPaths(isDevMode).absoluteRootPath
+  const ABSOLUTE_PACKAGE_PATH =
+    absoluteVulmixPaths(isDevMode).absolutePackagePath
+  const ABSOLUTE_PUBLIC_PATH = absoluteVulmixPaths(isDevMode).absolutePublicPath
+
   return {
     relativePackagePath:
       isDevMode === true
-        ? getRelativePath(
-            absoluteVulmixPaths(isDevMode).absolutePackagePath,
-            absoluteVulmixPaths(isDevMode).absolutePackagePath
-          )
-        : getRelativePath(
-            absoluteVulmixPaths(isDevMode).absoluteRootPath,
-            absoluteVulmixPaths(isDevMode).absolutePackagePath
-          ),
+        ? getRelativePath(ABSOLUTE_PACKAGE_PATH, ABSOLUTE_PACKAGE_PATH)
+        : getRelativePath(ABSOLUTE_ROOT_PATH, ABSOLUTE_PACKAGE_PATH),
 
     relativePublicPath:
       isDevMode === true
-        ? getRelativePath(
-            absoluteVulmixPaths(isDevMode).absolutePackagePath,
-            absoluteVulmixPaths(isDevMode).absolutePublicPath
-          )
-        : getRelativePath(
-            absoluteVulmixPaths(isDevMode).absoluteRootPath,
-            absoluteVulmixPaths(isDevMode).absolutePublicPath
-          ),
+        ? getRelativePath(ABSOLUTE_PACKAGE_PATH, ABSOLUTE_PUBLIC_PATH)
+        : getRelativePath(ABSOLUTE_ROOT_PATH, ABSOLUTE_PUBLIC_PATH),
   }
 }
 

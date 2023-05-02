@@ -1,20 +1,20 @@
 const { absoluteVulmixPaths } = require('./paths.js')
 
 module.exports.UnpluginAutoImports = function (isDevMode = false) {
+  const ABSOLUTE_ROOT_PATH = absoluteVulmixPaths(isDevMode).absoluteRootPath
+  const ABSOLUTE_PACKAGE_PATH =
+    absoluteVulmixPaths(isDevMode).absolutePackagePath
+
   return [
     require('unplugin-vue-components/webpack')({
-      /* options */
-
       // Vue version of project. It will detect automatically if not specified.
       // Acceptable value: 2 | 2.7 | 3
       version: 3,
 
       // relative paths to the directory to search for components.
       dirs: [
-        `${absoluteVulmixPaths(isDevMode).absoluteRootPath}/components`,
-        `${
-          absoluteVulmixPaths(isDevMode).absolutePackagePath
-        }/src/vue/components/**`,
+        `${ABSOLUTE_ROOT_PATH}/components`,
+        `${ABSOLUTE_PACKAGE_PATH}/src/vue/components/**`,
       ],
 
       // valid file extensions for components.
@@ -33,12 +33,8 @@ module.exports.UnpluginAutoImports = function (isDevMode = false) {
       // default: `true` if package typescript is installed
       dts:
         isDevMode === true
-          ? `${
-              absoluteVulmixPaths(isDevMode).absolutePackagePath
-            }/types/components.d.ts`
-          : `${
-              absoluteVulmixPaths(isDevMode).absoluteRootPath
-            }/.vulmix/types/components.d.ts`,
+          ? `${ABSOLUTE_PACKAGE_PATH}/types/components.d.ts`
+          : `${ABSOLUTE_ROOT_PATH}/.vulmix/types/components.d.ts`,
     }),
 
     require('unplugin-auto-import/webpack')({
@@ -72,7 +68,7 @@ module.exports.UnpluginAutoImports = function (isDevMode = false) {
         // './hooks',
         // './composables' // only root modules
         // './composables/**', // all nested modules
-        `${absoluteVulmixPaths(isDevMode).absoluteRootPath}/composables/**`, // all nested modules
+        `${ABSOLUTE_ROOT_PATH}/composables/**`, // all nested modules
       ],
 
       // Filepath to generate corresponding .d.ts file.
@@ -80,12 +76,8 @@ module.exports.UnpluginAutoImports = function (isDevMode = false) {
       // Set `false` to disable.
       dts:
         isDevMode === true
-          ? `${
-              absoluteVulmixPaths(isDevMode).absolutePackagePath
-            }/types/auto-imports.d.ts`
-          : `${
-              absoluteVulmixPaths(isDevMode).absoluteRootPath
-            }/.vulmix/types/auto-imports.d.ts`,
+          ? `${ABSOLUTE_PACKAGE_PATH}/types/auto-imports.d.ts`
+          : `${ABSOLUTE_ROOT_PATH}/.vulmix/types/auto-imports.d.ts`,
 
       // Auto import inside Vue template
       // see https://github.com/unjs/unimport/pull/15 and https://github.com/unjs/unimport/pull/72

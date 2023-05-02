@@ -3,32 +3,28 @@ const path = require('node:path')
 const { absoluteVulmixPaths } = require('./paths')
 
 const VulmixAliases = (isDevMode = false) => {
+  const ABSOLUTE_ROOT_PATH = absoluteVulmixPaths(isDevMode).absoluteRootPath
+  const ABSOLUTE_PACKAGE_PATH =
+    absoluteVulmixPaths(isDevMode).absolutePackagePath
+
   return {
-    '~': absoluteVulmixPaths(isDevMode).absoluteRootPath,
-    '@': path.resolve(
-      __dirname,
-      `${absoluteVulmixPaths(isDevMode).absolutePackagePath}/src`
-    ),
+    '~': ABSOLUTE_ROOT_PATH,
+    '@': path.resolve(__dirname, `${ABSOLUTE_PACKAGE_PATH}/src`),
     '@assets':
-      fs.existsSync(
-        `${absoluteVulmixPaths(isDevMode).absoluteRootPath}/assets`
-      ) && `${absoluteVulmixPaths(isDevMode).absoluteRootPath}/assets`,
+      fs.existsSync(`${ABSOLUTE_ROOT_PATH}/assets`) &&
+      `${ABSOLUTE_ROOT_PATH}/assets`,
     '@components':
-      fs.existsSync(
-        `${absoluteVulmixPaths(isDevMode).absoluteRootPath}/components`
-      ) && `${absoluteVulmixPaths(isDevMode).absoluteRootPath}/components`,
+      fs.existsSync(`${ABSOLUTE_ROOT_PATH}/components`) &&
+      `${ABSOLUTE_ROOT_PATH}/components`,
     '@composables':
-      fs.existsSync(
-        `${absoluteVulmixPaths(isDevMode).absoluteRootPath}/composables`
-      ) && `${absoluteVulmixPaths(isDevMode).absoluteRootPath}/composables`,
+      fs.existsSync(`${ABSOLUTE_ROOT_PATH}/composables`) &&
+      `${ABSOLUTE_ROOT_PATH}/composables`,
     '@layouts':
-      fs.existsSync(
-        `${absoluteVulmixPaths(isDevMode).absoluteRootPath}/layouts`
-      ) && `${absoluteVulmixPaths(isDevMode).absoluteRootPath}/layouts`,
+      fs.existsSync(`${ABSOLUTE_ROOT_PATH}/layouts`) &&
+      `${ABSOLUTE_ROOT_PATH}/layouts`,
     '@pages':
-      fs.existsSync(
-        `${absoluteVulmixPaths(isDevMode).absoluteRootPath}/pages`
-      ) && `${absoluteVulmixPaths(isDevMode).absoluteRootPath}/pages`,
+      fs.existsSync(`${ABSOLUTE_ROOT_PATH}/pages`) &&
+      `${ABSOLUTE_ROOT_PATH}/pages`,
   }
 }
 
