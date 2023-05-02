@@ -40,7 +40,7 @@ class VulmixInit {
     useConsole.clear()
     useConsole.log(
       `${chalk.grey(`Vulmix ${pkg.version}`)}\n${chalk.blueBright(
-        `Warming up...`
+        'Warming up...'
       )}`
     )
 
@@ -155,7 +155,7 @@ class VulmixInit {
           useConsole.clear()
           useConsole.log(
             `${chalk.grey(`Vulmix ${pkg.version}`)}\n${chalk.cyan(
-              `Preparing production bundle...\n\n`
+              'Preparing production bundle...\n'
             )}`
           )
 
@@ -210,7 +210,7 @@ class VulmixInit {
               )
             )
 
-            useConsole.log(chalk.blueBright(`Finishing...`))
+            useConsole.log(chalk.blueBright('Finishing...'))
           })
         })
     } else {
@@ -223,7 +223,7 @@ class VulmixInit {
 
           useConsole.log(
             `${chalk.grey(`Vulmix ${pkg.version}`)}\n${chalk.cyan(
-              `Compiling...\n`
+              'Compiling...\n'
             )}`
           )
         })
