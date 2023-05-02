@@ -192,7 +192,7 @@ class VulmixInit {
             useConsole.clear()
 
             console.log(
-              chalk.greenBright(
+              chalk.green(
                 `${chalk.grey(
                   `Vulmix ${pkg.version}`
                 )}\n\nOptimized build generated in the ${chalk.yellowBright(
@@ -243,8 +243,8 @@ class VulmixInit {
               chalk.blueBright(
                 `${chalk.grey(
                   `Vulmix ${pkg.version}`
-                )}\nHMR Server running at: ${chalk.greenBright(
-                  `http://localhost:${argv.port}\n\n`
+                )}\nHMR Server running at: ${chalk.green(
+                  `http://localhost:${chalk.greenBright(argv.port)}/\n\n`
                 )}`
               )
             )
