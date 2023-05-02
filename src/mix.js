@@ -1,16 +1,19 @@
 const mix = require('laravel-mix')
-const path = require('node:path')
 const fs = require('node:fs')
 const chalk = require('chalk')
 const { argv } = require('yargs')
 
+const pkg = require('../package.json')
+const { useConsole } = require('./utils/useConsole.js')
 const getRelativePath = require('./utils/getRelativePath.js')
-
-let VulmixConfig
+const { UnpluginAutoImports } = require('./config/unplugin.js')
+const {
+  absoluteVulmixPaths,
+  relativeVulmixPaths,
+} = require('./config/paths.js')
+const { VulmixAliases } = require('./config/aliases')
 
 require('laravel-mix-ejs')
-
-let isFirstRun = false
 
 class VulmixInit {
   name() {
@@ -19,43 +22,38 @@ class VulmixInit {
 
 
   register(options = { dev: false }) {
-    const absoluteRootPath =
-      options.dev === true
-        ? path.resolve(__dirname, '../demo')
-        : path.resolve(__dirname, '../../..')
-    const absolutePackagePath =
-      options.dev === true
-        ? path.resolve(__dirname, '../')
-        : path.resolve(__dirname, '..')
-    const absolutePublicPath =
-      options.dev === true
-        ? path.resolve(__dirname, '../demo/_dist')
-        : path.resolve(__dirname, '../../../_dist')
+    const isDevMode = options.dev
 
-    const relativeRootPath =
-      options.dev === true
-        ? getRelativePath(absolutePackagePath, absoluteRootPath)
-        : getRelativePath(absoluteRootPath, absoluteRootPath)
-    const relativePackagePath =
-      options.dev === true
-        ? getRelativePath(absolutePackagePath, absolutePackagePath)
-        : getRelativePath(absoluteRootPath, absolutePackagePath)
-    const relativePublicPath =
-      options.dev === true
-        ? getRelativePath(absolutePackagePath, absolutePublicPath)
-        : getRelativePath(absoluteRootPath, absolutePublicPath)
+    const ABSOLUTE_ROOT_PATH = absoluteVulmixPaths(isDevMode).absoluteRootPath
+    const RELATIVE_PUBLIC_PATH =
+      relativeVulmixPaths(isDevMode).relativePublicPath
+    const ABSOLUTE_PACKAGE_PATH =
+      absoluteVulmixPaths(isDevMode).absolutePackagePath
+    const RELATIVE_PACKAGE_PATH =
+      relativeVulmixPaths(isDevMode).relativePackagePath
+    const ABSOLUTE_PUBLIC_PATH =
+      absoluteVulmixPaths(isDevMode).absolutePublicPath
 
-    VulmixConfig = require(`${absoluteRootPath}/.vulmix/${
-      options.dev === true ? 'demo/' : ''
+    const VulmixConfig = require(`${ABSOLUTE_ROOT_PATH}/.vulmix/${
+      isDevMode ? 'demo/' : ''
     }vulmix.config.js`)
 
-    fs.rmSync(`${absoluteRootPath}/_dist/assets`, {
+    useConsole.clear()
+    useConsole.log(
+      `${chalk.grey(`Vulmix ${pkg.version}`)}\n${chalk.blueBright(
+        'Warming up...'
+      )}`
+    )
+
+    fs.rmSync(`${ABSOLUTE_ROOT_PATH}/_dist/assets`, {
       recursive: true,
       force: true,
     })
 
-    if (!fs.existsSync(`${absoluteRootPath}/_dist/assets/img`)) {
-      fs.mkdirSync(`${absoluteRootPath}/_dist/assets/img`, { recursive: true })
+    if (!fs.existsSync(`${ABSOLUTE_ROOT_PATH}/_dist/assets/img`)) {
+      fs.mkdirSync(`${ABSOLUTE_ROOT_PATH}/_dist/assets/img`, {
+        recursive: true,
+      })
     }
 
     mix.options({
@@ -66,138 +64,36 @@ class VulmixInit {
     })
 
     mix
-      .setPublicPath(relativePublicPath)
+      .setPublicPath(RELATIVE_PUBLIC_PATH)
 
       .before(() => {
-        if (options.dev === false) {
-          if (!fs.existsSync(`${absoluteRootPath}/vercel.json`)) {
+        if (!isDevMode) {
+          if (!fs.existsSync(`${ABSOLUTE_ROOT_PATH}/vercel.json`)) {
             mix.copy(
-              `${absolutePackagePath}/utils/deploy/vercel.json`,
-              absoluteRootPath
+              `${ABSOLUTE_PACKAGE_PATH}/utils/deploy/vercel.json`,
+              ABSOLUTE_ROOT_PATH
             )
           }
 
           mix
             .copy(
-              `${absolutePackagePath}/utils/tsconfig.json`,
-              `${absoluteRootPath}/.vulmix/types`
+              `${ABSOLUTE_PACKAGE_PATH}/utils/tsconfig.json`,
+              `${ABSOLUTE_ROOT_PATH}/.vulmix/types`
             )
             .copy(
-              `${absolutePackagePath}/types/vue-shims.d.ts`,
-              `${absoluteRootPath}/.vulmix/types`
+              `${ABSOLUTE_PACKAGE_PATH}/types/vue-shims.d.ts`,
+              `${ABSOLUTE_ROOT_PATH}/.vulmix/types`
             )
         }
       })
 
       .webpackConfig({
-        plugins: [
-          require('unplugin-vue-components/webpack')({
-            /* options */
-
-            // Vue version of project. It will detect automatically if not specified.
-            // Acceptable value: 2 | 2.7 | 3
-            version: 3,
-
-            // relative paths to the directory to search for components.
-            dirs: [
-              `${absoluteRootPath}/components`,
-              `${absolutePackagePath}/src/vue/components/**`,
-            ],
-
-            // valid file extensions for components.
-            extensions: ['vue', 'ts', 'js'],
-
-            // Allow subdirectories as namespace prefix for components.
-            directoryAsNamespace: true,
-
-            // Collapse same prefixes (camel-sensitive) of folders and components
-            // to prevent duplication inside namespaced component name.
-            // works when `directoryAsNamespace: true`
-            collapseSamePrefixes: true,
-
-            // generate `components.d.ts` global declarations,
-            // also accepts a path for custom filename
-            // default: `true` if package typescript is installed
-            dts:
-              options.dev === true
-                ? `${absolutePackagePath}/types/components.d.ts`
-                : `${absoluteRootPath}/.vulmix/types/components.d.ts`,
-          }),
-
-          require('unplugin-auto-import/webpack')({
-            // targets to transform
-            include: [
-              /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
-              /\.vue$/,
-              /\.vue\?vue/, // .vue
-              /\.md$/, // .md
-            ],
-
-            // global imports to register
-            imports: [
-              // presets
-              'vue',
-              'vue-router',
-              // custom
-              {
-                '@vueuse/core': [
-                  // named imports
-                  'useFetch', // import { useMouse } from '@vueuse/core',
-                ],
-              },
-            ],
-            // Enable auto import by filename for default module exports under directories
-            defaultExportByFilename: false,
-
-            // Auto import for module exports under directories
-            // by default it only scan one level of modules under the directory
-            dirs: [
-              // './hooks',
-              // './composables' // only root modules
-              // './composables/**', // all nested modules
-              `${absoluteRootPath}/composables/**`, // all nested modules
-            ],
-
-            // Filepath to generate corresponding .d.ts file.
-            // Defaults to './auto-imports.d.ts' when `typescript` is installed locally.
-            // Set `false` to disable.
-            dts:
-              options.dev === true
-                ? `${absolutePackagePath}/types/auto-imports.d.ts`
-                : `${absoluteRootPath}/.vulmix/types/auto-imports.d.ts`,
-
-            // Auto import inside Vue template
-            // see https://github.com/unjs/unimport/pull/15 and https://github.com/unjs/unimport/pull/72
-            vueTemplate: true,
-
-            // Custom resolvers, compatible with `unplugin-vue-components`
-            // see https://github.com/antfu/unplugin-auto-import/pull/23/
-            resolvers: [
-              /* ... */
-            ],
-          }),
-        ],
+        plugins: [...UnpluginAutoImports(isDevMode)],
 
         resolve: {
           extensions: ['.js', '.vue', '.ts'],
           alias: {
-            '~': absoluteRootPath,
-            '@': path.resolve(__dirname, `${absolutePackagePath}/src`),
-            '@assets':
-              fs.existsSync(`${absoluteRootPath}/assets`) &&
-              `${absoluteRootPath}/assets`,
-            '@components':
-              fs.existsSync(`${absoluteRootPath}/components`) &&
-              `${absoluteRootPath}/components`,
-            '@composables':
-              fs.existsSync(`${absoluteRootPath}/composables`) &&
-              `${absoluteRootPath}/composables`,
-            '@layouts':
-              fs.existsSync(`${absoluteRootPath}/layouts`) &&
-              `${absoluteRootPath}/layouts`,
-            '@pages':
-              fs.existsSync(`${absoluteRootPath}/pages`) &&
-              `${absoluteRootPath}/pages`,
+            ...VulmixAliases(isDevMode),
           },
         },
         module: {
@@ -214,20 +110,20 @@ class VulmixInit {
 
       .ejs(
         [
-          `${relativePackagePath}/src/index.ejs`,
-          `${relativePublicPath}/mix-manifest.json`,
+          `${RELATIVE_PACKAGE_PATH}/src/index.ejs`,
+          `${RELATIVE_PUBLIC_PATH}/mix-manifest.json`,
         ],
-        `${relativePublicPath}`,
+        RELATIVE_PUBLIC_PATH,
         VulmixConfig,
         {
-          partials: [`${relativePublicPath}/mix-manifest.json`],
+          partials: [`${RELATIVE_PUBLIC_PATH}/mix-manifest.json`],
           mixVersioning: true,
         }
       )
 
       .ts(
-        `${absolutePackagePath}/src/vue/main.ts`,
-        `${absoluteRootPath}/_dist/assets/_vulmix/js/main.vulmix.js`
+        `${ABSOLUTE_PACKAGE_PATH}/src/vue/main.ts`,
+        `${ABSOLUTE_ROOT_PATH}/_dist/assets/_vulmix/js/main.vulmix.js`
       )
       .vue({ version: 3 })
 
@@ -235,38 +131,19 @@ class VulmixInit {
 
       .extract()
 
-      .after(stats => {
-        /**
-         * Only prints user files to the terminal
-         */
-        const assets = { ...stats.compilation.assets }
-        stats.compilation.assets = {}
+      .disableSuccessNotifications()
 
-        for (const [path, asset] of Object.entries(assets)) {
-          if (!path.match(/((\.|_)vulmix|\.map)/)) {
-            stats.compilation.assets[path] = asset
-          }
-        }
-
-        // Synchronous run
-        setTimeout(() => {
-          if (isFirstRun === false) {
-            isFirstRun = true
-          }
-        })
-      })
-
-    if (fs.existsSync(`${absoluteRootPath}/assets/icons/`)) {
+    if (fs.existsSync(`${ABSOLUTE_ROOT_PATH}/assets/icons/`)) {
       mix.copy(
-        `${absoluteRootPath}/assets/icons`,
-        `${absoluteRootPath}/_dist/assets/icons`
+        `${ABSOLUTE_ROOT_PATH}/assets/icons`,
+        `${ABSOLUTE_ROOT_PATH}/_dist/assets/icons`
       )
     }
 
-    if (fs.existsSync(`${absoluteRootPath}/assets/img/`)) {
+    if (fs.existsSync(`${ABSOLUTE_ROOT_PATH}/assets/img/`)) {
       mix.copy(
-        `${absoluteRootPath}/assets/img`,
-        `${absoluteRootPath}/_dist/assets/img`
+        `${ABSOLUTE_ROOT_PATH}/assets/img`,
+        `${ABSOLUTE_ROOT_PATH}/_dist/assets/img`
       )
     }
 
@@ -276,35 +153,115 @@ class VulmixInit {
     if (mix.inProduction()) {
       mix
         .before(() => {
-          console.log(chalk.cyan('\n\nPreparing production bundle...\n\n'))
+          useConsole.clear()
+          useConsole.log(
+            `${chalk.grey(`Vulmix ${pkg.version}`)}\n${chalk.cyan(
+              'Preparing production bundle...\n'
+            )}`
+          )
 
           mix
             .copy(
-              `${relativePackagePath}/utils/tsconfig.json`,
-              `${relativePublicPath}/.vulmix/types`
+              `${RELATIVE_PACKAGE_PATH}/utils/tsconfig.json`,
+              `${RELATIVE_PUBLIC_PATH}/.vulmix/types`
             )
             .copy(
-              `${relativePackagePath}/types/vue-shims.d.ts`,
-              `${relativePublicPath}/.vulmix/types`
+              `${RELATIVE_PACKAGE_PATH}/types/vue-shims.d.ts`,
+              `${RELATIVE_PUBLIC_PATH}/.vulmix/types`
             )
         })
 
         .copy(
-          `${absolutePackagePath}/utils/deploy/.htaccess`,
-          `${absolutePublicPath}`
+          `${ABSOLUTE_PACKAGE_PATH}/utils/deploy/.htaccess`,
+          ABSOLUTE_PUBLIC_PATH
         )
+
+        .after(stats => {
+          /**
+           * Only prints user files to the terminal
+           */
+          const assets = { ...stats.compilation.assets }
+          stats.compilation.assets = {}
+
+          for (const [path, asset] of Object.entries(assets)) {
+            if (!path.match(/((\.|_)vulmix|\.map)/)) {
+              stats.compilation.assets[path] = asset
+            }
+          }
+
+          setTimeout(() => {
+            useConsole.clear()
+
+            // Here I use native console object to block execution before the next message
+            console.log(
+              chalk.green(
+                `${chalk.grey(
+                  `Vulmix ${pkg.version}`
+                )}\n\nOptimized build generated in the ${chalk.yellowBright(
+                  isDevMode
+                    ? getRelativePath(
+                        ABSOLUTE_PACKAGE_PATH,
+                        ABSOLUTE_PUBLIC_PATH
+                      ).replace(/\.\//g, '')
+                    : getRelativePath(
+                        ABSOLUTE_ROOT_PATH,
+                        ABSOLUTE_PUBLIC_PATH
+                      ).replace(/\.\//g, '')
+                )} folder. You can\ndeploy its contents on any static host.\n`
+              )
+            )
+
+            useConsole.log(chalk.blueBright('Finishing...'))
+          })
+        })
     } else {
       /**
        * Development mode only
        */
       mix
+        .before(() => {
+          useConsole.clear()
+
+          useConsole.log(
+            `${chalk.grey(`Vulmix ${pkg.version}`)}\n${chalk.cyan(
+              'Compiling...\n'
+            )}`
+          )
+        })
+
         .webpackConfig({
           devtool: 'source-map',
         })
 
         .sourceMaps()
 
-        .disableSuccessNotifications()
+        .after(stats => {
+          /**
+           * Only prints user files to the terminal
+           */
+          const assets = { ...stats.compilation.assets }
+          stats.compilation.assets = {}
+
+          for (const [path, asset] of Object.entries(assets)) {
+            if (!path.match(/((\.|_)vulmix|\.map)/)) {
+              stats.compilation.assets[path] = asset
+            }
+          }
+
+          setTimeout(() => {
+            useConsole.clear()
+
+            useConsole.log(
+              chalk.blueBright(
+                `${chalk.grey(
+                  `Vulmix ${pkg.version}`
+                )}\nHMR Server running at: ${chalk.green(
+                  `http://localhost:${chalk.greenBright(argv.port)}/\n\n`
+                )}`
+              )
+            )
+          })
+        })
     }
   }
 }
