@@ -1,5 +1,4 @@
 const mix = require('laravel-mix')
-const path = require('node:path')
 const fs = require('node:fs')
 const chalk = require('chalk')
 const { argv } = require('yargs')
@@ -7,10 +6,12 @@ const { argv } = require('yargs')
 const pkg = require('../package.json')
 const { useConsole } = require('./utils/console.js')
 const getRelativePath = require('./utils/getRelativePath.js')
+const {
+  absoluteVulmixPaths,
+  relativeVulmixPaths,
+} = require('./config/paths.js')
 
 require('laravel-mix-ejs')
-
-let VulmixConfig
 
 class VulmixInit {
   name() {
@@ -18,30 +19,20 @@ class VulmixInit {
   }
 
   register(options = { dev: false }) {
-    const absoluteRootPath =
-      options.dev === true
-        ? path.resolve(__dirname, '../demo')
-        : path.resolve(__dirname, '../../..')
-    const absolutePackagePath =
-      options.dev === true
-        ? path.resolve(__dirname, '../')
-        : path.resolve(__dirname, '..')
-    const absolutePublicPath =
-      options.dev === true
-        ? path.resolve(__dirname, '../demo/_dist')
-        : path.resolve(__dirname, '../../../_dist')
+    const isDevMode = options.dev
 
-    const relativePackagePath =
-      options.dev === true
-        ? getRelativePath(absolutePackagePath, absolutePackagePath)
-        : getRelativePath(absoluteRootPath, absolutePackagePath)
-    const relativePublicPath =
-      options.dev === true
-        ? getRelativePath(absolutePackagePath, absolutePublicPath)
-        : getRelativePath(absoluteRootPath, absolutePublicPath)
+    const ABSOLUTE_ROOT_PATH = absoluteVulmixPaths(isDevMode).absoluteRootPath
+    const RELATIVE_PUBLIC_PATH =
+      relativeVulmixPaths(isDevMode).relativePublicPath
+    const ABSOLUTE_PACKAGE_PATH =
+      absoluteVulmixPaths(isDevMode).absolutePackagePath
+    const RELATIVE_PACKAGE_PATH =
+      relativeVulmixPaths(isDevMode).relativePackagePath
+    const ABSOLUTE_PUBLIC_PATH =
+      absoluteVulmixPaths(isDevMode).absolutePublicPath
 
-    VulmixConfig = require(`${absoluteRootPath}/.vulmix/${
-      options.dev === true ? 'demo/' : ''
+    const VulmixConfig = require(`${ABSOLUTE_ROOT_PATH}/.vulmix/${
+      isDevMode ? 'demo/' : ''
     }vulmix.config.js`)
 
     useConsole.clear()
@@ -51,13 +42,15 @@ class VulmixInit {
       )}`
     )
 
-    fs.rmSync(`${absoluteRootPath}/_dist/assets`, {
+    fs.rmSync(`${ABSOLUTE_ROOT_PATH}/_dist/assets`, {
       recursive: true,
       force: true,
     })
 
-    if (!fs.existsSync(`${absoluteRootPath}/_dist/assets/img`)) {
-      fs.mkdirSync(`${absoluteRootPath}/_dist/assets/img`, { recursive: true })
+    if (!fs.existsSync(`${ABSOLUTE_ROOT_PATH}/_dist/assets/img`)) {
+      fs.mkdirSync(`${ABSOLUTE_ROOT_PATH}/_dist/assets/img`, {
+        recursive: true,
+      })
     }
 
     mix.options({
@@ -68,25 +61,25 @@ class VulmixInit {
     })
 
     mix
-      .setPublicPath(relativePublicPath)
+      .setPublicPath(RELATIVE_PUBLIC_PATH)
 
       .before(() => {
-        if (options.dev === false) {
-          if (!fs.existsSync(`${absoluteRootPath}/vercel.json`)) {
+        if (!isDevMode) {
+          if (!fs.existsSync(`${ABSOLUTE_ROOT_PATH}/vercel.json`)) {
             mix.copy(
-              `${absolutePackagePath}/utils/deploy/vercel.json`,
-              absoluteRootPath
+              `${ABSOLUTE_PACKAGE_PATH}/utils/deploy/vercel.json`,
+              ABSOLUTE_ROOT_PATH
             )
           }
 
           mix
             .copy(
-              `${absolutePackagePath}/utils/tsconfig.json`,
-              `${absoluteRootPath}/.vulmix/types`
+              `${ABSOLUTE_PACKAGE_PATH}/utils/tsconfig.json`,
+              `${ABSOLUTE_ROOT_PATH}/.vulmix/types`
             )
             .copy(
-              `${absolutePackagePath}/types/vue-shims.d.ts`,
-              `${absoluteRootPath}/.vulmix/types`
+              `${ABSOLUTE_PACKAGE_PATH}/types/vue-shims.d.ts`,
+              `${ABSOLUTE_ROOT_PATH}/.vulmix/types`
             )
         }
       })
@@ -216,20 +209,20 @@ class VulmixInit {
 
       .ejs(
         [
-          `${relativePackagePath}/src/index.ejs`,
-          `${relativePublicPath}/mix-manifest.json`,
+          `${RELATIVE_PACKAGE_PATH}/src/index.ejs`,
+          `${RELATIVE_PUBLIC_PATH}/mix-manifest.json`,
         ],
-        `${relativePublicPath}`,
+        RELATIVE_PUBLIC_PATH,
         VulmixConfig,
         {
-          partials: [`${relativePublicPath}/mix-manifest.json`],
+          partials: [`${RELATIVE_PUBLIC_PATH}/mix-manifest.json`],
           mixVersioning: true,
         }
       )
 
       .ts(
-        `${absolutePackagePath}/src/vue/main.ts`,
-        `${absoluteRootPath}/_dist/assets/_vulmix/js/main.vulmix.js`
+        `${ABSOLUTE_PACKAGE_PATH}/src/vue/main.ts`,
+        `${ABSOLUTE_ROOT_PATH}/_dist/assets/_vulmix/js/main.vulmix.js`
       )
       .vue({ version: 3 })
 
@@ -237,17 +230,19 @@ class VulmixInit {
 
       .extract()
 
-    if (fs.existsSync(`${absoluteRootPath}/assets/icons/`)) {
+      .disableSuccessNotifications()
+
+    if (fs.existsSync(`${ABSOLUTE_ROOT_PATH}/assets/icons/`)) {
       mix.copy(
-        `${absoluteRootPath}/assets/icons`,
-        `${absoluteRootPath}/_dist/assets/icons`
+        `${ABSOLUTE_ROOT_PATH}/assets/icons`,
+        `${ABSOLUTE_ROOT_PATH}/_dist/assets/icons`
       )
     }
 
-    if (fs.existsSync(`${absoluteRootPath}/assets/img/`)) {
+    if (fs.existsSync(`${ABSOLUTE_ROOT_PATH}/assets/img/`)) {
       mix.copy(
-        `${absoluteRootPath}/assets/img`,
-        `${absoluteRootPath}/_dist/assets/img`
+        `${ABSOLUTE_ROOT_PATH}/assets/img`,
+        `${ABSOLUTE_ROOT_PATH}/_dist/assets/img`
       )
     }
 
@@ -266,18 +261,18 @@ class VulmixInit {
 
           mix
             .copy(
-              `${relativePackagePath}/utils/tsconfig.json`,
-              `${relativePublicPath}/.vulmix/types`
+              `${RELATIVE_PACKAGE_PATH}/utils/tsconfig.json`,
+              `${RELATIVE_PUBLIC_PATH}/.vulmix/types`
             )
             .copy(
-              `${relativePackagePath}/types/vue-shims.d.ts`,
-              `${relativePublicPath}/.vulmix/types`
+              `${RELATIVE_PACKAGE_PATH}/types/vue-shims.d.ts`,
+              `${RELATIVE_PUBLIC_PATH}/.vulmix/types`
             )
         })
 
         .copy(
-          `${absolutePackagePath}/utils/deploy/.htaccess`,
-          `${absolutePublicPath}`
+          `${ABSOLUTE_PACKAGE_PATH}/utils/deploy/.htaccess`,
+          ABSOLUTE_PUBLIC_PATH
         )
 
         .after(stats => {
@@ -300,11 +295,17 @@ class VulmixInit {
               chalk.greenBright(
                 `${chalk.grey(
                   `Vulmix ${pkg.version}`
-                )}\n\nOptimized build generated in ${chalk.yellowBright(
-                  options.dev === true
-                    ? getRelativePath(absolutePackagePath, absolutePublicPath)
-                    : getRelativePath(absoluteRootPath, absolutePublicPath)
-                )}. You can deploy its contents\non any static host.\n`
+                )}\n\nOptimized build generated in the ${chalk.yellowBright(
+                  isDevMode
+                    ? getRelativePath(
+                        ABSOLUTE_PACKAGE_PATH,
+                        ABSOLUTE_PUBLIC_PATH
+                      ).replace(/\.\//g, '')
+                    : getRelativePath(
+                        ABSOLUTE_ROOT_PATH,
+                        ABSOLUTE_PUBLIC_PATH
+                      ).replace(/\.\//g, '')
+                )} folder. You can\ndeploy its contents on any static host.\n`
               )
             )
 
