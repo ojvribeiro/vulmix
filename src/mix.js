@@ -213,7 +213,7 @@ class VulmixInit {
               )
             )
 
-            useConsole.log(chalk.blueBright('Finishing...'))
+            useConsole.log(chalk.blueBright('Finishing...\n\n'))
           })
         })
     } else {
@@ -258,7 +258,7 @@ class VulmixInit {
                 `${chalk.grey(
                   `Vulmix ${pkg.version}`
                 )}\nHMR Server running at: ${chalk.green(
-                  `http://localhost:${chalk.greenBright(argv.port)}/\n\n`
+                  `http://localhost:${chalk.greenBright(argv.port)}/\n`
                 )}`
               )
             )
