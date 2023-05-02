@@ -191,6 +191,7 @@ class VulmixInit {
           setTimeout(() => {
             useConsole.clear()
 
+            // Here I use native console object to block execution before the next message
             console.log(
               chalk.green(
                 `${chalk.grey(
@@ -217,6 +218,16 @@ class VulmixInit {
        * Development mode only
        */
       mix
+        .before(() => {
+          useConsole.clear()
+
+          useConsole.log(
+            `${chalk.grey(`Vulmix ${pkg.version}`)}\n${chalk.cyan(
+              `Compiling...\n`
+            )}`
+          )
+        })
+
         .webpackConfig({
           devtool: 'source-map',
         })
