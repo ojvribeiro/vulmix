@@ -1,10 +1,10 @@
 export interface VulmixConfig {
-  lang: string
+  lang?: string
 
-  head: {
-    title: string
+  head?: {
+    title?: string
 
-    meta: {
+    meta?: {
       charset?: string
       name?: string
       property?: string
@@ -12,8 +12,8 @@ export interface VulmixConfig {
       content?: string
     }[]
 
-    link: {
-      rel: string
+    link?: {
+      rel?: string
       sizes?: string
       href?: string
     }[]
