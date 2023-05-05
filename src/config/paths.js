@@ -17,7 +17,7 @@ const absoluteVulmixPaths = () => {
         ? normalizePath(path.resolve(__dirname, '../../demo'))
         : normalizePath(path.resolve(__dirname, '../../../..')),
 
-    absolutePackagePath: path.resolve(__dirname, '../..'),
+    absolutePackagePath: normalizePath(path.resolve(__dirname, '../..')),
 
     absolutePublicPath:
       isDevMode === true
