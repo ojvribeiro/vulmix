@@ -1,4 +1,4 @@
-import defineVulmixConfig from '../src/utils/defineVulmixConfig'
+import { defineVulmixConfig } from './.vulmix/utils/defineVulmixConfig'
 
 export default defineVulmixConfig({
 })
