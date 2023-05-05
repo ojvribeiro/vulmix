@@ -11,7 +11,7 @@ const head: HeadClient<{}> = createHead()
  * Built-in components
  */
 const nativeComponents = require.context(
-  '@/vue/components/',
+  '@@/vue/components/',
   true,
   /\.(vue|js|ts)$/i
 )
@@ -31,7 +31,7 @@ let routes: Array<{ path: string; component: any }> = []
  * Built-in pages
  */
 const nativePageComponents = require.context(
-  '@/vue/pages/',
+  '@@/vue/pages/',
   true,
   /\.(vue|js|ts)$/i
 )
@@ -102,7 +102,7 @@ dynamicPageComponents.keys().map((key: string) => {
 
 routes.push({
   path: '/:pathMatch(.*)*',
-  component: require('@/vue/pages/404.vue').default,
+  component: require('@@/vue/pages/404.vue').default,
 })
 
 const router: Router = createRouter({
