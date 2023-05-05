@@ -70,16 +70,6 @@ class VulmixInit {
               ABSOLUTE_ROOT_PATH
             )
           }
-
-          mix
-            .copy(
-              `${ABSOLUTE_PACKAGE_PATH}/utils/tsconfig.json`,
-              `${ABSOLUTE_ROOT_PATH}/.vulmix/types`
-            )
-            .copy(
-              `${ABSOLUTE_PACKAGE_PATH}/types/vue-shims.d.ts`,
-              `${ABSOLUTE_ROOT_PATH}/.vulmix/types`
-            )
         }
       })
 
