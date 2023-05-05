@@ -5,9 +5,10 @@
   "repository": "ojvribeiro/vulmix",
   "main": "./src/mix.js",
   "scripts": {
-    "dev": "node ./src/cli.js",
-    "prod": "mix --production",
-    "serve": "npx http-server -p 8000 -a localhost demo/_dist --gzip --proxy http://localhost:8000?"
+    "prepare": "node ./src/cli.js prepare",
+    "dev": "node ./src/cli.js dev",
+    "prod": "node ./src/cli.js prod",
+    "serve": "node ./src/cli.js serve"
   },
   "author": "Victor Ribeiro",
   "license": "MIT",
