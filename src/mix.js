@@ -82,14 +82,14 @@ class VulmixInit {
       .webpackConfig({
         plugins: [
           ...UnpluginAutoImports(),
-          ...(VulmixConfig.webpackConfig.plugins || []),
+          ...(VulmixConfig.webpackConfig?.plugins || []),
         ],
 
         resolve: {
           extensions: ['.js', '.vue', '.ts'],
           alias: {
             ...VulmixAliases(),
-            ...(VulmixConfig.webpackConfig.resolve.alias || {}),
+            ...(VulmixConfig.webpackConfig?.resolve?.alias || {}),
           },
         },
 
