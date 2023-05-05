@@ -3,8 +3,8 @@ const chalk = require('chalk')
 const { useConsole } = require('./useConsole')
 const { absoluteVulmixPaths } = require('../config/paths.js')
 
-const useProjectFolderListener = (isDevMode = false) => {
-  const ABSOLUTE_ROOT_PATH = absoluteVulmixPaths(isDevMode).absoluteRootPath
+const useProjectFolderListener = () => {
+  const ABSOLUTE_ROOT_PATH = absoluteVulmixPaths().absoluteRootPath
 
   const folders = ['assets', 'components', 'layouts', 'pages']
 

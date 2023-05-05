@@ -25,18 +25,12 @@ class VulmixInit {
   register(options = { dev: false }) {
     const isDevMode = options.dev
 
-    const ABSOLUTE_ROOT_PATH = absoluteVulmixPaths(isDevMode).absoluteRootPath
-    const RELATIVE_PUBLIC_PATH =
-      relativeVulmixPaths(isDevMode).relativePublicPath
-    const ABSOLUTE_PACKAGE_PATH =
-      absoluteVulmixPaths(isDevMode).absolutePackagePath
-    const RELATIVE_PACKAGE_PATH =
-      relativeVulmixPaths(isDevMode).relativePackagePath
-    const ABSOLUTE_PUBLIC_PATH =
-      absoluteVulmixPaths(isDevMode).absolutePublicPath
-    const VULMIX_CONFIG_PATH = `${ABSOLUTE_ROOT_PATH}/.vulmix/${
-      isDevMode ? 'demo/' : ''
-    }vulmix.config.js`
+    const ABSOLUTE_ROOT_PATH = absoluteVulmixPaths().absoluteRootPath
+    const RELATIVE_PUBLIC_PATH = relativeVulmixPaths().relativePublicPath
+    const ABSOLUTE_PACKAGE_PATH = absoluteVulmixPaths().absolutePackagePath
+    const RELATIVE_PACKAGE_PATH = relativeVulmixPaths().relativePackagePath
+    const ABSOLUTE_PUBLIC_PATH = absoluteVulmixPaths().absolutePublicPath
+    const VULMIX_CONFIG_PATH = `${ABSOLUTE_ROOT_PATH}/.vulmix/vulmix.config.js`
 
     const VulmixConfig = require(VULMIX_CONFIG_PATH)
 
@@ -90,12 +84,12 @@ class VulmixInit {
       })
 
       .webpackConfig({
-        plugins: [...UnpluginAutoImports(isDevMode)],
+        plugins: [...UnpluginAutoImports()],
 
         resolve: {
           extensions: ['.js', '.vue', '.ts'],
           alias: {
-            ...VulmixAliases(isDevMode),
+            ...VulmixAliases(),
           },
         },
 
@@ -272,7 +266,7 @@ class VulmixInit {
           open: false,
           notify: false,
           files: [
-            ...useProjectFolderListener(isDevMode),
+            ...useProjectFolderListener(),
 
             `${ABSOLUTE_ROOT_PATH}/app.{vue,js,ts}`,
 

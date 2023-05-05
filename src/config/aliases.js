@@ -2,10 +2,10 @@ const fs = require('node:fs')
 const path = require('node:path')
 const { absoluteVulmixPaths } = require('./paths')
 
-const VulmixAliases = (isDevMode = false) => {
-  const ABSOLUTE_ROOT_PATH = absoluteVulmixPaths(isDevMode).absoluteRootPath
+const VulmixAliases = () => {
+  const ABSOLUTE_ROOT_PATH = absoluteVulmixPaths().absoluteRootPath
   const ABSOLUTE_PACKAGE_PATH =
-    absoluteVulmixPaths(isDevMode).absolutePackagePath
+    absoluteVulmixPaths().absolutePackagePath
 
   return {
     '~': ABSOLUTE_ROOT_PATH,
