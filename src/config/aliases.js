@@ -9,7 +9,8 @@ const VulmixAliases = () => {
 
   return {
     '~': ABSOLUTE_ROOT_PATH,
-    '@': path.resolve(__dirname, `${ABSOLUTE_PACKAGE_PATH}/src`),
+    '@': ABSOLUTE_ROOT_PATH,
+    '@@': path.resolve(__dirname, `${ABSOLUTE_PACKAGE_PATH}/src`),
     '@assets':
       fs.existsSync(`${ABSOLUTE_ROOT_PATH}/assets`) &&
       `${ABSOLUTE_ROOT_PATH}/assets`,
