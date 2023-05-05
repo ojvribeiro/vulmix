@@ -14,7 +14,13 @@
     "outDir": "../../_dist",
     "baseUrl": "../..",
     "paths": {
-      "~": ["./"]
+      "~": ["./"],
+      "@": ["./"],
+      "@assets/*": ["./assets/*"],
+      "@components/*": ["./components/*"],
+      "@composables/*": ["./composables/*"],
+      "@layouts/*": ["./layouts/*"],
+      "@pages/*": ["./pages/*"]
     }
   },
   "include": [
