@@ -12,6 +12,15 @@ const ABSOLUTE_PACKAGE_PATH = absoluteVulmixPaths().absolutePackagePath
 if (!fs.existsSync(`${ABSOLUTE_ROOT_PATH}/.vulmix`)) {
   fs.mkdirSync(`${ABSOLUTE_ROOT_PATH}/.vulmix`)
 }
+
+if (!fs.existsSync(`${ABSOLUTE_ROOT_PATH}/.vulmix/laravel-mix`)) {
+  fs.mkdirSync(`${ABSOLUTE_ROOT_PATH}/.vulmix/laravel-mix`)
+
+  copyMixFile()
+} else {
+  copyMixFile()
+}
+
 if (!fs.existsSync(`${ABSOLUTE_ROOT_PATH}/.vulmix/types`)) {
   fs.mkdirSync(`${ABSOLUTE_ROOT_PATH}/.vulmix/types`)
 
@@ -38,11 +47,21 @@ fp(3000, function (fpError, freePort) {
   try {
     const port = freePort
 
-    execSync(`mix watch --hot -- --port=${port}`, { stdio: 'inherit' })
+    execSync(
+      `mix watch --mix-config=${ABSOLUTE_ROOT_PATH}/.vulmix/laravel-mix/webpack.mix.js --hot -- --port=${port}`,
+      { stdio: 'inherit' }
+    )
   } catch (err) {
     console.log(err)
   }
 })
+
+function copyMixFile() {
+  fs.copyFileSync(
+    `${ABSOLUTE_PACKAGE_PATH}/utils/webpack.mix${isDevMode ? '.dev' : ''}.js`,
+    `${ABSOLUTE_ROOT_PATH}/.vulmix/laravel-mix/webpack.mix.js`
+  )
+}
 
 function copyTypes() {
   fs.copyFileSync(
