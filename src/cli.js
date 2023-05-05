@@ -3,9 +3,6 @@ const execSync = require('node:child_process').execSync
 const fp = require('find-free-port')
 const { absoluteVulmixPaths, isDevMode } = require('./config/paths.js')
 
-execSync('tsc ./demo/vulmix.config.ts --outDir ./demo/.vulmix', {
-  stdio: 'inherit',
-})
 const ABSOLUTE_ROOT_PATH = absoluteVulmixPaths().absoluteRootPath
 const ABSOLUTE_PACKAGE_PATH = absoluteVulmixPaths().absolutePackagePath
 
@@ -36,6 +33,13 @@ if (!fs.existsSync(`${ABSOLUTE_ROOT_PATH}/.vulmix/utils`)) {
 } else {
   copyUtils()
 }
+
+execSync(
+  `tsc ${ABSOLUTE_ROOT_PATH}/vulmix.config.ts --outDir ${ABSOLUTE_ROOT_PATH}/.vulmix`,
+  {
+    stdio: 'inherit',
+  }
+)
 
 fp(3000, function (fpError, freePort) {
   if (fpError) {
