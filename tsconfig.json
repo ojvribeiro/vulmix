@@ -1,3 +1,4 @@
+// Nothing to see here
 {
-  "extends": "./types/tsconfig.json"
+  "extends": "./demo/tsconfig.json",
 }
