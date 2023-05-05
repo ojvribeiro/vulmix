@@ -124,5 +124,11 @@ export interface VulmixConfig {
       async?: boolean
       defer?: boolean
     }[]
-  }
+  },
+
+  webpackConfig?: {
+    resolve?: {
+      alias?: any
+    }
+  },
 }
