@@ -7,7 +7,7 @@ const { argv } = require('yargs')
 const pkg = require('../package.json')
 const { useConsole } = require('./utils/useConsole.js')
 const getRelativePath = require('./utils/getRelativePath.js')
-const { UnpluginAutoImports } = require('./config/unplugin.js')
+const { UnpluginAutoImports } = require('./config/imports.js')
 const {
   absoluteVulmixPaths,
   relativeVulmixPaths,
