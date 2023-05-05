@@ -11,28 +11,34 @@ const { UnpluginAutoImports } = require('./config/imports.js')
 const {
   absoluteVulmixPaths,
   relativeVulmixPaths,
+  isDevMode,
 } = require('./config/paths.js')
 const { VulmixAliases } = require('./config/aliases')
 const { useProjectFolderListener } = require('./utils/useProjectFolderListener')
 
 require('laravel-mix-ejs')
 
+const ABSOLUTE_ROOT_PATH = absoluteVulmixPaths().absoluteRootPath
+const RELATIVE_PUBLIC_PATH = relativeVulmixPaths().relativePublicPath
+const ABSOLUTE_PACKAGE_PATH = absoluteVulmixPaths().absolutePackagePath
+const RELATIVE_PACKAGE_PATH = relativeVulmixPaths().relativePackagePath
+const ABSOLUTE_PUBLIC_PATH = absoluteVulmixPaths().absolutePublicPath
+
+const vulmix = {
+  globals: {
+    rootPath: ABSOLUTE_ROOT_PATH,
+  },
+}
+
 class VulmixInit {
   name() {
     return 'vulmix'
   }
 
-  register(options = { dev: false }) {
-    const isDevMode = options.dev
-
-    const ABSOLUTE_ROOT_PATH = absoluteVulmixPaths().absoluteRootPath
-    const RELATIVE_PUBLIC_PATH = relativeVulmixPaths().relativePublicPath
-    const ABSOLUTE_PACKAGE_PATH = absoluteVulmixPaths().absolutePackagePath
-    const RELATIVE_PACKAGE_PATH = relativeVulmixPaths().relativePackagePath
-    const ABSOLUTE_PUBLIC_PATH = absoluteVulmixPaths().absolutePublicPath
+  register() {
     const VULMIX_CONFIG_PATH = `${ABSOLUTE_ROOT_PATH}/.vulmix/vulmix.config.js`
 
-    const VulmixConfig = require(VULMIX_CONFIG_PATH)
+    const VulmixConfig = require(VULMIX_CONFIG_PATH).default
 
     useConsole.clear()
     useConsole.log(
@@ -265,7 +271,7 @@ class VulmixInit {
               fn: (event, file) => {
                 if (event === 'change') {
                   useConsole.log(
-                    chalk.cyan('\n\nConfig file changed. Recompiling...')
+                    chalk.cyan('\n\nConfig file changed. Recompiling...\n\n')
                   )
 
                   exec(
@@ -295,3 +301,5 @@ class VulmixInit {
 }
 
 mix.extend('vulmix', new VulmixInit())
+
+module.exports = { vulmix }
