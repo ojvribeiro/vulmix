@@ -5,10 +5,10 @@
   "repository": "ojvribeiro/vulmix",
   "main": "./src/mix.js",
   "scripts": {
-    "prepare": "node ./src/cli.js prepare",
-    "dev": "node ./src/cli.js dev",
-    "prod": "node ./src/cli.js prod",
-    "serve": "node ./src/cli.js serve"
+    "prepare": "vulxi prepare",
+    "dev": "vulxi dev",
+    "prod": "vulxi prod",
+    "serve": "vulxi serve"
   },
   "author": "Victor Ribeiro",
   "license": "MIT",
@@ -36,6 +36,7 @@
     "vue": "^3.2.37",
     "vue-loader": "^17.0.0",
     "vue-router": "^4.1.3",
+    "vulxi": "^0.0.1",
     "yargs": "^17.7.1"
   }
 }
