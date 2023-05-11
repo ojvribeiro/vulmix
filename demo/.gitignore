@@ -1,5 +1,6 @@
 node_modules
 _dist
-.vulmix
+.vulmix/**/*.d.ts
+.vulmix/.vulmix
 vulmix.config.js
 laravel-mix
