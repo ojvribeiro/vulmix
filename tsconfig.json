@@ -1,4 +1,0 @@
-// Nothing to see here
-{
-  "extends": "./demo/tsconfig.json",
-}
