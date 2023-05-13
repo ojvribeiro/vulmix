@@ -11,10 +11,16 @@
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": false,
-    "outDir": "_dist",
+    "outDir": "../../_dist",
     "baseUrl": "../..",
     "paths": {
-      "~": ["../.."]
+      "~": ["./"],
+      "@": ["./"],
+      "@assets/*": ["./assets/*"],
+      "@components/*": ["./components/*"],
+      "@composables/*": ["./composables/*"],
+      "@layouts/*": ["./layouts/*"],
+      "@pages/*": ["./pages/*"]
     }
   },
   "include": [
@@ -23,5 +29,5 @@
     "vue-shims.d.ts",
     "auto-imports.d.ts"
   ],
-  "exclude": ["../../_dist"]
+  "exclude": ["../../_dist", "../../node_modules"]
 }

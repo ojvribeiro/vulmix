@@ -1,9 +1,9 @@
 const { absoluteVulmixPaths } = require('./paths.js')
 
-module.exports.UnpluginAutoImports = function (isDevMode = false) {
-  const ABSOLUTE_ROOT_PATH = absoluteVulmixPaths(isDevMode).absoluteRootPath
+module.exports.UnpluginAutoImports = () => {
+  const ABSOLUTE_ROOT_PATH = absoluteVulmixPaths().absoluteRootPath
   const ABSOLUTE_PACKAGE_PATH =
-    absoluteVulmixPaths(isDevMode).absolutePackagePath
+    absoluteVulmixPaths().absolutePackagePath
 
   return [
     require('unplugin-vue-components/webpack')({
@@ -31,10 +31,7 @@ module.exports.UnpluginAutoImports = function (isDevMode = false) {
       // generate `components.d.ts` global declarations,
       // also accepts a path for custom filename
       // default: `true` if package typescript is installed
-      dts:
-        isDevMode === true
-          ? `${ABSOLUTE_PACKAGE_PATH}/types/components.d.ts`
-          : `${ABSOLUTE_ROOT_PATH}/.vulmix/types/components.d.ts`,
+      dts: `${ABSOLUTE_ROOT_PATH}/.vulmix/types/components.d.ts`,
     }),
 
     require('unplugin-auto-import/webpack')({
@@ -74,10 +71,7 @@ module.exports.UnpluginAutoImports = function (isDevMode = false) {
       // Filepath to generate corresponding .d.ts file.
       // Defaults to './auto-imports.d.ts' when `typescript` is installed locally.
       // Set `false` to disable.
-      dts:
-        isDevMode === true
-          ? `${ABSOLUTE_PACKAGE_PATH}/types/auto-imports.d.ts`
-          : `${ABSOLUTE_ROOT_PATH}/.vulmix/types/auto-imports.d.ts`,
+      dts: `${ABSOLUTE_ROOT_PATH}/.vulmix/types/auto-imports.d.ts`,
 
       // Auto import inside Vue template
       // see https://github.com/unjs/unimport/pull/15 and https://github.com/unjs/unimport/pull/72

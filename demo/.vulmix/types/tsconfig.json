@@ -11,18 +11,23 @@
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": false,
-    "outDir": "demo/_dist",
-    "baseUrl": "..",
+    "outDir": "../../_dist",
+    "baseUrl": "../..",
     "paths": {
-      "~": ["."]
+      "~": ["./"],
+      "@": ["./"],
+      "@assets/*": ["./assets/*"],
+      "@components/*": ["./components/*"],
+      "@composables/*": ["./composables/*"],
+      "@layouts/*": ["./layouts/*"],
+      "@pages/*": ["./pages/*"]
     }
   },
-  "includes": [
-    "src/vue/*",
-    "demo/**/*",
+  "include": [
+    "../../../**/*",
     "components.d.ts",
     "vue-shims.d.ts",
     "auto-imports.d.ts"
   ],
-  "exclude": ["node_modules", "demo/_dist", "_dist"]
+  "exclude": ["../../_dist", "../../../utils", "../../../node_modules"]
 }

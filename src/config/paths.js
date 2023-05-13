@@ -1,3 +1,4 @@
+const fs = require('node:fs')
 const path = require('node:path')
 const getRelativePath = require('../utils/getRelativePath.js')
 
@@ -5,14 +6,18 @@ const normalizePath = originalPath => {
   return originalPath.replace(/\\/g, '/')
 }
 
-const absoluteVulmixPaths = (isDevMode = false) => {
+const isDevMode = !fs.existsSync(
+  path.resolve(__dirname, '../../../../vulmix.config.ts')
+)
+
+const absoluteVulmixPaths = () => {
   return {
     absoluteRootPath:
       isDevMode === true
         ? normalizePath(path.resolve(__dirname, '../../demo'))
         : normalizePath(path.resolve(__dirname, '../../../..')),
 
-    absolutePackagePath: path.resolve(__dirname, '../..'),
+    absolutePackagePath: normalizePath(path.resolve(__dirname, '../..')),
 
     absolutePublicPath:
       isDevMode === true
@@ -21,7 +26,7 @@ const absoluteVulmixPaths = (isDevMode = false) => {
   }
 }
 
-const relativeVulmixPaths = (isDevMode = false) => {
+const relativeVulmixPaths = () => {
   const ABSOLUTE_ROOT_PATH = absoluteVulmixPaths(isDevMode).absoluteRootPath
   const ABSOLUTE_PACKAGE_PATH =
     absoluteVulmixPaths(isDevMode).absolutePackagePath
@@ -40,4 +45,4 @@ const relativeVulmixPaths = (isDevMode = false) => {
   }
 }
 
-module.exports = { absoluteVulmixPaths, relativeVulmixPaths }
+module.exports = { absoluteVulmixPaths, relativeVulmixPaths, isDevMode }

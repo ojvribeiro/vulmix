@@ -1,5 +1,5 @@
 const mix = require('laravel-mix')
 
-require('vulmix')
+require('../../../src/mix.js')
 
 mix.vulmix()
