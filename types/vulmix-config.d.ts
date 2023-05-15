@@ -1,6 +1,11 @@
 export interface VulmixConfig {
   lang?: string,
 
+  imports?: {
+    dirs?: string[],
+    presets?: string[],
+  },
+
   head?: {
     title?: string
 

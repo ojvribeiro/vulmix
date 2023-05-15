@@ -2,8 +2,10 @@ const { absoluteVulmixPaths } = require('./paths.js')
 
 module.exports.UnpluginAutoImports = () => {
   const ABSOLUTE_ROOT_PATH = absoluteVulmixPaths().absoluteRootPath
-  const ABSOLUTE_PACKAGE_PATH =
-    absoluteVulmixPaths().absolutePackagePath
+  const ABSOLUTE_PACKAGE_PATH = absoluteVulmixPaths().absolutePackagePath
+
+  const VULMIX_CONFIG_PATH = `${ABSOLUTE_ROOT_PATH}/.vulmix/vulmix.config.js`
+  const VulmixConfig = require(VULMIX_CONFIG_PATH).default
 
   return [
     require('unplugin-vue-components/webpack')({
@@ -46,6 +48,7 @@ module.exports.UnpluginAutoImports = () => {
       // global imports to register
       imports: [
         // presets
+        ...(VulmixConfig.imports?.presets || []),
         'vue',
         'vue-router',
         // custom
@@ -57,7 +60,7 @@ module.exports.UnpluginAutoImports = () => {
         },
       ],
       // Enable auto import by filename for default module exports under directories
-      defaultExportByFilename: false,
+      defaultExportByFilename: true,
 
       // Auto import for module exports under directories
       // by default it only scan one level of modules under the directory
@@ -65,6 +68,7 @@ module.exports.UnpluginAutoImports = () => {
         // './hooks',
         // './composables' // only root modules
         // './composables/**', // all nested modules
+        ...(VulmixConfig.imports?.dirs || []),
         `${ABSOLUTE_ROOT_PATH}/composables/**`, // all nested modules
       ],
 
