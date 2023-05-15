@@ -71,8 +71,9 @@ pageComponents.keys().map((key: string) => {
     path: slugName === '/index' ? '/' : `/${slugName}`,
     component: pageComponents(key).default,
     meta: {
-      transition:
-        require('~/.vulmix/vulmix.config.js').default?.transition?.name || '',
+      transition: require('~/.vulmix/vulmix.config.js')?.default?.transition
+        ? require('~/.vulmix/vulmix.config.js')?.default?.transition?.name
+        : '',
     },
   })
 })
