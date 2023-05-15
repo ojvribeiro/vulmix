@@ -48,17 +48,6 @@ class VulmixInit {
       )}`
     )
 
-    fs.rmSync(`${ABSOLUTE_ROOT_PATH}/_dist/assets`, {
-      recursive: true,
-      force: true,
-    })
-
-    if (!fs.existsSync(`${ABSOLUTE_ROOT_PATH}/_dist/assets/img`)) {
-      fs.mkdirSync(`${ABSOLUTE_ROOT_PATH}/_dist/assets/img`, {
-        recursive: true,
-      })
-    }
-
     mix.options({
       hmrOptions: {
         host: 'localhost',
@@ -67,8 +56,6 @@ class VulmixInit {
     })
 
     mix
-      .setPublicPath(RELATIVE_PUBLIC_PATH)
-
       .before(() => {
         if (!isDevMode) {
           if (!fs.existsSync(`${ABSOLUTE_ROOT_PATH}/vercel.json`)) {
@@ -106,23 +93,6 @@ class VulmixInit {
         },
       })
 
-      .ejs(
-        [
-          `${RELATIVE_PACKAGE_PATH}/src/index.ejs`,
-          `${RELATIVE_PUBLIC_PATH}/mix-manifest.json`,
-        ],
-        RELATIVE_PUBLIC_PATH,
-        VulmixConfig,
-        {
-          partials: [`${RELATIVE_PUBLIC_PATH}/mix-manifest.json`],
-          mixVersioning: true,
-        }
-      )
-
-      .ts(
-        `${ABSOLUTE_PACKAGE_PATH}/src/vue/main.ts`,
-        `${ABSOLUTE_ROOT_PATH}/_dist/assets/_vulmix/js/main.vulmix.js`
-      )
       .vue({ version: 3 })
 
       .version()
@@ -131,25 +101,24 @@ class VulmixInit {
 
       .disableSuccessNotifications()
 
-    if (fs.existsSync(`${ABSOLUTE_ROOT_PATH}/assets/icons/`)) {
-      mix.copy(
-        `${ABSOLUTE_ROOT_PATH}/assets/icons`,
-        `${ABSOLUTE_ROOT_PATH}/_dist/assets/icons`
-      )
-    }
-
-    if (fs.existsSync(`${ABSOLUTE_ROOT_PATH}/assets/img/`)) {
-      mix.copy(
-        `${ABSOLUTE_ROOT_PATH}/assets/img`,
-        `${ABSOLUTE_ROOT_PATH}/_dist/assets/img`
-      )
-    }
-
     /**
      * Production mode only
      */
     if (mix.inProduction()) {
+      fs.rmSync(`${ABSOLUTE_ROOT_PATH}/_dist/assets`, {
+        recursive: true,
+        force: true,
+      })
+
+      if (!fs.existsSync(`${ABSOLUTE_ROOT_PATH}/_dist/assets/img`)) {
+        fs.mkdirSync(`${ABSOLUTE_ROOT_PATH}/_dist/assets/img`, {
+          recursive: true,
+        })
+      }
+
       mix
+        .setPublicPath(RELATIVE_PUBLIC_PATH)
+
         .before(() => {
           useConsole.clear()
           useConsole.log(
@@ -172,6 +141,24 @@ class VulmixInit {
         .copy(
           `${ABSOLUTE_PACKAGE_PATH}/utils/deploy/.htaccess`,
           ABSOLUTE_PUBLIC_PATH
+        )
+
+        .ejs(
+          [
+            `${RELATIVE_PACKAGE_PATH}/src/index.ejs`,
+            `${RELATIVE_PUBLIC_PATH}/mix-manifest.json`,
+          ],
+          RELATIVE_PUBLIC_PATH,
+          VulmixConfig,
+          {
+            partials: [`${RELATIVE_PUBLIC_PATH}/mix-manifest.json`],
+            mixVersioning: true,
+          }
+        )
+
+        .ts(
+          `${ABSOLUTE_PACKAGE_PATH}/src/vue/main.ts`,
+          `${ABSOLUTE_ROOT_PATH}/_dist/assets/_vulmix/js/main.vulmix.js`
         )
 
         .after(stats => {
@@ -212,11 +199,37 @@ class VulmixInit {
             useConsole.log(chalk.blueBright('Finishing...\n\n'))
           })
         })
+
+      if (fs.existsSync(`${ABSOLUTE_ROOT_PATH}/assets/icons/`)) {
+        mix.copy(
+          `${ABSOLUTE_ROOT_PATH}/assets/icons`,
+          `${ABSOLUTE_ROOT_PATH}/_dist/assets/icons`
+        )
+      }
+
+      if (fs.existsSync(`${ABSOLUTE_ROOT_PATH}/assets/img/`)) {
+        mix.copy(
+          `${ABSOLUTE_ROOT_PATH}/assets/img`,
+          `${ABSOLUTE_ROOT_PATH}/_dist/assets/img`
+        )
+      }
     } else {
       /**
        * Development mode only
        */
+      fs.rmSync(`${ABSOLUTE_ROOT_PATH}/.vulmix/client/assets`, {
+        recursive: true,
+        force: true,
+      })
+
+      if (!fs.existsSync(`${ABSOLUTE_ROOT_PATH}/.vulmix/client/assets/img`)) {
+        fs.mkdirSync(`${ABSOLUTE_ROOT_PATH}/.vulmix/client/assets/img`, {
+          recursive: true,
+        })
+      }
+
       mix
+        .setPublicPath(`${RELATIVE_ROOT_PATH}/.vulmix/client`)
         .before(() => {
           useConsole.clear()
 
@@ -230,6 +243,24 @@ class VulmixInit {
         .webpackConfig({
           devtool: 'source-map',
         })
+
+        .ejs(
+          [
+            `${RELATIVE_PACKAGE_PATH}/src/index.ejs`,
+            `${RELATIVE_ROOT_PATH}/.vulmix/client/mix-manifest.json`,
+          ],
+          `${RELATIVE_ROOT_PATH}/.vulmix/client`,
+          VulmixConfig,
+          {
+            partials: [`${RELATIVE_ROOT_PATH}/.vulmix/client/mix-manifest.json`],
+            mixVersioning: true,
+          }
+        )
+
+        .ts(
+          `${ABSOLUTE_PACKAGE_PATH}/src/vue/main.ts`,
+          `${ABSOLUTE_ROOT_PATH}/.vulmix/client/assets/_vulmix/js/main.vulmix.js`
+        )
 
         .sourceMaps()
 
@@ -301,6 +332,20 @@ class VulmixInit {
             },
           ],
         })
+
+      if (fs.existsSync(`${ABSOLUTE_ROOT_PATH}/assets/icons/`)) {
+        mix.copy(
+          `${ABSOLUTE_ROOT_PATH}/assets/icons`,
+          `${ABSOLUTE_ROOT_PATH}/.vulmix/client/assets/icons`
+        )
+      }
+
+      if (fs.existsSync(`${ABSOLUTE_ROOT_PATH}/assets/img/`)) {
+        mix.copy(
+          `${ABSOLUTE_ROOT_PATH}/assets/img`,
+          `${ABSOLUTE_ROOT_PATH}/.vulmix/client/assets/img`
+        )
+      }
     }
   }
 }
