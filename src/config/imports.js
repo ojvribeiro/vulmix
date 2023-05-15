@@ -51,13 +51,7 @@ module.exports.UnpluginAutoImports = () => {
         ...(VulmixConfig.imports?.presets || []),
         'vue',
         'vue-router',
-        // custom
-        {
-          '@vueuse/core': [
-            // named imports
-            'useFetch', // import { useMouse } from '@vueuse/core',
-          ],
-        },
+        '@vueuse/core',
       ],
       // Enable auto import by filename for default module exports under directories
       defaultExportByFilename: true,
