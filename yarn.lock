@@ -5895,10 +5895,10 @@ vue@^3.3.2:
     "@vue/server-renderer" "3.3.2"
     "@vue/shared" "3.3.2"
 
-vulxi@^0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/vulxi/-/vulxi-0.0.4.tgz#5fec749fc1241db8589e211b6f98d939853ac79e"
-  integrity sha512-Zp3R4qB1rHGvB++bjOuaFOUAdxGr7yO9p0yKOOe2Fx3bzQSAiFDu4I9xjVW7aLqT1ueX3+OED0oDrBQktQeigg==
+vulxi@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/vulxi/-/vulxi-0.0.5.tgz#33fbf0722c121c8f58ad59dad080e48b9361f73b"
+  integrity sha512-VjGeLB1YY+8kpEAJeHqXZm2aHSJromcHxi4tDL5DF4Vgx7bqT0oM5kAt2bvdeFRR0NxZxmHIMTv6mESfiFWhEQ==
   dependencies:
     chalk "^5.2.0"
     find-free-port "^2.0.0"
