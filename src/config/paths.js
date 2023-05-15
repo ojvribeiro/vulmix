@@ -42,6 +42,11 @@ const relativeVulmixPaths = () => {
       isDevMode === true
         ? getRelativePath(ABSOLUTE_PACKAGE_PATH, ABSOLUTE_PUBLIC_PATH)
         : getRelativePath(ABSOLUTE_ROOT_PATH, ABSOLUTE_PUBLIC_PATH),
+
+    relativeRootPath:
+      isDevMode === true
+        ? getRelativePath(ABSOLUTE_PACKAGE_PATH, ABSOLUTE_ROOT_PATH)
+        : getRelativePath(ABSOLUTE_ROOT_PATH, ABSOLUTE_ROOT_PATH),
   }
 }
 

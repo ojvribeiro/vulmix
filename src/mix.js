@@ -18,6 +18,7 @@ const { useProjectFolderListener } = require('./utils/useProjectFolderListener')
 
 require('laravel-mix-ejs')
 
+const RELATIVE_ROOT_PATH = relativeVulmixPaths().relativeRootPath
 const ABSOLUTE_ROOT_PATH = absoluteVulmixPaths().absoluteRootPath
 const RELATIVE_PUBLIC_PATH = relativeVulmixPaths().relativePublicPath
 const ABSOLUTE_PACKAGE_PATH = absoluteVulmixPaths().absolutePackagePath
