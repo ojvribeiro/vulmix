@@ -1,16 +1,5 @@
 export interface VulmixConfig {
-  lang?:
-    | 'en'
-    | 'pt-BR'
-    | 'es'
-    | 'fr'
-    | 'de'
-    | 'it'
-    | 'pt'
-    | 'ru'
-    | 'ja'
-    | 'ko'
-    | 'zh'
+  lang?: string,
 
   head?: {
     title?: string
