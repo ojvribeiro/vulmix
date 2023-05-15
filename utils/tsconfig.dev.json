@@ -16,6 +16,8 @@
     "paths": {
       "~": ["./"],
       "@": ["./"],
+      "@@": ["../src"],
+      "@@/*": ["../src/*"],
       "@assets/*": ["./assets/*"],
       "@components/*": ["./components/*"],
       "@composables/*": ["./composables/*"],
@@ -25,6 +27,7 @@
   },
   "include": [
     "../../**/*",
+    "../../../src/vue/**/*",
     "components.d.ts",
     "vue-shims.d.ts",
     "auto-imports.d.ts"
