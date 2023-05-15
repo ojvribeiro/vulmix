@@ -15,7 +15,7 @@
   "devDependencies": {},
   "dependencies": {
     "@iconify/vue": "^4.0.2",
-    "@types/node": "^18.16.3",
+    "@types/node": "^20.1.4",
     "@types/webpack-env": "^1.18.0",
     "@vue/compiler-sfc": "^3.2.37",
     "@vueuse/core": "^10.1.0",
