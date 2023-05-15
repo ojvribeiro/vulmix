@@ -25,7 +25,7 @@ nativeComponents.keys().map((key: string) => {
   app.component(nativeComponentName, nativeComponents(key).default)
 })
 
-let routes: Array<{ path: string; component: any }> = []
+let routes: Array<{ path: string; component: any; meta?: any }> = []
 
 /**
  * Built-in pages
@@ -70,6 +70,10 @@ pageComponents.keys().map((key: string) => {
   routes.push({
     path: slugName === '/index' ? '/' : `/${slugName}`,
     component: pageComponents(key).default,
+    meta: {
+      transition:
+        require('~/.vulmix/vulmix.config.js').default?.transition?.name || '',
+    },
   })
 })
 

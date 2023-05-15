@@ -125,4 +125,8 @@ export interface VulmixConfig {
       alias?: any
     }
   },
+
+  transition?: {
+    name?: string
+  },
 }
