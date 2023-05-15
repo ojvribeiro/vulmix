@@ -24,10 +24,10 @@
     }
   },
   "include": [
-    "../../../**/*",
+    "../../**/*",
     "components.d.ts",
     "vue-shims.d.ts",
     "auto-imports.d.ts"
   ],
-  "exclude": ["../../_dist", "../../../utils", "../../../node_modules"]
+  "exclude": ["../../_dist", "../../../node_modules"]
 }
