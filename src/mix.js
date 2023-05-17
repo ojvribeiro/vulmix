@@ -252,7 +252,9 @@ class VulmixInit {
           `${RELATIVE_ROOT_PATH}/.vulmix/client`,
           VulmixConfig,
           {
-            partials: [`${RELATIVE_ROOT_PATH}/.vulmix/client/mix-manifest.json`],
+            partials: [
+              `${RELATIVE_ROOT_PATH}/.vulmix/client/mix-manifest.json`,
+            ],
             mixVersioning: true,
           }
         )
