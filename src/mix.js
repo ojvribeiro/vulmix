@@ -332,6 +332,37 @@ class VulmixInit {
                 }
               },
             },
+
+            {
+              match: `${ABSOLUTE_ROOT_PATH}/.vulmix/vulmix.config.js`,
+              fn: (event, file) => {
+                if (event === 'change') {
+                  // Invalidate require cache
+                  delete require.cache[require.resolve(VULMIX_CONFIG_PATH)]
+
+                  const VulmixConfig_1 = require(VULMIX_CONFIG_PATH).default
+
+                  useConsole.log(
+                    chalk.cyan('\n\nRegenerating `index.html`...\n\n')
+                  )
+
+                  mix.ejs(
+                    [
+                      `${RELATIVE_PACKAGE_PATH}/src/index.ejs`,
+                      `${RELATIVE_ROOT_PATH}/.vulmix/client/mix-manifest.json`,
+                    ],
+                    `${RELATIVE_ROOT_PATH}/.vulmix/client`,
+                    VulmixConfig_1,
+                    {
+                      partials: [
+                        `${RELATIVE_ROOT_PATH}/.vulmix/client/mix-manifest.json`,
+                      ],
+                      mixVersioning: true,
+                    }
+                  )
+                }
+              },
+            },
           ],
         })
 
