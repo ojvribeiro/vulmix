@@ -4,8 +4,7 @@ const { absoluteVulmixPaths } = require('./paths')
 
 const VulmixAliases = () => {
   const ABSOLUTE_ROOT_PATH = absoluteVulmixPaths().absoluteRootPath
-  const ABSOLUTE_PACKAGE_PATH =
-    absoluteVulmixPaths().absolutePackagePath
+  const ABSOLUTE_PACKAGE_PATH = absoluteVulmixPaths().absolutePackagePath
 
   return {
     '~': ABSOLUTE_ROOT_PATH,
