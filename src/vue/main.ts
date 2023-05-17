@@ -1,11 +1,14 @@
 import { createApp, App as VueApp } from 'vue'
 import { createRouter, createWebHistory, Router } from 'vue-router'
 import { createHead, HeadClient } from '@vueuse/head'
+import { createPinia } from 'pinia'
 
 import App from '~/app.vue'
 
 const app: VueApp<Element> = createApp(App)
 const head: HeadClient<{}> = createHead()
+
+const pinia = createPinia()
 
 /**
  * Built-in components
@@ -135,5 +138,6 @@ layoutFiles.keys().map((key: string) => {
 
 app.use(router)
 app.use(head)
+app.use(pinia)
 
 app.mount('[data-vulmix-app]')
