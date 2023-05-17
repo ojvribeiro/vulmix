@@ -1,6 +1,6 @@
 const mix = require('laravel-mix')
 const fs = require('node:fs')
-const exec = require('node:child_process').exec
+const { execSync } = require('node:child_process')
 const chalk = require('chalk')
 const { argv } = require('yargs')
 
@@ -310,7 +310,7 @@ class VulmixInit {
                     chalk.cyan('\n\nConfig file changed. Recompiling...\n\n')
                   )
 
-                  exec(
+                  execSync(
                     `tsc ${ABSOLUTE_ROOT_PATH}/vulmix.config.ts --outDir ${ABSOLUTE_ROOT_PATH}/.vulmix`,
                     (error, stdout, stderr) => {
                       if (error) {
