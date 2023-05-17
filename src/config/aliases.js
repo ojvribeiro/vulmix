@@ -25,6 +25,9 @@ const VulmixAliases = () => {
     '@pages':
       fs.existsSync(`${ABSOLUTE_ROOT_PATH}/pages`) &&
       `${ABSOLUTE_ROOT_PATH}/pages`,
+    '@stores':
+      fs.existsSync(`${ABSOLUTE_ROOT_PATH}/stores`) &&
+      `${ABSOLUTE_ROOT_PATH}/stores`,
   }
 }
 

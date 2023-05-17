@@ -52,6 +52,7 @@ module.exports.UnpluginAutoImports = () => {
         'vue',
         'vue-router',
         '@vueuse/core',
+        'pinia',
       ],
       // Enable auto import by filename for default module exports under directories
       defaultExportByFilename: true,
@@ -64,6 +65,7 @@ module.exports.UnpluginAutoImports = () => {
         // './composables/**', // all nested modules
         ...(VulmixConfig.imports?.dirs || []),
         `${ABSOLUTE_ROOT_PATH}/composables/**`, // all nested modules
+        `${ABSOLUTE_ROOT_PATH}/stores/**`, // all nested modules
       ],
 
       // Filepath to generate corresponding .d.ts file.

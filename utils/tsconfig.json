@@ -20,7 +20,8 @@
       "@components/*": ["./components/*"],
       "@composables/*": ["./composables/*"],
       "@layouts/*": ["./layouts/*"],
-      "@pages/*": ["./pages/*"]
+      "@pages/*": ["./pages/*"],
+      "@stores/*": ["./stores/*"]
     }
   },
   "include": [
