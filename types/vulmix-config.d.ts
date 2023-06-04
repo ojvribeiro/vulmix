@@ -1,10 +1,10 @@
 export interface VulmixConfig {
-  lang?: string,
+  lang?: string
 
   imports?: {
-    dirs?: string[],
-    presets?: string[],
-  },
+    dirs?: string[]
+    presets?: string[]
+  }
 
   head?: {
     title?: string
@@ -118,15 +118,15 @@ export interface VulmixConfig {
       async?: boolean
       defer?: boolean
     }[]
-  },
+  }
 
   webpackConfig?: {
     resolve?: {
       alias?: any
     }
-  },
+  }
 
   transition?: {
     name?: string
-  },
+  }
 }
