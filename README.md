@@ -13,8 +13,8 @@ Vue(3) SPA meta-framework that uses [Laravel Mix](https://www.npmjs.com/package/
 - Auto-imports;
 - File-based routing;
 - Hot Module Replacement;
-- Sass/SCSS support out-of-the-box;
-- TypeScript support (only `preview` version for now);
+- Sass support out-of-the-box;
+- TypeScript support;
 - ... [and some things more](https://vulmix.vercel.app/).
 
 ## 📦 Installation
