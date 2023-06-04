@@ -107,9 +107,9 @@ export interface VulmixConfig {
         | 'preload'
         | 'modulepreload'
 
-      sizes?: '16x16' | '32x32' | '96x96' | '192x192'
+      sizes?: string
       href?: string
-      hreflang?: 'en' | 'es'
+      hreflang?: string
     }[]
 
     script?: {
