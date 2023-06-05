@@ -51,7 +51,6 @@ module.exports.UnpluginAutoImports = () => {
         ...(VulmixConfig.imports?.presets || []),
         'vue',
         'vue-router',
-        '@vueuse/core',
         'pinia',
       ],
       // Enable auto import by filename for default module exports under directories
