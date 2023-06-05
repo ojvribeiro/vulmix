@@ -1,10 +1,10 @@
 export interface VulmixConfig {
-  lang?: string,
+  lang?: string
 
   imports?: {
-    dirs?: string[],
-    presets?: string[],
-  },
+    dirs?: string[]
+    presets?: string[]
+  }
 
   head?: {
     title?: string
@@ -107,9 +107,37 @@ export interface VulmixConfig {
         | 'preload'
         | 'modulepreload'
 
-      sizes?: '16x16' | '32x32' | '96x96' | '192x192'
+      sizes?: string
       href?: string
-      hreflang?: 'en' | 'es'
+      hreflang?: string
+      type?:
+        | 'text/css'
+        | 'text/plain'
+        | 'text/html'
+        | 'text/javascript'
+        | 'application/javascript'
+        | 'application/json'
+        | 'application/manifest+json'
+        | 'application/rss+xml'
+        | 'application/atom+xml'
+        | 'application/pdf'
+        | 'application/zip'
+        | 'application/x-font-ttf'
+        | 'application/x-font-opentype'
+        | 'application/x-font-woff'
+        | 'application/x-font-woff2'
+        | 'application/x-font-eot'
+        | 'application/x-font-truetype'
+        | 'image/svg+xml'
+        | 'image/x-icon'
+        | 'image/png'
+        | 'image/jpeg'
+        | 'image/gif'
+        | 'image/webp'
+        | 'image/avif'
+        | 'image/apng'
+        | 'image/bmp'
+        | 'image/vnd.microsoft.icon'
     }[]
 
     script?: {
@@ -118,15 +146,15 @@ export interface VulmixConfig {
       async?: boolean
       defer?: boolean
     }[]
-  },
+  }
 
   webpackConfig?: {
     resolve?: {
       alias?: any
     }
-  },
+  }
 
   transition?: {
     name?: string
-  },
+  }
 }
