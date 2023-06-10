@@ -15,7 +15,7 @@ Vue(3) SPA meta-framework that uses [Laravel Mix](https://www.npmjs.com/package/
 - Hot Module Replacement;
 - Sass support out-of-the-box;
 - TypeScript support;
-- ... [and some things more](https://vulmix.vercel.app/).
+- ... [and some things more](https://vulmix.dev/).
 
 ## 📦 Installation
 
@@ -31,4 +31,4 @@ Or, if you want to test the latest `preview` version:
 npx create-vulmix-app your-app-name --beta
 ```
 
-Head up to [the documentation](https://vulmix.vercel.app/guide/get-started) for more info on how to run your project.
+Head up to [the documentation](https://vulmix.dev/guide/get-started) for more info on how to run your project.
