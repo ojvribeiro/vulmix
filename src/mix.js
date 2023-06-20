@@ -3,6 +3,7 @@ const fs = require('node:fs')
 const { execSync } = require('node:child_process')
 const chalk = require('chalk')
 const { argv } = require('yargs')
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 
 const pkg = require('../package.json')
 const { useConsole } = require('./utils/useConsole.js')
@@ -71,6 +72,7 @@ class VulmixInit {
         plugins: [
           ...UnpluginAutoImports(),
           ...(VulmixConfig.webpackConfig?.plugins || []),
+          new ForkTsCheckerWebpackPlugin(),
         ],
 
         resolve: {
