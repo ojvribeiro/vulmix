@@ -18,6 +18,7 @@ const { VulmixAliases } = require('./config/aliases')
 const { useProjectFolderListener } = require('./utils/useProjectFolderListener')
 
 require('laravel-mix-ejs')
+require('laravel-mix-postcss-config')
 
 const RELATIVE_ROOT_PATH = relativeVulmixPaths().relativeRootPath
 const ABSOLUTE_ROOT_PATH = absoluteVulmixPaths().absoluteRootPath
@@ -96,6 +97,12 @@ class VulmixInit {
       })
 
       .vue({ version: 3 })
+
+      .postCssConfig({
+        postcssOptions: {
+          path: `${ABSOLUTE_PACKAGE_PATH}/utils/postcss.config.js`,
+        }
+      })
 
       .version()
 
