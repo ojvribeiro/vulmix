@@ -17,7 +17,7 @@
 </template>
 
 <style scoped>
-  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@700&display=swap');
 
   .vx-page-outter {
     display: grid;
@@ -37,7 +37,7 @@
     font-size: 6rem /* 96px */;
     line-height: 1;
     color: #bfdbfe;
-    font-weight: 900;
+    font-weight: 700;
   }
 
   .vx-page-outter .vx-page-inner p,
