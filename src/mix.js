@@ -3,6 +3,7 @@ const fs = require('node:fs')
 const { execSync } = require('node:child_process')
 const chalk = require('chalk')
 const { argv } = require('yargs')
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 
 const pkg = require('../package.json')
 const { useConsole } = require('./utils/useConsole.js')
@@ -57,6 +58,16 @@ class VulmixInit {
 
     mix
       .before(() => {
+        if (
+          fs.existsSync(`${ABSOLUTE_ROOT_PATH}/tailwind.config.js`) &&
+          !fs.existsSync(`${ABSOLUTE_ROOT_PATH}/.vulmix/postcss.config.js`)
+        ) {
+          fs.copyFileSync(
+            `${ABSOLUTE_PACKAGE_PATH}/utils/postcss.config.js`,
+            `${ABSOLUTE_ROOT_PATH}/.vulmix/postcss.config.js`
+          )
+        }
+
         if (!isDevMode) {
           if (!fs.existsSync(`${ABSOLUTE_ROOT_PATH}/vercel.json`)) {
             mix.copy(
@@ -71,6 +82,7 @@ class VulmixInit {
         plugins: [
           ...UnpluginAutoImports(),
           ...(VulmixConfig.webpackConfig?.plugins || []),
+          new ForkTsCheckerWebpackPlugin(),
         ],
 
         resolve: {
@@ -88,6 +100,19 @@ class VulmixInit {
               test: /\.ts$/,
               loader: 'ts-loader',
               options: { appendTsSuffixTo: [/\.vue$/] },
+            },
+            {
+              test: /\.s?(c|a)ss$/i,
+              loader: 'postcss-loader',
+              options: {
+                postcssOptions: {
+                  config: fs.existsSync(
+                    `${ABSOLUTE_ROOT_PATH}/tailwind.config.js`
+                  )
+                    ? `${ABSOLUTE_ROOT_PATH}/.vulmix/postcss.config.js`
+                    : ABSOLUTE_ROOT_PATH,
+                },
+              },
             },
           ],
         },
