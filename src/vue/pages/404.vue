@@ -1,15 +1,17 @@
 <template>
-  <Head>
-    <title>Page not found</title>
-  </Head>
+  <div>
+    <Head>
+      <title>Page not found</title>
+    </Head>
 
-  <div class="vx-page-outter">
-    <div class="vx-page-inner">
-      <h1>404</h1>
+    <div class="vx-page-outter">
+      <div class="vx-page-inner">
+        <h1>404</h1>
 
-      <p>
-        <Link to="/">Return to Home</Link>
-      </p>
+        <p>
+          <Link to="/">Return to Home</Link>
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -18,7 +20,7 @@
   .vx-page-outter {
     display: grid;
     place-items: center;
-    height: 100%;
+    height: 100vh;
     text-align: center;
     background-color: #27272a;
     font-family: 'Roboto', Arial, Helvetica, sans-serif;
