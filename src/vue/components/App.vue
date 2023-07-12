@@ -3,9 +3,13 @@
 </script>
 
 <template>
-  <RouterView v-slot="{ Component, route }">
-    <Transition :name="route.meta.transition" mode="out-in">
-      <Component :is="Component" :key="route.fullPath" />
-    </Transition>
-  </RouterView>
+  <Suspense>
+    <RouterView v-slot="{ Component, route }">
+      <Transition :name="route.meta.transition" mode="out-in">
+        <KeepAlive>
+          <Component :is="Component" :key="route.fullPath" />
+        </KeepAlive>
+      </Transition>
+    </RouterView>
+  </Suspense>
 </template>

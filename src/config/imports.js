@@ -65,6 +65,7 @@ module.exports.UnpluginAutoImports = () => {
         ...(VulmixConfig.imports?.dirs || []),
         `${ABSOLUTE_PACKAGE_PATH}/src/vue/composables/**`, // all nested modules
         `${ABSOLUTE_ROOT_PATH}/composables/**`, // all nested modules
+        `${ABSOLUTE_PACKAGE_PATH}/src/vue/composables/**`, // all nested modules
         `${ABSOLUTE_ROOT_PATH}/stores/**`, // all nested modules
       ],
 
