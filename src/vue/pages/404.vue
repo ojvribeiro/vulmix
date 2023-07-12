@@ -17,13 +17,15 @@
 </template>
 
 <style scoped>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@900&display=swap');
+
   .vx-page-outter {
     display: grid;
     place-items: center;
     height: 100vh;
     text-align: center;
     background-color: #27272a;
-    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    font-family: 'DM Sans', Arial, Helvetica, sans-serif;
   }
 
   .vx-page-outter .vx-page-inner {
