@@ -10,7 +10,7 @@
     <% }) %><% } %>
     <% } %>
     <style>
-      html,body,body>[data-vulmix-app]{height: 100%;margin: 0;}
+      html,body,body>[data-vulmix-app]{height: 100%;margin: 0;display: flow-root;}
     </style>
     <% if (typeof (head) != 'undefined') { %>
     <% if (typeof (head.script) != 'undefined') { %><% head.script.forEach(item => { %><<%= 'script' %> <% if (typeof (item.src) != 'undefined') { %>src="<%= item.src %>"<% } %><% if (typeof (item.type) != 'undefined') { %> type="<%= item.type %>"<% } %>></script>
