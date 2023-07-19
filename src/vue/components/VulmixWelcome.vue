@@ -7,7 +7,7 @@
     <div class="container">
       <div class="vulmix-logo">
         <a
-          href="http://vulmix.vercel.app/"
+          href="https://vulmix.dev/"
           target="_blank"
           rel="noopener noreferrer nofollow"
         >
@@ -118,7 +118,7 @@
 
         <p>
           <a
-            href="http://vulmix.vercel.app/"
+            href="https://vulmix.dev/"
             target="_blank"
             rel="noopener noreferrer nofollow"
             >Check out the docs</a
