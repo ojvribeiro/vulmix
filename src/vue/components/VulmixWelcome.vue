@@ -7,7 +7,7 @@
     <div class="container">
       <div class="vulmix-logo">
         <a
-          href="http://vulmix.vercel.app/"
+          href="https://vulmix.dev/"
           target="_blank"
           rel="noopener noreferrer nofollow"
         >
@@ -105,8 +105,9 @@
 
       <div class="vulmix-card">
         <p>
-          Get started by replacing
-          <code>&lt;VulmixWelcome /&gt;</code> with your own code.
+          Get started by replacing the
+          <code>&lt;VulmixWelcome /&gt;</code> component with your own code in
+          <code>app.vue</code>.
         </p>
 
         <p>
@@ -118,7 +119,7 @@
 
         <p>
           <a
-            href="http://vulmix.vercel.app/"
+            href="https://vulmix.dev/"
             target="_blank"
             rel="noopener noreferrer nofollow"
             >Check out the docs</a
