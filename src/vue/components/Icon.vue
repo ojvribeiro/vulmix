@@ -22,6 +22,7 @@
     :style="
       props.font === 'true'
         ? {
+            '-webkit-mask-image': `url(${maskSrc})`,
             'mask-image': `url(${maskSrc})`,
             'background-color': 'currentColor',
           }
