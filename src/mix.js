@@ -85,6 +85,30 @@ class VulmixInit {
           new ForkTsCheckerWebpackPlugin(),
         ],
 
+        output: {
+          assetModuleFilename: pathData => {
+            let relativePath = pathData.module.resourceResolveData.path
+              .replace(/\\/g, '/')
+              .replace(ABSOLUTE_ROOT_PATH, '')
+
+            console.log('path: ', pathData.module.resourceResolveData.path)
+            console.log('relativePath', relativePath)
+
+            if (
+              /\.(png|jpe?g|gif|svg|webp|avif|ico)$/i.test(pathData.filename)
+            ) {
+              const transfomed = relativePath.replace(
+                /(.*)\/(.*)\.(png|jpe?g|gif|svg|webp|avif|ico)/,
+                'images'
+              )
+
+              console.log('transfomed: ', transfomed)
+
+              return `/${transfomed}/[name][ext][query]`
+            }
+          },
+        },
+
         resolve: {
           extensions: ['.js', '.vue', '.ts'],
           alias: {
@@ -118,7 +142,20 @@ class VulmixInit {
         },
       })
 
-      .vue({ version: 3 })
+      .vue({
+        version: 3,
+
+        options: {
+          transformAssetUrls: {
+            img: 'src',
+            link: 'href',
+            video: ['src', 'poster'],
+            source: 'src',
+            object: 'src',
+            embed: 'src',
+          },
+        },
+      })
 
       .version()
 
@@ -130,127 +167,147 @@ class VulmixInit {
      * Production mode only
      */
     if (mix.inProduction()) {
-      fs.rmSync(`${ABSOLUTE_ROOT_PATH}/_dist/assets`, {
-        recursive: true,
-        force: true,
-      })
+      try {
+        console.log(`\n${chalk.grey('Removing _dist folder')}`)
 
-      if (!fs.existsSync(`${ABSOLUTE_ROOT_PATH}/_dist/assets/img`)) {
-        fs.mkdirSync(`${ABSOLUTE_ROOT_PATH}/_dist/assets/img`, {
+        fs.rmSync(`${ABSOLUTE_ROOT_PATH}/_dist`, {
           recursive: true,
+          force: true,
         })
-      }
 
-      mix
-        .setPublicPath(RELATIVE_PUBLIC_PATH)
+        if (!fs.existsSync(`${ABSOLUTE_ROOT_PATH}/_dist/assets/img`)) {
+          fs.mkdirSync(`${ABSOLUTE_ROOT_PATH}/_dist/assets/img`, {
+            recursive: true,
+          })
+        }
+      } catch (error) {
+        console.log(`\n${chalk.red(error)}`)
+      } finally {
+        if (fs.existsSync(`${ABSOLUTE_ROOT_PATH}/assets/`)) {
+          mix.copy(
+            `${ABSOLUTE_ROOT_PATH}/assets`,
+            `${ABSOLUTE_ROOT_PATH}/_dist/assets`
+          )
+        }
 
-        .before(() => {
-          useConsole.clear()
-          useConsole.log(
-            `${chalk.grey(`Vulmix ${pkg.version}`)}\n${chalk.cyan(
-              'Preparing production bundle...\n'
-            )}`
+        mix
+          .setPublicPath(RELATIVE_PUBLIC_PATH)
+
+          .before(() => {
+            useConsole.clear()
+            useConsole.log(
+              `${chalk.grey(`Vulmix ${pkg.version}`)}\n${chalk.cyan(
+                'Preparing production bundle...\n'
+              )}`
+            )
+
+            mix
+              .copy(
+                `${RELATIVE_PACKAGE_PATH}/utils/tsconfig.json`,
+                `${RELATIVE_PUBLIC_PATH}/.vulmix/types`
+              )
+              .copy(
+                `${RELATIVE_PACKAGE_PATH}/types/vue-shims.d.ts`,
+                `${RELATIVE_PUBLIC_PATH}/.vulmix/types`
+              )
+          })
+
+          .copy(
+            `${ABSOLUTE_PACKAGE_PATH}/utils/deploy/.htaccess`,
+            ABSOLUTE_PUBLIC_PATH
           )
 
-          mix
-            .copy(
-              `${RELATIVE_PACKAGE_PATH}/utils/tsconfig.json`,
-              `${RELATIVE_PUBLIC_PATH}/.vulmix/types`
-            )
-            .copy(
-              `${RELATIVE_PACKAGE_PATH}/types/vue-shims.d.ts`,
-              `${RELATIVE_PUBLIC_PATH}/.vulmix/types`
-            )
-        })
-
-        .copy(
-          `${ABSOLUTE_PACKAGE_PATH}/utils/deploy/.htaccess`,
-          ABSOLUTE_PUBLIC_PATH
-        )
-
-        .ejs(
-          [
-            `${RELATIVE_PACKAGE_PATH}/src/index.ejs`,
-            `${RELATIVE_PUBLIC_PATH}/mix-manifest.json`,
-          ],
-          RELATIVE_PUBLIC_PATH,
-          VulmixConfig,
-          {
-            partials: [`${RELATIVE_PUBLIC_PATH}/mix-manifest.json`],
-            mixVersioning: true,
-          }
-        )
-
-        .ts(
-          `${ABSOLUTE_PACKAGE_PATH}/src/vue/main.ts`,
-          `${ABSOLUTE_ROOT_PATH}/_dist/assets/_vulmix/js/main.vulmix.js`
-        )
-
-        .after(stats => {
-          /**
-           * Only prints user files to the terminal
-           */
-          const assets = { ...stats.compilation.assets }
-          stats.compilation.assets = {}
-
-          for (const [path, asset] of Object.entries(assets)) {
-            if (!path.match(/((\.|_)vulmix|\.map)/)) {
-              stats.compilation.assets[path] = asset
+          .ejs(
+            [
+              `${RELATIVE_PACKAGE_PATH}/src/index.ejs`,
+              `${RELATIVE_PUBLIC_PATH}/mix-manifest.json`,
+            ],
+            RELATIVE_PUBLIC_PATH,
+            VulmixConfig,
+            {
+              partials: [`${RELATIVE_PUBLIC_PATH}/mix-manifest.json`],
+              mixVersioning: true,
             }
-          }
+          )
 
-          setTimeout(() => {
-            useConsole.clear()
+          .ts(
+            `${ABSOLUTE_PACKAGE_PATH}/src/vue/main.ts`,
+            `${ABSOLUTE_ROOT_PATH}/_dist/assets/_vulmix/js/main.vulmix.js`
+          )
 
-            // Here I use native console object to block execution before the next message
-            console.log(
-              chalk.green(
-                `${chalk.grey(
-                  `Vulmix ${pkg.version}`
-                )}\n\nOptimized build generated in the ${chalk.yellowBright(
-                  isDevMode
-                    ? getRelativePath(
-                        ABSOLUTE_PACKAGE_PATH,
-                        ABSOLUTE_PUBLIC_PATH
-                      ).replace(/\.\//g, '')
-                    : getRelativePath(
-                        ABSOLUTE_ROOT_PATH,
-                        ABSOLUTE_PUBLIC_PATH
-                      ).replace(/\.\//g, '')
-                )} folder. You can\ndeploy its contents on any static host.\n`
+          .after(stats => {
+            /**
+             * Only prints user files to the terminal
+             */
+            const assets = { ...stats.compilation.assets }
+            stats.compilation.assets = {}
+
+            for (const [path, asset] of Object.entries(assets)) {
+              if (!path.match(/((\.|_)vulmix|\.map)/)) {
+                stats.compilation.assets[path] = asset
+              }
+            }
+
+            setTimeout(() => {
+              useConsole.clear()
+
+              // Here I use native console object to block execution before the next message
+              console.log(
+                chalk.green(
+                  `${chalk.grey(
+                    `Vulmix ${pkg.version}`
+                  )}\n\nOptimized build generated in the ${chalk.yellowBright(
+                    isDevMode
+                      ? getRelativePath(
+                          ABSOLUTE_PACKAGE_PATH,
+                          ABSOLUTE_PUBLIC_PATH
+                        ).replace(/\.\//g, '')
+                      : getRelativePath(
+                          ABSOLUTE_ROOT_PATH,
+                          ABSOLUTE_PUBLIC_PATH
+                        ).replace(/\.\//g, '')
+                  )} folder. You can\ndeploy its contents on any static host.\n`
+                )
               )
-            )
 
-            useConsole.log(chalk.blueBright('Finishing...\n\n'))
+              useConsole.log(chalk.blueBright('Finishing...\n\n'))
+            })
           })
-        })
-
-      if (fs.existsSync(`${ABSOLUTE_ROOT_PATH}/assets/icons/`)) {
-        mix.copy(
-          `${ABSOLUTE_ROOT_PATH}/assets/icons`,
-          `${ABSOLUTE_ROOT_PATH}/_dist/assets/icons`
-        )
-      }
-
-      if (fs.existsSync(`${ABSOLUTE_ROOT_PATH}/assets/img/`)) {
-        mix.copy(
-          `${ABSOLUTE_ROOT_PATH}/assets/img`,
-          `${ABSOLUTE_ROOT_PATH}/_dist/assets/img`
-        )
       }
     } else {
       /**
        * Development mode only
        */
-      fs.rmSync(`${ABSOLUTE_ROOT_PATH}/.vulmix/client/assets`, {
-        recursive: true,
-        force: true,
+
+      // if server is killed, remove the .vulmix/client folder
+      process.on('SIGINT', () => {
+        fs.rmSync(`${ABSOLUTE_ROOT_PATH}/.vulmix/client`, {
+          recursive: true,
+          force: true,
+        })
+        process.exit()
       })
 
-      if (!fs.existsSync(`${ABSOLUTE_ROOT_PATH}/.vulmix/client/assets/img`)) {
-        fs.mkdirSync(`${ABSOLUTE_ROOT_PATH}/.vulmix/client/assets/img`, {
+      try {
+        fs.rmSync(`${ABSOLUTE_ROOT_PATH}/.vulmix/client/assets`, {
           recursive: true,
+          force: true,
         })
+
+        if (!fs.existsSync(`${ABSOLUTE_ROOT_PATH}/.vulmix/client/assets`)) {
+          fs.mkdirSync(`${ABSOLUTE_ROOT_PATH}/.vulmix/client/assets`, {
+            recursive: true,
+          })
+        }
+      } catch (error) {
+        console.log(`\n${chalk.red(error)}`)
+      } finally {
+        if (fs.existsSync(`${ABSOLUTE_ROOT_PATH}/assets/`)) {
+          mix.copy(
+            `${ABSOLUTE_ROOT_PATH}/assets`,
+            `${ABSOLUTE_ROOT_PATH}/.vulmix/client/assets`
+          )
+        }
       }
 
       mix
@@ -390,20 +447,6 @@ class VulmixInit {
             },
           ],
         })
-
-      if (fs.existsSync(`${ABSOLUTE_ROOT_PATH}/assets/icons/`)) {
-        mix.copy(
-          `${ABSOLUTE_ROOT_PATH}/assets/icons`,
-          `${ABSOLUTE_ROOT_PATH}/.vulmix/client/assets/icons`
-        )
-      }
-
-      if (fs.existsSync(`${ABSOLUTE_ROOT_PATH}/assets/img/`)) {
-        mix.copy(
-          `${ABSOLUTE_ROOT_PATH}/assets/img`,
-          `${ABSOLUTE_ROOT_PATH}/.vulmix/client/assets/img`
-        )
-      }
     }
   }
 }
