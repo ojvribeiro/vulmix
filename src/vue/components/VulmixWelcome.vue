@@ -105,8 +105,9 @@
 
       <div class="vulmix-card">
         <p>
-          Get started by replacing
-          <code>&lt;VulmixWelcome /&gt;</code> with your own code.
+          Get started by replacing the
+          <code>&lt;VulmixWelcome /&gt;</code> component with your own code in
+          <code>app.vue</code>.
         </p>
 
         <p>
