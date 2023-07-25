@@ -1,8 +1,10 @@
-const { absoluteVulmixPaths } = require('./paths.js')
+const { absoluteVulmixPaths, relativeVulmixPaths } = require('./paths.js')
 
 module.exports.UnpluginAutoImports = () => {
   const ABSOLUTE_ROOT_PATH = absoluteVulmixPaths().absoluteRootPath
+  const RELATIVE_ROOT_PATH = relativeVulmixPaths().relativeRootPath
   const ABSOLUTE_PACKAGE_PATH = absoluteVulmixPaths().absolutePackagePath
+  const RELATIVE_PACKAGE_PATH = relativeVulmixPaths().relativePackagePath
 
   const VULMIX_CONFIG_PATH = `${ABSOLUTE_ROOT_PATH}/.vulmix/vulmix.config.js`
   const VulmixConfig = require(VULMIX_CONFIG_PATH).default
@@ -15,8 +17,9 @@ module.exports.UnpluginAutoImports = () => {
 
       // relative paths to the directory to search for components.
       dirs: [
-        `${ABSOLUTE_ROOT_PATH}/components`,
-        `${ABSOLUTE_PACKAGE_PATH}/src/vue/components/**`,
+        `${RELATIVE_ROOT_PATH}/components`,
+        `${RELATIVE_ROOT_PATH}/.vulmix/runtime/components`,
+        `${RELATIVE_PACKAGE_PATH}/src/vue/components`,
       ],
 
       // valid file extensions for components.
