@@ -1,2 +1,4 @@
 .github
 /tsconfig.json
+.yalc
+yalc.lock
