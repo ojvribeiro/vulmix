@@ -11,7 +11,7 @@
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": false,
-    "outDir": "../../_dist",
+    "outDir": "../../.vulmix/client",
     "baseUrl": "../..",
     "paths": {
       "~/*": ["./*"],
@@ -26,10 +26,11 @@
   },
   "include": [
     "../../**/*",
+    "../../node_modules/vulmix/src/vue/**/*",
     "../../.vulmix/runtime/**/*",
     "components.d.ts",
     "vue-shims.d.ts",
     "auto-imports.d.ts"
   ],
-  "exclude": ["../../_dist", "../../node_modules"]
+  "exclude": ["../../_dist", "../../.vulmix/client", "../../node_modules"]
 }
