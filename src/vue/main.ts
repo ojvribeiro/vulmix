@@ -10,7 +10,11 @@ const head: HeadClient<{}> = createHead()
 
 const pinia = createPinia()
 
-let routes: Array<{ path: string; component: any; meta?: any }> = []
+let routes: Array<{
+  path: string
+  component: any
+  meta?: any
+}> = []
 
 /**
  * Built-in pages
