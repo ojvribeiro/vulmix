@@ -16,7 +16,6 @@
     "paths": {
       "~/*": ["./*"],
       "@/*": ["./*"],
-      "@@/*": ["./node_modules/vulmix/src/*"],
       "@assets/*": ["./assets/*"],
       "@components/*": ["./components/*"],
       "@composables/*": ["./composables/*"],
@@ -27,6 +26,7 @@
   },
   "include": [
     "../../**/*",
+    "../../.vulmix/runtime/**/*",
     "components.d.ts",
     "vue-shims.d.ts",
     "auto-imports.d.ts"

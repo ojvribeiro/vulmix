@@ -10,24 +10,6 @@ const head: HeadClient<{}> = createHead()
 
 const pinia = createPinia()
 
-/**
- * Built-in components
- */
-const nativeComponents = require.context(
-  '@@/vue/components/',
-  true,
-  /\.(vue|js|ts)$/i
-)
-nativeComponents.keys().map((key: string) => {
-  let nativeComponentName: string = key.split('.')[1].replace(/\//g, '')
-
-  if (nativeComponentName.match(/index$/)) {
-    nativeComponentName = nativeComponentName.replace('index', '')
-  }
-
-  app.component(nativeComponentName, nativeComponents(key).default)
-})
-
 let routes: Array<{ path: string; component: any; meta?: any }> = []
 
 /**

@@ -27,6 +27,7 @@
   "include": [
     "../../**/*",
     "../../../src/vue/**/*",
+    "../../../demo/.vulmix/runtime/**/*",
     "components.d.ts",
     "vue-shims.d.ts",
     "auto-imports.d.ts"
