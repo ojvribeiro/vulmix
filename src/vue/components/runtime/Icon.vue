@@ -5,11 +5,11 @@
   interface Props {
     name?: string
     icon?: string
-    font?: 'true' | 'false'
+    font?: boolean
   }
 
   const props = withDefaults(defineProps<Props>(), {
-    font: 'true',
+    font: true,
   })
 
   const maskSrc = computed<string>(() => `/assets/icons/${props.name}.svg`)
@@ -20,14 +20,15 @@
     v-if="!props.icon"
     class="icon"
     :style="
-      props.font === 'true'
+      props.font === true
         ? {
+            '-webkit-mask-image': `url(${maskSrc})`,
             'mask-image': `url(${maskSrc})`,
             'background-color': 'currentColor',
           }
         : { 'background-image': `url(${maskSrc})` }
     "
-  ></i>
+  />
 
   <component
     v-else

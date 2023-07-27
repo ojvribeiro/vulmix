@@ -6037,10 +6037,10 @@ vue@^3.3.2:
     "@vue/server-renderer" "3.3.4"
     "@vue/shared" "3.3.4"
 
-vulxi@^0.0.7:
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/vulxi/-/vulxi-0.0.7.tgz#74830ed62246bfdedc8386c16398685fd4a6c2bb"
-  integrity sha512-QBO6Pr+3aJ1lv0KUp/bN0ahUvY2qlXFP1PB5nvnuMAfVz8U4xymhc5R4g/KqC4U8Ol6agPAvK7JL/8dnhfc3gw==
+vulxi@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/vulxi/-/vulxi-0.0.8.tgz#d354e6648fca714b3f71a1b6d33e2a820d362602"
+  integrity sha512-TN4u3iHIs3XOwRAGkKxGgOUqwRf3frIp9HV5owvnq5naPihWKV8ZnmlDmqVVeyk9Qbj0eMZ066P/npZDxzVcGw==
   dependencies:
     chalk "^5.2.0"
     find-free-port "^2.0.0"

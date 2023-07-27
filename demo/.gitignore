@@ -1,7 +1,4 @@
 node_modules
 _dist
-.vulmix/**/*.d.ts
-.vulmix/.vulmix
-.vulmix/client
-vulmix.config.js
-laravel-mix
+.vulmix
+vulmix.config.ts

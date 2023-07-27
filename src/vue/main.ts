@@ -28,7 +28,11 @@ nativeComponents.keys().map((key: string) => {
   app.component(nativeComponentName, nativeComponents(key).default)
 })
 
-let routes: Array<{ path: string; component: any; meta?: any }> = []
+let routes: Array<{
+  path: string
+  component: any
+  meta?: any
+}> = []
 
 /**
  * Built-in pages

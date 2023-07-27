@@ -200,22 +200,7 @@ class VulmixInit {
                 'Preparing production bundle...\n'
               )}`
             )
-
-            mix
-              .copy(
-                `${RELATIVE_PACKAGE_PATH}/utils/tsconfig.json`,
-                `${RELATIVE_PUBLIC_PATH}/.vulmix/types`
-              )
-              .copy(
-                `${RELATIVE_PACKAGE_PATH}/types/vue-shims.d.ts`,
-                `${RELATIVE_PUBLIC_PATH}/.vulmix/types`
-              )
           })
-
-          .copy(
-            `${ABSOLUTE_PACKAGE_PATH}/utils/deploy/.htaccess`,
-            ABSOLUTE_PUBLIC_PATH
-          )
 
           .ejs(
             [
