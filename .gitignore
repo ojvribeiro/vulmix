@@ -3,3 +3,6 @@ types/auto-imports.d.ts
 types/components.d.ts
 .yalc
 yalc.lock
+/test-results/
+/playwright-report/
+/playwright/.cache/
