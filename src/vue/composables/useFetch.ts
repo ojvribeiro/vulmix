@@ -1,13 +1,16 @@
-import { ref, unref } from 'vue'
+import { ref, unref, toRef, watch } from 'vue'
 
 export default function useFetch<T>(url: string | Ref<string>): {
   data: Ref<T | null>
   hasError?: Ref<boolean>
   isPending?: Ref<boolean>
+  response?: Ref<Response | null>
+  refresh(): void
 } {
   const data = ref<Ref<T | null>>(null)
   const hasError = ref<boolean>(false)
   const isPending = ref<boolean>(true)
+  const response = ref<Response | null>(null)
 
   makeRequest()
 
@@ -19,6 +22,8 @@ export default function useFetch<T>(url: string | Ref<string>): {
         return { jsonResult, rawResponse }
       })
       .then(({ jsonResult, rawResponse }) => {
+        response.value = rawResponse
+
         if (!rawResponse.ok) {
           data.value = null
           hasError.value = true
@@ -32,11 +37,23 @@ export default function useFetch<T>(url: string | Ref<string>): {
       })
       .catch(err => {
         data.value = null
+        response.value = null
         hasError.value = true
         isPending.value = false
 
         console.error(err)
       })
   }
-  return { data, hasError, isPending }
+
+  function refresh() {
+    isPending.value = true
+
+    makeRequest()
+  }
+
+  watch(toRef(url), () => {
+    refresh()
+  })
+
+  return { data, hasError, isPending, response, refresh }
 }
