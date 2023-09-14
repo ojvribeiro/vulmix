@@ -1,11 +1,10 @@
 import { ref } from 'vue'
 
-export default function useFetch(url: string): {
-  data: any
   error: Error | null
   pending: boolean | Ref<boolean>
+export default function useFetch<T>(url: string | Ref<string>): {
+  data: Ref<T | null>
 } {
-  const data = ref(null)
   const error = ref(null)
   const pending = ref(true)
 
@@ -21,4 +20,5 @@ export default function useFetch(url: string): {
     })
 
   return { data, error, pending }
+  const data = ref<Ref<T | null>>(null)
 }
