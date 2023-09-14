@@ -1,24 +1,42 @@
-import { ref } from 'vue'
+import { ref, unref } from 'vue'
 
-  error: Error | null
-  pending: boolean | Ref<boolean>
 export default function useFetch<T>(url: string | Ref<string>): {
   data: Ref<T | null>
+  hasError?: Ref<boolean>
+  isPending?: Ref<boolean>
 } {
-  const error = ref(null)
-  const pending = ref(true)
-
-  fetch(url)
-    .then(res => res.json())
-    .then(res => {
-      data.value = res
-      pending.value = false
-    })
-    .catch(err => {
-      error.value = err
-      pending.value = false
-    })
-
-  return { data, error, pending }
   const data = ref<Ref<T | null>>(null)
+  const hasError = ref<boolean>(false)
+  const isPending = ref<boolean>(true)
+
+  makeRequest()
+
+  function makeRequest() {
+    fetch(unref(url))
+      .then(async rawResponse => {
+        const jsonResult = await rawResponse.json()
+
+        return { jsonResult, rawResponse }
+      })
+      .then(({ jsonResult, rawResponse }) => {
+        if (!rawResponse.ok) {
+          data.value = null
+          hasError.value = true
+          isPending.value = false
+
+          return
+        }
+
+        data.value = jsonResult
+        isPending.value = false
+      })
+      .catch(err => {
+        data.value = null
+        hasError.value = true
+        isPending.value = false
+
+        console.error(err)
+      })
+  }
+  return { data, hasError, isPending }
 }
