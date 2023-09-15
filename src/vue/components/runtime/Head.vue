@@ -1,9 +1,9 @@
 <script setup lang="ts">
-  import { Head as VueUseHead } from '@vueuse/head'
+  import { Head as Unhead } from '@unhead/vue/components'
 </script>
 
 <template>
-  <VueUseHead>
+  <Unhead>
     <slot />
-  </VueUseHead>
+  </Unhead>
 </template>

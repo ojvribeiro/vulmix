@@ -1,3 +1,4 @@
+const { unheadComposablesImports } = require('unhead')
 const { absoluteVulmixPaths, relativeVulmixPaths } = require('./paths.js')
 
 module.exports.UnpluginAutoImports = () => {
@@ -55,6 +56,7 @@ module.exports.UnpluginAutoImports = () => {
         'vue',
         'vue-router',
         'pinia',
+        unheadComposablesImports[0],
       ],
       // Enable auto import by filename for default module exports under directories
       defaultExportByFilename: true,
