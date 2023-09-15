@@ -1,6 +1,10 @@
 import { ref, unref, toRef, watch } from 'vue'
+import type { UseFetchOptions } from './types'
 
-export default function useFetch<T>(url: string | Ref<string>): {
+export default function useFetch<T>(
+  url: string | Ref<string>,
+  options: UseFetchOptions
+): {
   data: Ref<T | null>
   hasError?: Ref<boolean>
   isPending?: Ref<boolean>
@@ -15,7 +19,7 @@ export default function useFetch<T>(url: string | Ref<string>): {
   makeRequest()
 
   function makeRequest() {
-    fetch(unref(url))
+    fetch(unref(url), options)
       .then(async rawResponse => {
         const jsonResult = await rawResponse.json()
 
