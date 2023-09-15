@@ -1,12 +1,12 @@
 import { createApp, App as VueApp } from 'vue'
 import { createRouter, createWebHistory, Router } from 'vue-router'
-import { createHead, HeadClient } from '@vueuse/head'
+import { createHead, VueHeadClient } from '@unhead/vue'
 import { createPinia } from 'pinia'
 
 import App from '~/app.vue'
 
 const app: VueApp<Element> = createApp(App)
-const head: HeadClient<{}> = createHead()
+const head: VueHeadClient<{}> = createHead()
 
 const pinia = createPinia()
 
