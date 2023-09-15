@@ -1,7 +1,7 @@
 export type UseFetchOptions = {
   body: BodyInit | null
   headers: HeadersInit
-  method: string
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'OPTIONS' | 'HEAD' | 'CONNECT' | 'TRACE'
   cache: RequestCache
   mode: RequestMode
   credentials: RequestCredentials
