@@ -34,7 +34,7 @@
     "sass-loader": "^13.0.2",
     "ts-loader": "^9.4.2",
     "typescript": "^5.0.2",
-    "unplugin-auto-import": "^0.16.1",
+    "unplugin-auto-import": "^0.17.2",
     "unplugin-vue-components": "^0.25.0",
     "vue": "^3.3.2",
     "vue-loader": "^17.1.1",
