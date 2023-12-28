@@ -144,7 +144,7 @@ app.use(router)
 app.use(head)
 app.use(pinia)
 
-const pluginFiles = require.context('@/plugins/', true, /\.(js|ts)$/i)
+const pluginFiles = require.context('@plugins/', true, /\.(js|ts)$/i)
 
 pluginFiles.keys().map((key: string) => {
   const { plugin, options } = pluginFiles(key).default
