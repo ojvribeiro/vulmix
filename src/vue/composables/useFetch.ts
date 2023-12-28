@@ -3,7 +3,7 @@ import type { UseFetchOptions } from './types'
 
 export default function useFetch<T>(
   url: string | Ref<string>,
-  options: UseFetchOptions
+  options?: UseFetchOptions
 ): {
   data: Ref<T | null>
   hasError?: Ref<boolean>
