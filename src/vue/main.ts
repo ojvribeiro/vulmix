@@ -144,4 +144,12 @@ app.use(router)
 app.use(head)
 app.use(pinia)
 
+const pluginFiles = require.context('@plugins/', true, /\.(js|ts)$/i)
+
+pluginFiles.keys().map((key: string) => {
+  const { plugin, options } = pluginFiles(key).default
+
+  app.use(plugin, options)
+})
+
 app.mount('[data-vulmix-app]')
