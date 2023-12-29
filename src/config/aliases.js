@@ -1,5 +1,4 @@
 const fs = require('node:fs')
-const path = require('node:path')
 const { absoluteVulmixPaths } = require('./paths')
 
 const VulmixAliases = () => {
@@ -25,6 +24,9 @@ const VulmixAliases = () => {
     '@pages':
       fs.existsSync(`${ABSOLUTE_ROOT_PATH}/pages`) ?
       `${ABSOLUTE_ROOT_PATH}/pages` : false,
+    '@plugins':
+      fs.existsSync(`${ABSOLUTE_ROOT_PATH}/plugins`) ?
+      `${ABSOLUTE_ROOT_PATH}/plugins` : false,
     '@stores':
       fs.existsSync(`${ABSOLUTE_ROOT_PATH}/stores`) ?
       `${ABSOLUTE_ROOT_PATH}/stores` : false,
