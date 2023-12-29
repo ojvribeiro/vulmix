@@ -22,3 +22,11 @@ export type UseFetchOptions = {
   signal: AbortSignal | null
   window: any
 }
+
+export interface UseFetchReturn<T> {
+  data: Ref<T | null>
+  hasError?: Ref<boolean>
+  isPending?: Ref<boolean>
+  response?: Ref<Response | null>
+  refresh(): void
+}

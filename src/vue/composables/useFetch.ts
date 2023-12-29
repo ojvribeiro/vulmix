@@ -1,16 +1,10 @@
 import { ref, unref, toRef, watch } from 'vue'
-import type { UseFetchOptions } from './types'
+import type { UseFetchOptions, UseFetchReturn } from './types'
 
 export default function useFetch<T>(
   url: string | Ref<string>,
   options?: UseFetchOptions
-): {
-  data: Ref<T | null>
-  hasError?: Ref<boolean>
-  isPending?: Ref<boolean>
-  response?: Ref<Response | null>
-  refresh(): void
-} {
+): UseFetchReturn<T> {
   const data = ref<Ref<T | null>>(null)
   const hasError = ref<boolean>(false)
   const isPending = ref<boolean>(true)
