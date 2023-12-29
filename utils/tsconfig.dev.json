@@ -22,6 +22,7 @@
       "@composables/*": ["./composables/*"],
       "@layouts/*": ["./layouts/*"],
       "@pages/*": ["./pages/*"],
+      "@plugins/*": ["./plugins/*"],
       "@stores/*": ["./stores/*"]
     }
   },
