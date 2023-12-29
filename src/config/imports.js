@@ -11,7 +11,7 @@ module.exports.UnpluginAutoImports = () => {
   const VulmixConfig = require(VULMIX_CONFIG_PATH).default
 
   return [
-    require('unplugin-vue-components/webpack')({
+    require('unplugin-vue-components/webpack').default({
       // Vue version of project. It will detect automatically if not specified.
       // Acceptable value: 2 | 2.7 | 3
       version: 3,
@@ -40,7 +40,7 @@ module.exports.UnpluginAutoImports = () => {
       dts: `${ABSOLUTE_ROOT_PATH}/.vulmix/types/components.d.ts`,
     }),
 
-    require('unplugin-auto-import/webpack')({
+    require('unplugin-auto-import/webpack').default({
       // targets to transform
       include: [
         /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
