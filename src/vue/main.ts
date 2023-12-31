@@ -114,7 +114,7 @@ dynamicPageComponents.keys().map((key: string) => {
 
 routes.push({
   path: '/:pathMatch(.*)*',
-  component: require('@@/vue/pages/404.vue').default,
+  component: require('@404').default,
 })
 
 const router: Router = createRouter({

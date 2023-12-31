@@ -30,6 +30,9 @@ const VulmixAliases = () => {
     '@stores':
       fs.existsSync(`${ABSOLUTE_ROOT_PATH}/stores`) ?
       `${ABSOLUTE_ROOT_PATH}/stores` : false,
+    '@404': fs.existsSync(`${ABSOLUTE_ROOT_PATH}/404.vue`)
+      ? `${ABSOLUTE_ROOT_PATH}/404.vue`
+      : `${ABSOLUTE_PACKAGE_PATH}/src/vue/pages/404.vue`,
   }
 }
 
