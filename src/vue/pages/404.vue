@@ -9,7 +9,7 @@
         <h1>404</h1>
 
         <p>
-          <Link to="/">Return to Home</Link>
+          <a href="/">Return to Home</a>
         </p>
       </div>
     </div>
