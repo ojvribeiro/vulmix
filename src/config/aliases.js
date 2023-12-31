@@ -9,27 +9,27 @@ const VulmixAliases = () => {
     '~': ABSOLUTE_ROOT_PATH,
     '@': ABSOLUTE_ROOT_PATH,
     '@@': `${ABSOLUTE_PACKAGE_PATH}/src`,
-    '@assets':
-      fs.existsSync(`${ABSOLUTE_ROOT_PATH}/assets`) ?
-      `${ABSOLUTE_ROOT_PATH}/assets` : false,
-    '@components':
-      fs.existsSync(`${ABSOLUTE_ROOT_PATH}/components`) ?
-      `${ABSOLUTE_ROOT_PATH}/components` : false,
-    '@composables':
-      fs.existsSync(`${ABSOLUTE_ROOT_PATH}/composables`) ?
-      `${ABSOLUTE_ROOT_PATH}/composables` : false,
-    '@layouts':
-      fs.existsSync(`${ABSOLUTE_ROOT_PATH}/layouts`) ?
-      `${ABSOLUTE_ROOT_PATH}/layouts` : false,
-    '@pages':
-      fs.existsSync(`${ABSOLUTE_ROOT_PATH}/pages`) ?
-      `${ABSOLUTE_ROOT_PATH}/pages` : false,
-    '@plugins':
-      fs.existsSync(`${ABSOLUTE_ROOT_PATH}/plugins`) ?
-      `${ABSOLUTE_ROOT_PATH}/plugins` : false,
-    '@stores':
-      fs.existsSync(`${ABSOLUTE_ROOT_PATH}/stores`) ?
-      `${ABSOLUTE_ROOT_PATH}/stores` : false,
+    '@assets': fs.existsSync(`${ABSOLUTE_ROOT_PATH}/assets`)
+      ? `${ABSOLUTE_ROOT_PATH}/assets`
+      : false,
+    '@components': fs.existsSync(`${ABSOLUTE_ROOT_PATH}/components`)
+      ? `${ABSOLUTE_ROOT_PATH}/components`
+      : false,
+    '@composables': fs.existsSync(`${ABSOLUTE_ROOT_PATH}/composables`)
+      ? `${ABSOLUTE_ROOT_PATH}/composables`
+      : false,
+    '@layouts': fs.existsSync(`${ABSOLUTE_ROOT_PATH}/layouts`)
+      ? `${ABSOLUTE_ROOT_PATH}/layouts`
+      : false,
+    '@pages': fs.existsSync(`${ABSOLUTE_ROOT_PATH}/pages`)
+      ? `${ABSOLUTE_ROOT_PATH}/pages`
+      : false,
+    '@plugins': fs.existsSync(`${ABSOLUTE_ROOT_PATH}/plugins`)
+      ? `${ABSOLUTE_ROOT_PATH}/plugins`
+      : false,
+    '@stores': fs.existsSync(`${ABSOLUTE_ROOT_PATH}/stores`)
+      ? `${ABSOLUTE_ROOT_PATH}/stores`
+      : false,
     '@404': fs.existsSync(`${ABSOLUTE_ROOT_PATH}/404.vue`)
       ? `${ABSOLUTE_ROOT_PATH}/404.vue`
       : `${ABSOLUTE_PACKAGE_PATH}/src/vue/pages/404.vue`,
