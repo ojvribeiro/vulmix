@@ -140,6 +140,10 @@ class VulmixInit {
                 },
               },
             },
+            {
+              test: /\.webmanifest$/,
+              type: 'json',
+            },
           ],
         },
       })
