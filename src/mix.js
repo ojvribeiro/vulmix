@@ -54,6 +54,8 @@ class VulmixInit {
         host: 'localhost',
         port: argv.port,
       },
+
+      processCssUrls: false,
     })
 
     mix
