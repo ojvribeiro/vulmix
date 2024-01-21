@@ -6,7 +6,9 @@
   <Suspense>
     <RouterView v-slot="{ Component, route }">
       <Transition :name="(route?.meta?.transition as string)" mode="out-in">
-        <Component :is="Component" :key="route.fullPath" />
+        <Suspense>
+          <Component :is="Component" :key="route.fullPath" />
+        </Suspense>
       </Transition>
     </RouterView>
   </Suspense>

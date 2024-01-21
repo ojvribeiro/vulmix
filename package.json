@@ -36,7 +36,7 @@
     "typescript": "^5.0.2",
     "unplugin-auto-import": "^0.17.3",
     "unplugin-vue-components": "^0.26.0",
-    "vue": "^3.3.2",
+    "vue": "3.3.2",
     "vue-loader": "^17.1.1",
     "vue-router": "^4.2.0",
     "vulxi": "^0.0.9",

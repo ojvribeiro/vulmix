@@ -3,7 +3,17 @@ import { createRouter, createWebHistory, Router } from 'vue-router'
 import { createHead, VueHeadClient } from '@unhead/vue'
 import { createPinia } from 'pinia'
 
-import App from '~/app.vue'
+let App: NodeRequire
+
+if (
+  require.context('~/', false, /app\.vue/i).keys().length > 0 ||
+  require.context('@pages/', false, /index\.vue/).keys().length > 0
+) {
+  App = require('@appFile').default
+} else {
+  console.error('No app.vue or /pages/index.vue found.')
+  App = require('@404').default
+}
 
 const app: VueApp<Element> = createApp(App)
 const head: VueHeadClient<{}> = createHead()
@@ -114,7 +124,7 @@ dynamicPageComponents.keys().map((key: string) => {
 
 routes.push({
   path: '/:pathMatch(.*)*',
-  component: require('@@/vue/pages/404.vue').default,
+  component: require('@404').default,
 })
 
 const router: Router = createRouter({
