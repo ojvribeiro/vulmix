@@ -1,6 +1,6 @@
 {
   "name": "vulmix",
-  "version": "0.7.0-preview.9",
+  "version": "0.7.0-preview.10",
   "description": "Vue(3) meta-framework that uses Laravel Mix.",
   "repository": "ojvribeiro/vulmix",
   "main": "./src/mix.js",
@@ -31,7 +31,7 @@
     "postcss": "^8.4.25",
     "resolve-url-loader": "^5.0.0",
     "sass": "^1.54.5",
-    "sass-loader": "^13.0.2",
+    "sass-loader": "10",
     "ts-loader": "^9.4.2",
     "typescript": "^5.0.2",
     "unplugin-auto-import": "^0.17.3",
@@ -44,4 +44,3 @@
     "yarpm": "^1.2.0"
   }
 }
-
