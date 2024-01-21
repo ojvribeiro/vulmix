@@ -54,6 +54,8 @@ class VulmixInit {
         host: 'localhost',
         port: argv.port,
       },
+
+      processCssUrls: false,
     })
 
     mix
@@ -137,6 +139,10 @@ class VulmixInit {
                     : ABSOLUTE_ROOT_PATH,
                 },
               },
+            },
+            {
+              test: /\.webmanifest$/,
+              type: 'json',
             },
           ],
         },
