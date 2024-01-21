@@ -1,6 +1,6 @@
 {
   "name": "vulmix",
-  "version": "0.6.2-beta",
+  "version": "0.7.0-preview.9",
   "description": "Vue(3) meta-framework that uses Laravel Mix.",
   "repository": "ojvribeiro/vulmix",
   "main": "./src/mix.js",
@@ -44,3 +44,4 @@
     "yarpm": "^1.2.0"
   }
 }
+
