@@ -3,17 +3,7 @@ import { createRouter, createWebHistory, Router } from 'vue-router'
 import { createHead, VueHeadClient } from '@unhead/vue'
 import { createPinia } from 'pinia'
 
-let App: NodeRequire
-
-if (
-  require.context('~/', false, /app\.vue/i).keys().length > 0 ||
-  require.context('@pages/', false, /index\.vue/).keys().length > 0
-) {
-  App = require('@appFile').default
-} else {
-  console.error('No app.vue or /pages/index.vue found.')
-  App = require('@404').default
-}
+const App = require('@appFile').default
 
 const app: VueApp<Element> = createApp(App)
 const head: VueHeadClient<{}> = createHead()
