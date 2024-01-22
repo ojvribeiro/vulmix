@@ -1,6 +1,6 @@
 {
   "name": "vulmix",
-  "version": "0.7.0-preview.10",
+  "version": "0.7.0-preview.11",
   "description": "Vue(3) meta-framework that uses Laravel Mix.",
   "repository": "ojvribeiro/vulmix",
   "main": "./src/mix.js",
@@ -39,7 +39,7 @@
     "vue": "3.3.2",
     "vue-loader": "^17.1.1",
     "vue-router": "^4.2.0",
-    "vulxi": "^0.0.9",
+    "vulxi": "0.0.8",
     "yargs": "^17.7.1",
     "yarpm": "^1.2.0"
   }
