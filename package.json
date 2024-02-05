@@ -31,7 +31,7 @@
     "postcss": "^8.4.25",
     "resolve-url-loader": "^5.0.0",
     "sass": "^1.54.5",
-    "sass-loader": "^13.0.2",
+    "sass-loader": "^14.1.0",
     "ts-loader": "^9.4.2",
     "typescript": "^5.0.2",
     "unplugin-auto-import": "^0.17.3",
