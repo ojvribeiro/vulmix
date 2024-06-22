@@ -80,72 +80,79 @@ class VulmixInit {
         }
       })
 
-      .webpackConfig({
-        plugins: [
-          ...UnpluginAutoImports(),
-          ...(VulmixConfig.webpackConfig?.plugins || []),
-          new ForkTsCheckerWebpackPlugin(),
-        ],
+      .webpackConfig(webpack => {
+        return {
+          plugins: [
+            new webpack.DefinePlugin({
+              __VUE_OPTIONS_API__: 'true',
+              __VUE_PROD_DEVTOOLS__: 'false',
+              __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'false',
+            }),
+            ...UnpluginAutoImports(),
+            ...(VulmixConfig.webpackConfig?.plugins || []),
+            new ForkTsCheckerWebpackPlugin(),
+          ],
 
-        output: {
-          assetModuleFilename: pathData => {
-            let relativePath = pathData.module.resourceResolveData.path
-              .replace(/\\/g, '/')
-              .replace(ABSOLUTE_ROOT_PATH, '')
+          output: {
+            assetModuleFilename: pathData => {
+              let relativePath = pathData.module.resourceResolveData.path
+                .replace(/\\/g, '/')
+                .replace(ABSOLUTE_ROOT_PATH, '')
 
-            console.log('path: ', pathData.module.resourceResolveData.path)
-            console.log('relativePath', relativePath)
+              console.log('path: ', pathData.module.resourceResolveData.path)
+              console.log('relativePath', relativePath)
 
-            if (
-              /\.(png|jpe?g|gif|svg|webp|avif|ico)$/i.test(pathData.filename)
-            ) {
-              const transfomed = relativePath.replace(
-                /(.*)\/(.*)\.(png|jpe?g|gif|svg|webp|avif|ico)/,
-                'images'
-              )
+              if (
+                /\.(png|jpe?g|gif|svg|webp|avif|ico)$/i.test(pathData.filename)
+              ) {
+                const transfomed = relativePath.replace(
+                  /(.*)\/(.*)\.(png|jpe?g|gif|svg|webp|avif|ico)/,
+                  'images'
+                )
 
-              console.log('transfomed: ', transfomed)
+                console.log('transfomed: ', transfomed)
 
-              return `/${transfomed}/[name][ext][query]`
-            }
-          },
-        },
-
-        resolve: {
-          extensions: ['.js', '.vue', '.ts'],
-          alias: {
-            ...VulmixAliases(),
-            ...(VulmixConfig.webpackConfig?.resolve?.alias || {}),
-          },
-        },
-
-        module: {
-          rules: [
-            // ... other rules omitted
-            {
-              test: /\.ts$/,
-              loader: 'ts-loader',
-              options: { appendTsSuffixTo: [/\.vue$/] },
+                return `/${transfomed}/[name][ext][query]`
+              }
             },
-            {
-              test: /\.s?(c|a)ss$/i,
-              loader: 'postcss-loader',
-              options: {
-                postcssOptions: {
-                  config: fs.existsSync(
-                    `${ABSOLUTE_ROOT_PATH}/tailwind.config.js`
-                  )
-                    ? `${ABSOLUTE_ROOT_PATH}/.vulmix/postcss.config.js`
-                    : ABSOLUTE_ROOT_PATH,
+          },
+
+          resolve: {
+            extensions: ['.js', '.vue', '.ts'],
+            alias: {
+              ...VulmixAliases(),
+              ...(VulmixConfig.webpackConfig?.resolve?.alias || {}),
+            },
+          },
+
+          module: {
+            rules: [
+              // ... other rules omitted
+              {
+                test: /\.ts$/,
+                loader: 'ts-loader',
+                options: { appendTsSuffixTo: [/\.vue$/] },
+              },
+              {
+                test: /\.s?(c|a)ss$/i,
+                loader: 'postcss-loader',
+                options: {
+                  postcssOptions: {
+                    config: fs.existsSync(
+                      `${ABSOLUTE_ROOT_PATH}/tailwind.config.js`
+                    )
+                      ? `${ABSOLUTE_ROOT_PATH}/.vulmix/postcss.config.js`
+                      : ABSOLUTE_ROOT_PATH,
+                  },
                 },
               },
-            },
-            {
-              test: /\.webmanifest$/,
-              type: 'json',
-            },
-          ],
-        },
+              {
+                test: /\.webmanifest$/,
+                type: 'json',
+              },
+            ],
+          },
+        }
       })
 
       .vue({
