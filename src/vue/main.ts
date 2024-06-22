@@ -3,7 +3,7 @@ import { createRouter, createWebHistory, Router } from 'vue-router'
 import { createHead, VueHeadClient } from '@unhead/vue'
 import { createPinia } from 'pinia'
 
-import App from '~/app.vue'
+const App = require('@appFile').default
 
 const app: VueApp<Element> = createApp(App)
 const head: VueHeadClient<{}> = createHead()
@@ -114,7 +114,7 @@ dynamicPageComponents.keys().map((key: string) => {
 
 routes.push({
   path: '/:pathMatch(.*)*',
-  component: require('@@/vue/pages/404.vue').default,
+  component: require('@404').default,
 })
 
 const router: Router = createRouter({
