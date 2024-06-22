@@ -1,4 +1,4 @@
-import { ref, unref, toRef, watch } from 'vue'
+import { ref, unref, toRef, watch, type Ref } from 'vue'
 import type { UseFetchOptions, UseFetchReturn } from './types'
 
 export default function useFetch<T>(
