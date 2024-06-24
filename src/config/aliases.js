@@ -11,8 +11,9 @@ const VulmixAliases = () => {
     '@@': `${ABSOLUTE_PACKAGE_PATH}/src`,
     '@appFile': fs.existsSync(`${ABSOLUTE_ROOT_PATH}/app.vue`)
       ? `${ABSOLUTE_ROOT_PATH}/app.vue`
-      : fs.existsSync(`${ABSOLUTE_ROOT_PATH}/pages/index.vue`)
-      ? `${ABSOLUTE_ROOT_PATH}/pages/index.vue`
+      : fs.existsSync(`${ABSOLUTE_ROOT_PATH}/pages/index.vue`) &&
+        !fs.existsSync(`${ABSOLUTE_ROOT_PATH}/app.vue`)
+      ? `${ABSOLUTE_PACKAGE_PATH}/src/vue/components/runtime/app.vue`
       : `${ABSOLUTE_PACKAGE_PATH}/src/vue/pages/404.vue`,
     '@assets': fs.existsSync(`${ABSOLUTE_ROOT_PATH}/assets`)
       ? `${ABSOLUTE_ROOT_PATH}/assets`

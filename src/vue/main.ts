@@ -1,6 +1,6 @@
-import { createApp, App as VueApp } from 'vue'
-import { createRouter, createWebHistory, Router } from 'vue-router'
-import { createHead, VueHeadClient } from '@unhead/vue'
+import { createApp, type App as VueApp } from 'vue'
+import { createRouter, createWebHistory, type Router } from 'vue-router'
+import { createHead, type VueHeadClient } from '@unhead/vue'
 import { createPinia } from 'pinia'
 
 const App = require('@appFile').default

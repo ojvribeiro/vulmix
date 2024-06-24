@@ -188,21 +188,15 @@ class VulmixInit {
           force: true,
         })
 
-        if (!fs.existsSync(`${ABSOLUTE_ROOT_PATH}/_dist/assets/img`)) {
-          fs.mkdirSync(`${ABSOLUTE_ROOT_PATH}/_dist/assets/img`, {
-            recursive: true,
-          })
+        if (fs.existsSync(`${ABSOLUTE_ROOT_PATH}/public/`)) {
+          mix.copy(
+            `${ABSOLUTE_ROOT_PATH}/public`,
+            `${ABSOLUTE_ROOT_PATH}/_dist/`
+          )
         }
       } catch (error) {
         console.log(`\n${chalk.red(error)}`)
       } finally {
-        if (fs.existsSync(`${ABSOLUTE_ROOT_PATH}/assets/`)) {
-          mix.copy(
-            `${ABSOLUTE_ROOT_PATH}/assets`,
-            `${ABSOLUTE_ROOT_PATH}/_dist/assets`
-          )
-        }
-
         mix
           .setPublicPath(RELATIVE_PUBLIC_PATH)
 
@@ -230,7 +224,7 @@ class VulmixInit {
 
           .ts(
             `${ABSOLUTE_PACKAGE_PATH}/src/vue/main.ts`,
-            `${ABSOLUTE_ROOT_PATH}/_dist/assets/_vulmix/js/main.vulmix.js`
+            `${ABSOLUTE_ROOT_PATH}/_dist/_vulmix/js/main.vulmix.js`
           )
 
           .after(stats => {
@@ -287,25 +281,14 @@ class VulmixInit {
       })
 
       try {
-        fs.rmSync(`${ABSOLUTE_ROOT_PATH}/.vulmix/client/assets`, {
-          recursive: true,
-          force: true,
-        })
-
-        if (!fs.existsSync(`${ABSOLUTE_ROOT_PATH}/.vulmix/client/assets`)) {
-          fs.mkdirSync(`${ABSOLUTE_ROOT_PATH}/.vulmix/client/assets`, {
-            recursive: true,
-          })
+        if (fs.existsSync(`${ABSOLUTE_ROOT_PATH}/public/`)) {
+          mix.copy(
+            `${ABSOLUTE_ROOT_PATH}/public`,
+            `${ABSOLUTE_ROOT_PATH}/.vulmix/client`
+          )
         }
       } catch (error) {
         console.log(`\n${chalk.red(error)}`)
-      } finally {
-        if (fs.existsSync(`${ABSOLUTE_ROOT_PATH}/assets/`)) {
-          mix.copy(
-            `${ABSOLUTE_ROOT_PATH}/assets`,
-            `${ABSOLUTE_ROOT_PATH}/.vulmix/client/assets`
-          )
-        }
       }
 
       mix
@@ -341,7 +324,7 @@ class VulmixInit {
 
         .ts(
           `${ABSOLUTE_PACKAGE_PATH}/src/vue/main.ts`,
-          `${ABSOLUTE_ROOT_PATH}/.vulmix/client/assets/_vulmix/js/main.vulmix.js`
+          `${ABSOLUTE_ROOT_PATH}/.vulmix/client/_vulmix/js/main.vulmix.js`
         )
 
         .sourceMaps()
