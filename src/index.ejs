@@ -8,6 +8,8 @@
     <% if (typeof (head) != 'undefined') { %><% if (typeof (head.title) != 'undefined') { %><title> <%= head.title %> </title><% } %>
     <% if (typeof (head.meta) != 'undefined') { %><% head.meta.forEach(item => { %><% if (typeof (item.charset) == 'undefined') { %><meta <% if (typeof (item.name) != 'undefined') { %>name="<%= item.name %>"<% } else if (typeof (item.property) != 'undefined') { %>property="<%= item.property %>"<% } %><% if (typeof (item.content) != 'undefined') { %> content="<%= item.content %>"<% } %> /><% } %>
     <% }) %><% } %>
+    <% if (typeof (head.link) != 'undefined') { %><% head.link.forEach(item => { %><% if (typeof (item.charset) == 'undefined') { %><link <% if (typeof (item.rel) != 'undefined') { %>rel="<%= item.rel %>"<% } else if (typeof (item.type) != 'undefined') { %>type="<%= item.type %>"<% } %><% if (typeof (item.href) != 'undefined') { %> href="<%= item.href %>"<% } %><% if (typeof (item.hreflang) != 'undefined') { %> hreflang="<%= item.hreflang %>"<% } %><% if (typeof (item.sizes) != 'undefined') { %> sizes="<%= item.sizes %>"<% } %> /><% } %>
+    <% }) %><% } %>
     <% } %>
     <style>
       html,body,body>[data-vulmix-app]{height: 100%;margin: 0;display: flow-root;}
