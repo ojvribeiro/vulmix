@@ -113,7 +113,7 @@
         <p>
           If you want to enable file based routing, inside <code>app.vue</code>,
           replace <code>&lt;VulmixWelcome /&gt;</code> with
-          <code>&lt;App /&gt;</code> and create your routes inside a
+          <code>&lt;Page /&gt;</code> and create your routes inside a
           <code>/pages</code> directory.
         </p>
 
