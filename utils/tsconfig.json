@@ -3,7 +3,7 @@
     "strict": false,
     "target": "esnext",
     "module": "esnext",
-    "moduleResolution": "Node",
+    "moduleResolution": "NodeNext",
     "types": ["node", "webpack-env"],
     "jsx": "preserve",
     "resolveJsonModule": true,
