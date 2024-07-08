@@ -5,14 +5,12 @@
   "repository": "ojvribeiro/vulmix",
   "main": "./src/mix.js",
   "scripts": {
-    "prepare": "vulxi prepare",
     "dev": "vulxi dev",
     "prod": "vulxi prod",
     "serve": "vulxi serve"
   },
   "author": "Victor Ribeiro",
   "license": "MIT",
-  "devDependencies": {},
   "dependencies": {
     "@iconify/vue": "4.0.2",
     "@types/node": "20.14.8",

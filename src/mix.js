@@ -12,7 +12,6 @@ const { UnpluginAutoImports } = require('./config/imports.js')
 const {
   absoluteVulmixPaths,
   relativeVulmixPaths,
-  isDevMode,
 } = require('./config/paths.js')
 const { VulmixAliases } = require('./config/aliases')
 const { useProjectFolderListener } = require('./utils/useProjectFolderListener')
@@ -73,13 +72,11 @@ class VulmixInit {
           )
         }
 
-        if (!isDevMode) {
-          if (!fs.existsSync(`${ABSOLUTE_ROOT_PATH}/vercel.json`)) {
-            mix.copy(
-              `${ABSOLUTE_PACKAGE_PATH}/utils/deploy/vercel.json`,
-              ABSOLUTE_ROOT_PATH
-            )
-          }
+        if (!fs.existsSync(`${ABSOLUTE_ROOT_PATH}/vercel.json`)) {
+          mix.copy(
+            `${ABSOLUTE_PACKAGE_PATH}/utils/deploy/vercel.json`,
+            ABSOLUTE_ROOT_PATH
+          )
         }
       })
 
@@ -249,15 +246,10 @@ class VulmixInit {
                   `${chalk.grey(
                     `Vulmix ${pkg.version}`
                   )}\n\nOptimized build generated in the ${chalk.yellowBright(
-                    isDevMode
-                      ? getRelativePath(
-                          ABSOLUTE_PACKAGE_PATH,
-                          ABSOLUTE_PUBLIC_PATH
-                        ).replace(/\.\//g, '')
-                      : getRelativePath(
-                          ABSOLUTE_ROOT_PATH,
-                          ABSOLUTE_PUBLIC_PATH
-                        ).replace(/\.\//g, '')
+                    getRelativePath(
+                      ABSOLUTE_ROOT_PATH,
+                      ABSOLUTE_PUBLIC_PATH
+                    ).replace(/\.\//g, '')
                   )} folder. You can\ndeploy its contents on any static host.\n`
                 )
               )
