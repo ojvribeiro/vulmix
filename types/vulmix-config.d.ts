@@ -9,6 +9,10 @@ export interface VulmixConfig {
     presets?: string[]
   }
 
+  dirs?: {
+    public?: string
+  },
+
   head?: {
     title?: string
 
