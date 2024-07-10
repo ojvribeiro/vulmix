@@ -5,14 +5,12 @@
   "repository": "ojvribeiro/vulmix",
   "main": "./src/mix.js",
   "scripts": {
-    "prepare": "vulxi prepare",
     "dev": "vulxi dev",
     "prod": "vulxi prod",
     "serve": "vulxi serve"
   },
   "author": "Victor Ribeiro",
   "license": "MIT",
-  "devDependencies": {},
   "dependencies": {
     "@iconify/vue": "4.0.2",
     "@types/node": "20.14.8",
@@ -28,7 +26,7 @@
     "laravel-mix": "6.0.49",
     "laravel-mix-ejs": "2.0.1",
     "pinia": "2.0.36",
-    "postcss": "8.4.25",
+    "postcss": "8.4.31",
     "resolve-url-loader": "5.0.0",
     "sass": "1.54.5",
     "sass-loader": "14.1.1",
@@ -39,7 +37,7 @@
     "vue": "3.4.21",
     "vue-loader": "17.4.2",
     "vue-router": "4.4.0",
-    "vulxi": "0.0.11",
+    "vulxi": "0.0.12",
     "yargs": "17.7.1",
     "yarpm": "1.2.0"
   }
