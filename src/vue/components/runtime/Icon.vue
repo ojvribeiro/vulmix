@@ -7,9 +7,16 @@
         ? {
             '-webkit-mask-image': `url(${iconUrl})`,
             'mask-image': `url(${iconUrl})`,
+            'mask-size': 'contain',
+            'mask-repeat': 'no-repeat',
             'background-color': 'currentColor',
           }
-        : { 'background-image': `url(${iconUrl})` }
+        : {
+            'background-image': `url(${iconUrl})`,
+            'background-color': 'currentColor',
+            'background-size': 'contain',
+            'background-repeat': 'no-repeat',
+          }
     "
   />
 
@@ -83,9 +90,6 @@
 
 <style scoped>
   span.icon {
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
     height: 1em;
     width: 1em;
     display: inline-block;
