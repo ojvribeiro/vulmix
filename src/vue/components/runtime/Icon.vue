@@ -1,6 +1,7 @@
 <template>
   <span
     v-if="!props.icon"
+    v-bind="$attrs"
     :class="['icon', props.class]"
     :style="
       props.multitone === false
@@ -21,7 +22,7 @@
   />
 
   <template v-else>
-    <IconifyIcon :icon="props.icon" :class="[props.class]" />
+    <IconifyIcon :icon="props.icon" v-bind="$attrs" :class="[props.class]" />
   </template>
 </template>
 
