@@ -32,7 +32,7 @@
     inheritAttrs: false,
   })
 
-  export interface Props {
+  interface Props {
     name?: string
     icon?: string
     format?: 'svg' | 'png'
