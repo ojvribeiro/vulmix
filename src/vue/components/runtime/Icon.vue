@@ -4,7 +4,7 @@
     v-bind="$attrs"
     :class="['icon', props.class]"
     :style="
-      props.multitone === false || props.format === 'svg'
+      props.multitone === false && props.format === 'svg'
         ? {
             '-webkit-mask-image': `url(${iconUrl})`,
             'mask-image': `url(${iconUrl})`,
