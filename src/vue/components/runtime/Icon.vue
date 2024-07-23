@@ -54,13 +54,13 @@
         currentFormat: string = 'svg'
 
       if (props.format === 'svg') {
-        iconsImport = require.context('@/assets/icons/', true, /\.svg$/)
+        iconsImport = require.context('@assets/icons/', true, /\.svg$/)
 
         currentFormat = 'svg'
       }
 
       if (props.format === 'png') {
-        iconsImport = require.context('@/assets/icons/', true, /\.png$/)
+        iconsImport = require.context('@assets/icons/', true, /\.png$/)
 
         currentFormat = 'png'
       }
