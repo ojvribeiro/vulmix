@@ -191,6 +191,12 @@ class VulmixInit {
         if (fs.existsSync(APP_PUBLIC_PATH)) {
           mix.copy(APP_PUBLIC_PATH, `${ABSOLUTE_ROOT_PATH}/_dist/`)
         }
+
+        if (!fs.existsSync(`${ABSOLUTE_ROOT_PATH}/assets`)) {
+          fs.mkdirSync(`${ABSOLUTE_ROOT_PATH}/_dist/assets`, {
+            recursive: true,
+          })
+        }
       } catch (error) {
         console.log(`\n${chalk.red(error)}`)
       } finally {

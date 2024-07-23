@@ -1,57 +1,108 @@
+<template>
+  <span
+    v-if="!props.icon"
+    v-bind="$attrs"
+    :class="['icon', props.class]"
+    :style="
+      props.multitone === false && props.format === 'svg'
+        ? {
+            '-webkit-mask-image': `url(${iconUrl})`,
+            'mask-image': `url(${iconUrl})`,
+            'mask-size': 'contain',
+            'mask-repeat': 'no-repeat',
+            'background-color': props.format === 'svg' ? 'currentColor' : null,
+          }
+        : {
+            'background-image': `url(${iconUrl})`,
+            'background-color': props.format === 'svg' ? 'currentColor' : null,
+            'background-size': 'contain',
+            'background-repeat': 'no-repeat',
+          }
+    "
+  />
+
+  <template v-else>
+    <IconifyIcon :icon="props.icon" v-bind="$attrs" :class="[props.class]" />
+  </template>
+</template>
+
 <script setup lang="ts">
-  import { computed } from 'vue'
-  import { Icon } from '@iconify/vue'
+  import { Icon as IconifyIcon } from '@iconify/vue'
+
+  defineOptions({
+    inheritAttrs: false,
+  })
 
   interface Props {
     name?: string
     icon?: string
-    font?: boolean
+    format?: 'svg' | 'png'
+    class?: string | string[] | Record<string, boolean>
+    multitone?: boolean
   }
 
   const props = withDefaults(defineProps<Props>(), {
-    font: true,
+    format: 'svg',
+    multitone: false,
   })
 
-  const maskSrc = computed<string>(() => `/assets/icons/${props.name}.svg`)
-</script>
+  const iconUrl = ref<string | Record<string, any>>('')
 
-<template>
-  <i
-    v-if="!props.icon"
-    class="icon"
-    :style="
-      props.font === true
-        ? {
-            '-webkit-mask-image': `url(${maskSrc})`,
-            'mask-image': `url(${maskSrc})`,
-            'background-color': 'currentColor',
-          }
-        : { 'background-image': `url(${maskSrc})` }
-    "
-  />
+  function getIcon() {
+    try {
+      let iconsImport: any,
+        iconTransformedPath: any,
+        currentFormat: string = 'svg'
 
-  <component
-    v-else
-    :is="props.icon && Icon"
-    :icon="props.icon"
-    class="icon"
-  ></component>
-</template>
+      if (props.format === 'svg') {
+        iconsImport = require.context('@assets/icons/', true, /\.svg$/)
 
-<style scoped>
-  .icon {
-    display: inline-block;
-    vertical-align: middle;
-    width: 1em;
-    height: 1em;
+        currentFormat = 'svg'
+      }
+
+      if (props.format === 'png') {
+        iconsImport = require.context('@assets/icons/', true, /\.png$/)
+
+        currentFormat = 'png'
+      }
+
+      if (props.icon) {
+        return
+      }
+
+      const key = iconsImport
+        .keys()
+        .find((key: string) => key.includes(props.name + '.' + currentFormat))
+
+      iconTransformedPath = iconsImport(key).default
+
+      iconUrl.value = iconTransformedPath
+    } catch (e) {
+      if (props.name) {
+        console.error(`Icon '${props.name}' doesn't exist in 'assets/icons'`, e)
+      }
+    }
   }
 
-  i.icon {
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    mask-size: contain;
-    mask-repeat: no-repeat;
-    mask-position: center;
+  getIcon()
+
+  watchEffect(getIcon)
+</script>
+
+<style scoped>
+  span.icon {
+    height: 1em;
+    width: 1em;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  span.icon > svg,
+  .iconify:is(svg) {
+    height: 1em;
+    width: 1em;
+    display: inline-block;
+    vertical-align: middle;
+    fill: currentColor;
   }
 </style>
