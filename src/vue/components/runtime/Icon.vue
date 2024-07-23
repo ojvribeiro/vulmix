@@ -4,17 +4,17 @@
     v-bind="$attrs"
     :class="['icon', props.class]"
     :style="
-      props.multitone === false
+      props.multitone === false || props.format === 'svg'
         ? {
             '-webkit-mask-image': `url(${iconUrl})`,
             'mask-image': `url(${iconUrl})`,
             'mask-size': 'contain',
             'mask-repeat': 'no-repeat',
-            'background-color': 'currentColor',
+            'background-color': props.format === 'svg' ? 'currentColor' : null,
           }
         : {
             'background-image': `url(${iconUrl})`,
-            'background-color': 'currentColor',
+            'background-color': props.format === 'svg' ? 'currentColor' : null,
             'background-size': 'contain',
             'background-repeat': 'no-repeat',
           }
