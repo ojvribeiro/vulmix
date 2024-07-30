@@ -7,8 +7,6 @@ const App = require('@appFile').default
 const app: VueApp<Element> = createApp(App)
 const head: VueHeadClient<{}> = createHead()
 
-const pinia = createPinia()
-
 let routes: Array<{
   path: string
   component: any
