@@ -7,23 +7,7 @@ const App = require('@appFile').default
 const app: VueApp<Element> = createApp(App)
 const head: VueHeadClient<{}> = createHead()
 
-/**
- * Built-in components
- */
-const nativeComponents = require.context(
-  '@@/vue/components/',
-  true,
-  /\.(vue|js|ts)$/i
-)
-nativeComponents.keys().map((key: string) => {
-  let nativeComponentName: string = key.split('.')[1].replace(/\//g, '')
-
-  if (nativeComponentName.match(/index$/)) {
-    nativeComponentName = nativeComponentName.replace('index', '')
-  }
-
-  app.component(nativeComponentName, nativeComponents(key).default)
-})
+const pinia = createPinia()
 
 let routes: Array<{
   path: string
