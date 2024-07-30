@@ -18,9 +18,8 @@ module.exports.UnpluginAutoImports = () => {
 
       // relative paths to the directory to search for components.
       dirs: [
-        `${RELATIVE_ROOT_PATH}/components`,
-        `${RELATIVE_ROOT_PATH}/.vulmix/runtime/components`,
-        `${RELATIVE_PACKAGE_PATH}/src/vue/components`,
+        `${ABSOLUTE_ROOT_PATH}/components`,
+        `${ABSOLUTE_ROOT_PATH}/.vulmix/runtime/components`,
       ],
 
       // valid file extensions for components.
