@@ -80,6 +80,10 @@ class VulmixInit {
         }
       })
 
+      .babelConfig({
+        plugins: ['@babel/plugin-syntax-dynamic-import'],
+      })
+
       .webpackConfig(webpack => {
         return {
           plugins: [
