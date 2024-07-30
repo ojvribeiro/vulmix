@@ -18,6 +18,9 @@ const VulmixAliases = () => {
     '@assets': fs.existsSync(`${ABSOLUTE_ROOT_PATH}/assets`)
       ? `${ABSOLUTE_ROOT_PATH}/assets`
       : false,
+    '@icons': fs.existsSync(`${ABSOLUTE_ROOT_PATH}/assets/icons`)
+      ? `${ABSOLUTE_ROOT_PATH}/assets/icons`
+      : false,
     '@components': fs.existsSync(`${ABSOLUTE_ROOT_PATH}/components`)
       ? `${ABSOLUTE_ROOT_PATH}/components`
       : false,
