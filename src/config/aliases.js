@@ -18,6 +18,9 @@ const VulmixAliases = () => {
     '@assets': fs.existsSync(`${ABSOLUTE_ROOT_PATH}/assets`)
       ? `${ABSOLUTE_ROOT_PATH}/assets`
       : false,
+    '@icons': fs.existsSync(`${ABSOLUTE_ROOT_PATH}/assets/icons`)
+      ? `${ABSOLUTE_ROOT_PATH}/assets/icons`
+      : false,
     '@components': fs.existsSync(`${ABSOLUTE_ROOT_PATH}/components`)
       ? `${ABSOLUTE_ROOT_PATH}/components`
       : false,
@@ -32,9 +35,6 @@ const VulmixAliases = () => {
       : false,
     '@plugins': fs.existsSync(`${ABSOLUTE_ROOT_PATH}/plugins`)
       ? `${ABSOLUTE_ROOT_PATH}/plugins`
-      : false,
-    '@stores': fs.existsSync(`${ABSOLUTE_ROOT_PATH}/stores`)
-      ? `${ABSOLUTE_ROOT_PATH}/stores`
       : false,
     '@404': fs.existsSync(`${ABSOLUTE_ROOT_PATH}/404.vue`)
       ? `${ABSOLUTE_ROOT_PATH}/404.vue`
