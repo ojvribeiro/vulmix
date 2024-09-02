@@ -26,7 +26,6 @@
     "laravel-mix-ejs": "2.0.1",
     "postcss": "8.4.31",
     "resolve-url-loader": "5.0.0",
-    "sass": "1.54.5",
     "sass-loader": "14.1.1",
     "ts-loader": "9.5.1",
     "typescript": "5.5.4",
