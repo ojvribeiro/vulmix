@@ -9,7 +9,7 @@
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,
-    "baseUrl": ".",
+    "baseUrl": "."
   },
   "exclude": ["node_modules", "./src/config/**/*"]
 }
