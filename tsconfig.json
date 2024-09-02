@@ -1,3 +1,15 @@
 {
-  "extends": "./utils/tsconfig.json",
+  "compilerOptions": {
+    "strict": true,
+    "target": "ESNext",
+    "module": "Preserve",
+    "moduleResolution": "Bundler",
+    "types": ["node", "webpack-env"],
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "baseUrl": ".",
+  },
+  "exclude": ["node_modules", "./src/config/**/*"]
 }
