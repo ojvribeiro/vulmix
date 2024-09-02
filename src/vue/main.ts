@@ -1,14 +1,11 @@
 import { createApp, type App as VueApp } from 'vue'
 import { createRouter, createWebHistory, type Router } from 'vue-router'
 import { createHead, type VueHeadClient } from '@unhead/vue'
-import { createPinia } from 'pinia'
 
 const App = require('@appFile').default
 
 const app: VueApp<Element> = createApp(App)
 const head: VueHeadClient<{}> = createHead()
-
-const pinia = createPinia()
 
 /**
  * Built-in components
@@ -142,7 +139,6 @@ layoutFiles.keys().map((key: string) => {
 
 app.use(router)
 app.use(head)
-app.use(pinia)
 
 const pluginFiles = require.context('@plugins/', true, /\.(js|ts)$/i)
 
