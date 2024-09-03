@@ -23,6 +23,7 @@
     "fork-ts-checker-webpack-plugin": "9.0.2",
     "http-server": "14.1.1",
     "laravel-mix": "6.0.49",
+    "laravel-mix-compress": "^3.0.0",
     "laravel-mix-ejs": "2.0.1",
     "postcss": "8.4.31",
     "resolve-url-loader": "5.0.0",
