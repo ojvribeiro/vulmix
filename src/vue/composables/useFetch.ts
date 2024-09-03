@@ -5,7 +5,7 @@ export default function useFetch<T>(
   url: string | Ref<string>,
   options?: UseFetchOptions
 ): UseFetchReturn<T> {
-  const data = ref<Ref<T | null>>(null)
+  const data = ref<Ref<T | null> | null>(null)
   const hasError = ref<boolean>(false)
   const isPending = ref<boolean>(true)
   const response = ref<Response | null>(null)

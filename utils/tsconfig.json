@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "strict": false,
-    "target": "esnext",
-    "module": "esnext",
-    "moduleResolution": "Bundler",
+    "target": "ESNext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "types": ["node", "webpack-env"],
     "jsx": "preserve",
     "resolveJsonModule": true,

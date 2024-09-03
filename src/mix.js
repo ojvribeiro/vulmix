@@ -17,6 +17,7 @@ const { VulmixAliases } = require('./config/aliases')
 const { useProjectFolderListener } = require('./utils/useProjectFolderListener')
 
 require('laravel-mix-ejs')
+require('laravel-mix-compress')
 
 const RELATIVE_ROOT_PATH = relativeVulmixPaths().relativeRootPath
 const ABSOLUTE_ROOT_PATH = absoluteVulmixPaths().absoluteRootPath
@@ -233,6 +234,8 @@ class VulmixInit {
             `${ABSOLUTE_PACKAGE_PATH}/src/vue/main.ts`,
             `${ABSOLUTE_ROOT_PATH}/_dist/_vulmix/js/main.vulmix.js`
           )
+
+          .compress()
 
           .after(stats => {
             /**

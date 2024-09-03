@@ -1,105 +1,11 @@
 import { createApp, type App as VueApp } from 'vue'
-import { createRouter, createWebHistory, type Router } from 'vue-router'
 import { createHead, type VueHeadClient } from '@unhead/vue'
+import router from './router'
 
 const App = require('@appFile').default
 
 const app: VueApp<Element> = createApp(App)
 const head: VueHeadClient<{}> = createHead()
-
-let routes: Array<{
-  path: string
-  component: any
-  meta?: any
-}> = []
-
-/**
- * Built-in pages
- */
-const nativePageComponents = require.context(
-  '@@/vue/pages/',
-  true,
-  /\.(vue|js|ts)$/i
-)
-nativePageComponents.keys().map((key: string) => {
-  let slugName: string = key
-    .split('.')[1]
-    .replace(/([A-Z])/g, '-$1')
-    .replace(/(^-)/g, '')
-    .toLowerCase()
-
-  if (slugName.match(/\/index$/)) {
-    slugName = slugName.replace('/index', '/')
-  }
-
-  routes.push({
-    path: slugName === '/index' ? '/' : `/${slugName}`,
-    component: nativePageComponents(key).default,
-  })
-})
-
-/**
- * Pages
- */
-const pageComponents = require.context('@pages/', true, /\.(vue|js|ts)$/i)
-pageComponents.keys().map((key: string) => {
-  let slugName: string = key
-    .split('.')[1]
-    .replace(/([A-Z])/g, '-$1')
-    .replace(/(^-)/g, '')
-    .toLowerCase()
-
-  if (slugName.match(/\/index$/)) {
-    slugName = slugName.replace('/index', '/')
-  }
-
-  routes.push({
-    path: slugName === '/index' ? '/' : `/${slugName}`,
-    component: pageComponents(key).default,
-    meta: {
-      transition: require('~/.vulmix/vulmix.config.js')?.default?.transition
-        ? require('~/.vulmix/vulmix.config.js')?.default?.transition?.name
-        : '',
-    },
-  })
-})
-
-/**
- * Dynamic Pages
- */
-const dynamicPageComponents = require.context(
-  '@pages/',
-  true,
-  /\[(.*)\]\.(vue|js|ts)$/i
-)
-dynamicPageComponents.keys().map((key: string) => {
-  let slugName: string = key
-    .split('.')[1]
-    .replace(/([A-Z])/g, '-$1')
-    .replace(/(^-)/g, '')
-    .toLowerCase()
-
-  if (slugName.match(/\/index$/)) {
-    slugName = slugName.replace('/index', '/')
-  } else {
-    slugName = slugName.replace(/\/\[(.*)\]/, '/:$1')
-  }
-
-  routes.push({
-    path: slugName === '/index' ? '/' : `/${slugName}`,
-    component: dynamicPageComponents(key).default,
-  })
-})
-
-routes.push({
-  path: '/:pathMatch(.*)*',
-  component: require('@404').default,
-})
-
-const router: Router = createRouter({
-  history: createWebHistory(),
-  routes: routes,
-})
 
 /**
  * Layouts
@@ -119,7 +25,6 @@ layoutFiles.keys().map((key: string) => {
   app.component(layoutName, layoutFiles(key).default)
 })
 
-app.use(router)
 app.use(head)
 
 const pluginFiles = require.context('@plugins/', true, /\.(js|ts)$/i)
@@ -129,5 +34,12 @@ pluginFiles.keys().map((key: string) => {
 
   app.use(plugin, options)
 })
+
+const routerFile = require.context('@pages/', true, /index\.(vue|js|ts)$/i)
+
+// only use router if /pages folder exists
+if (routerFile.keys().length > 0) {
+  app.use(router)
+}
 
 app.mount('[data-vulmix-app]')
