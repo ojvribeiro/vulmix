@@ -6,17 +6,16 @@
     :style="
       props.multitone === false && props.format === 'svg'
         ? {
-            '-webkit-mask-image': `url(${iconUrl})`,
-            'mask-image': `url(${iconUrl})`,
-            'mask-size': 'contain',
-            'mask-repeat': 'no-repeat',
-            'background-color': props.format === 'svg' ? 'currentColor' : null,
+            maskImage: `url(${iconUrl})`,
+            maskSize: 'contain',
+            maskRepeat: 'no-repeat',
+            backgroundColor: props.format === 'svg' ? 'currentColor' : '',
           }
         : {
-            'background-image': `url(${iconUrl})`,
-            'background-color': props.format === 'svg' ? 'currentColor' : null,
-            'background-size': 'contain',
-            'background-repeat': 'no-repeat',
+            backgroundImage: `url(${iconUrl})`,
+            backgroundColor: props.format === 'svg' ? 'currentColor' : '',
+            backgroundSize: 'contain',
+            backgroundRepeat: 'no-repeat',
           }
     "
   />
