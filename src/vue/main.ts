@@ -26,6 +26,7 @@ layoutFiles.keys().map((key: string) => {
 })
 
 app.use(head)
+app.use(router)
 
 const pluginFiles = require.context('@plugins/', true, /\.(js|ts)$/i)
 
@@ -34,12 +35,5 @@ pluginFiles.keys().map((key: string) => {
 
   app.use(plugin, options)
 })
-
-const routerFile = require.context('@pages/', true, /index\.(vue|js|ts)$/i)
-
-// only use router if /pages folder exists
-if (routerFile.keys().length > 0) {
-  app.use(router)
-}
 
 app.mount('[data-vulmix-app]')
