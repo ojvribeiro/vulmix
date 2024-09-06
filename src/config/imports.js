@@ -5,7 +5,6 @@ module.exports.UnpluginAutoImports = () => {
   const ABSOLUTE_ROOT_PATH = absoluteVulmixPaths().absoluteRootPath
   const ABSOLUTE_PACKAGE_PATH = absoluteVulmixPaths().absolutePackagePath
   const RELATIVE_ROOT_PATH = relativeVulmixPaths().relativeRootPath
-  const RELATIVE_PACKAGE_PATH = relativeVulmixPaths().relativePackagePath
 
   const VULMIX_CONFIG_PATH = `${ABSOLUTE_ROOT_PATH}/.vulmix/vulmix.config.js`
   const VulmixConfig = require(VULMIX_CONFIG_PATH).default
@@ -24,12 +23,7 @@ module.exports.UnpluginAutoImports = () => {
     }),
 
     require('unplugin-auto-import/webpack').default({
-      include: [
-        /\.[tj]sx?$/,
-        /\.vue$/,
-        /\.vue\?vue/,
-        /\.md$/,
-      ],
+      include: [/\.[tj]sx?$/, /\.vue$/, /\.vue\?vue/, /\.md$/],
       imports: [
         ...(VulmixConfig.imports?.presets || []),
         'vue',
