@@ -20,6 +20,12 @@ module.exports.UnpluginAutoImports = () => {
       directoryAsNamespace: true,
       collapseSamePrefixes: true,
       dts: `${ABSOLUTE_ROOT_PATH}/.vulmix/types/components.d.ts`,
+      types: [
+        {
+          from: 'vue-router',
+          names: ['RouterLink', 'RouterView'],
+        },
+      ],
     }),
 
     require('unplugin-auto-import/webpack').default({
