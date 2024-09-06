@@ -27,6 +27,7 @@
 </template>
 
 <script setup lang="ts">
+  import { ref, withDefaults, watchEffect } from 'vue'
   import { Icon as IconifyIcon } from '@iconify/vue'
 
   defineOptions({
