@@ -1,6 +1,6 @@
 import { Plugin } from 'vue'
 
-export function defineVulmixPlugin(
+export function definePlugin(
   plugin: Plugin,
   ...options: any[]
 ): { plugin: Plugin; options?: any[] } {
