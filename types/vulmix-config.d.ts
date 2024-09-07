@@ -11,6 +11,7 @@ export interface VulmixConfig {
 
   dirs?: {
     public?: string
+    src?: string
   },
 
   head?: {
