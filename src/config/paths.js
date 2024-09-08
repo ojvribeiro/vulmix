@@ -7,15 +7,21 @@ const normalizePath = originalPath => {
 
 const absoluteVulmixPaths = () => {
   const absoluteRootPath = normalizePath(path.resolve(__dirname, '../../../..'))
+  const VULMIX_CONFIG_PATH = `${absoluteRootPath}/.vulmix/vulmix.config.js`
+  const VulmixConfig = require(VULMIX_CONFIG_PATH).default
   const absolutePackagePath = normalizePath(path.resolve(__dirname, '../..'))
   const absolutePublicPath = normalizePath(
     path.resolve(__dirname, '../../../../_dist')
+  )
+  const absoluteSrcPath = normalizePath(
+    path.resolve(__dirname, `../../../../${VulmixConfig?.dirs?.src || ''}`)
   )
 
   return {
     absoluteRootPath,
     absolutePackagePath,
     absolutePublicPath,
+    absoluteSrcPath,
   }
 }
 
@@ -23,6 +29,8 @@ const relativeVulmixPaths = () => {
   const ABSOLUTE_ROOT_PATH = absoluteVulmixPaths().absoluteRootPath
   const ABSOLUTE_PACKAGE_PATH = absoluteVulmixPaths().absolutePackagePath
   const ABSOLUTE_PUBLIC_PATH = absoluteVulmixPaths().absolutePublicPath
+  const ABSOLUTE_SRC_PATH = absoluteVulmixPaths().absoluteSrcPath
+
   const relativePackagePath = getRelativePath(
     ABSOLUTE_ROOT_PATH,
     ABSOLUTE_PACKAGE_PATH
@@ -35,11 +43,13 @@ const relativeVulmixPaths = () => {
     ABSOLUTE_ROOT_PATH,
     ABSOLUTE_ROOT_PATH
   )
+  const relativeSrcPath = getRelativePath(ABSOLUTE_ROOT_PATH, ABSOLUTE_SRC_PATH)
 
   return {
     relativePackagePath,
     relativePublicPath,
     relativeRootPath,
+    relativeSrcPath,
   }
 }
 
