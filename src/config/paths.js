@@ -11,10 +11,13 @@ const absoluteVulmixPaths = () => {
   const VulmixConfig = require(VULMIX_CONFIG_PATH).default
   const absolutePackagePath = normalizePath(path.resolve(__dirname, '../..'))
   const absolutePublicPath = normalizePath(
-    path.resolve(__dirname, '../../../../_dist')
+    path.resolve(__dirname, `${absoluteRootPath}/_dist`)
   )
   const absoluteSrcPath = normalizePath(
-    path.resolve(__dirname, `../../../../${VulmixConfig?.dirs?.src || ''}`)
+    path.resolve(
+      __dirname,
+      `${absoluteRootPath}/${VulmixConfig?.dirs?.src || ''}`
+    )
   )
 
   return {
