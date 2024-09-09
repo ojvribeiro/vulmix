@@ -40,6 +40,9 @@ class VulmixInit {
   register() {
     const VULMIX_CONFIG_PATH = `${ABSOLUTE_ROOT_PATH}/.vulmix/vulmix.config.js`
 
+    /**
+     * @type {import('../types/vulmix-config').VulmixConfig}
+     */
     const VulmixConfig = require(VULMIX_CONFIG_PATH).default
     const APP_PUBLIC_PATH = VulmixConfig.dirs?.public
       ? `${ABSOLUTE_ROOT_PATH}/${VulmixConfig.dirs?.public?.replace('/', '')}/`
