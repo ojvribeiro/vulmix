@@ -32,7 +32,7 @@
     "typescript": "5.5.4",
     "unplugin-auto-import": "0.17.6",
     "unplugin-vue-components": "0.26.0",
-    "vue": "3.4.38",
+    "vue": "^3.4.38",
     "vue-loader": "17.4.2",
     "vue-router": "4.4.0",
     "vulxi": "0.1.4",
