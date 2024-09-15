@@ -1,3 +1,5 @@
+import type { Ref } from 'vue'
+
 export type UseFetchOptions = {
   body: BodyInit | null
   headers: HeadersInit
