@@ -21,8 +21,8 @@ module.exports.UnpluginAutoImports = () => {
             ]
           : [`${RELATIVE_SRC_PATH}/.vulmix/runtime/components`],
       extensions: ['vue', 'ts', 'js'],
-      directoryAsNamespace: true,
-      collapseSamePrefixes: true,
+      directoryAsNamespace: VulmixConfig.options?.directoryAsNamespace || false,
+      collapseSamePrefixes: VulmixConfig.options?.collapseSamePrefixes || false,
       dts: `${ABSOLUTE_ROOT_PATH}/.vulmix/types/components.d.ts`,
       types: [
         {

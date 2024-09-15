@@ -11,6 +11,10 @@ export interface VulmixConfig {
       dirs?: string[]
     }
     presets?: string[]
+    options?: {
+      directoryAsNamespace?: boolean
+      collapseSamePrefixes?: boolean
+    }
   }
 
   dirs?: {
