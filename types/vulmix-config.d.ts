@@ -7,6 +7,9 @@ export interface VulmixConfig {
   imports?: {
     enabled?: boolean
     dirs?: string[]
+    components?: {
+      dirs?: string[]
+    }
     presets?: string[]
   }
 

@@ -17,6 +17,7 @@ module.exports.UnpluginAutoImports = () => {
           ? [
               `${RELATIVE_SRC_PATH}/.vulmix/runtime/components`,
               `${RELATIVE_SRC_PATH}/components`,
+              ...(VulmixConfig.imports?.components?.dirs || []),
             ]
           : [`${RELATIVE_SRC_PATH}/.vulmix/runtime/components`],
       extensions: ['vue', 'ts', 'js'],
