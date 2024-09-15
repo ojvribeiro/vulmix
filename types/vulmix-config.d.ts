@@ -5,6 +5,7 @@ export interface VulmixConfig {
   lang?: string
 
   imports?: {
+    enabled?: boolean
     dirs?: string[]
     presets?: string[]
   }
@@ -12,7 +13,7 @@ export interface VulmixConfig {
   dirs?: {
     public?: string
     src?: string
-  },
+  }
 
   head?: {
     title?: string
