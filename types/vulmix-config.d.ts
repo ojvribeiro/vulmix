@@ -5,14 +5,22 @@ export interface VulmixConfig {
   lang?: string
 
   imports?: {
+    enabled?: boolean
     dirs?: string[]
+    components?: {
+      dirs?: string[]
+    }
     presets?: string[]
+    options?: {
+      directoryAsNamespace?: boolean
+      collapseSamePrefixes?: boolean
+    }
   }
 
   dirs?: {
     public?: string
     src?: string
-  },
+  }
 
   head?: {
     title?: string
