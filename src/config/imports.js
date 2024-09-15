@@ -12,10 +12,13 @@ module.exports.UnpluginAutoImports = () => {
   return [
     require('unplugin-vue-components/webpack').default({
       version: 3,
-      dirs: [
-        `${RELATIVE_SRC_PATH}/.vulmix/runtime/components`,
-        `${RELATIVE_SRC_PATH}/components`,
-      ],
+      dirs:
+        VulmixConfig.imports?.enabled === true
+          ? [
+              `${RELATIVE_SRC_PATH}/.vulmix/runtime/components`,
+              `${RELATIVE_SRC_PATH}/components`,
+            ]
+          : [`${RELATIVE_SRC_PATH}/.vulmix/runtime/components`],
       extensions: ['vue', 'ts', 'js'],
       directoryAsNamespace: true,
       collapseSamePrefixes: true,
