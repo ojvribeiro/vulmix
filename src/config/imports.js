@@ -33,22 +33,30 @@ module.exports.UnpluginAutoImports = () => {
 
     require('unplugin-auto-import/webpack').default({
       include: [/\.[tj]sx?$/, /\.vue$/, /\.vue\?vue/, /\.md$/],
-      imports: [
-        ...(VulmixConfig.imports?.presets || []),
-        'vue',
-        'vue-router',
-        unheadComposablesImports[0],
-      ],
-      defaultExportByFilename: true,
-      dirs: [
-        ...(VulmixConfig.imports?.dirs || []),
-        `${ABSOLUTE_PACKAGE_PATH}/src/vue/composables/**`,
-        `${ABSOLUTE_PACKAGE_PATH}/src/vue/utils/**`,
-        `${RELATIVE_SRC_PATH}/composables/**`,
-        `${ABSOLUTE_PACKAGE_PATH}/src/vue/composables/**`,
-      ],
+      imports:
+        VulmixConfig.imports?.enabled === true
+          ? [
+              ...(VulmixConfig.imports?.presets || []),
+              'vue',
+              'vue-router',
+              unheadComposablesImports[0],
+            ]
+          : [unheadComposablesImports[0]],
+      defaultExportByFilename: VulmixConfig.imports?.enabled === true,
+      dirs:
+        VulmixConfig.imports?.enabled === true
+          ? [
+              ...(VulmixConfig.imports?.dirs || []),
+              `${ABSOLUTE_PACKAGE_PATH}/src/vue/composables/**`,
+              `${ABSOLUTE_PACKAGE_PATH}/src/vue/utils/**`,
+              `${RELATIVE_SRC_PATH}/composables/**`,
+            ]
+          : [
+              `${ABSOLUTE_PACKAGE_PATH}/src/vue/composables/**`,
+              `${ABSOLUTE_PACKAGE_PATH}/src/vue/utils/**`,
+            ],
       dts: `${ABSOLUTE_ROOT_PATH}/.vulmix/types/auto-imports.d.ts`,
-      vueTemplate: true,
+      vueTemplate: VulmixConfig.imports?.enabled === true,
     }),
   ]
 }
