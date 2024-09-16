@@ -75,13 +75,6 @@ class VulmixInit {
             `${ABSOLUTE_ROOT_PATH}/.vulmix/postcss.config.js`
           )
         }
-
-        if (!fs.existsSync(`${ABSOLUTE_ROOT_PATH}/vercel.json`)) {
-          mix.copy(
-            `${ABSOLUTE_PACKAGE_PATH}/utils/deploy/vercel.json`,
-            ABSOLUTE_ROOT_PATH
-          )
-        }
       })
 
       .babelConfig({
@@ -189,12 +182,15 @@ class VulmixInit {
      */
     if (mix.inProduction()) {
       try {
-        console.log(`\n${chalk.grey('Removing _dist folder')}`)
 
-        fs.rmSync(`${ABSOLUTE_ROOT_PATH}/_dist`, {
-          recursive: true,
-          force: true,
-        })
+        if (fs.existsSync(`${ABSOLUTE_ROOT_PATH}/_dist`)) {
+          console.log(`\n${chalk.grey('Removing _dist folder')}`)
+
+          fs.rmSync(`${ABSOLUTE_ROOT_PATH}/_dist`, {
+            recursive: true,
+            force: true,
+          })
+        }
 
         if (fs.existsSync(APP_PUBLIC_PATH)) {
           mix.copy(APP_PUBLIC_PATH, `${ABSOLUTE_ROOT_PATH}/_dist/`)
