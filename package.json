@@ -15,7 +15,7 @@
     "@iconify/vue": "4.0.2",
     "@types/webpack-env": "1.18.5",
     "@unhead/vue": "1.7.2",
-    "@vue/compiler-sfc": "3.4.30",
+    "@vue/compiler-sfc": "3.5.8",
     "autoprefixer": "10.4.14",
     "browser-sync": "2.29.1",
     "browser-sync-webpack-plugin": "2.3.0",
