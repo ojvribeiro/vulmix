@@ -100,20 +100,26 @@ class VulmixInit {
                 .replace(/\\/g, '/')
                 .replace(ABSOLUTE_ROOT_PATH, '')
 
-              console.log('path: ', pathData.module.resourceResolveData.path)
-              console.log('relativePath', relativePath)
-
               if (
                 /\.(png|jpe?g|gif|svg|webp|avif|ico)$/i.test(pathData.filename)
               ) {
-                const transfomed = relativePath.replace(
+                let transfomed
+
+                if (mix.inProduction()) {
+                  transfomed = relativePath.replace(
+                    /(.*)\/(.*)\.(png|jpe?g|gif|svg|webp|avif|ico)/,
+                    `${VulmixConfig.dirs?.dist?.root || ''}/images`
+                  )
+
+                  return `${transfomed}/[name][ext][query]`
+                }
+
+                transfomed = relativePath.replace(
                   /(.*)\/(.*)\.(png|jpe?g|gif|svg|webp|avif|ico)/,
                   'images'
                 )
 
-                console.log('transfomed: ', transfomed)
-
-                return `/${transfomed}/[name][ext][query]`
+                return `${transfomed}/[name][ext][query]`
               }
             },
           },
@@ -128,7 +134,13 @@ class VulmixInit {
 
           module: {
             rules: [
-              // ... other rules omitted
+              {
+                test: /\.(png|jpe?g|gif|svg|webp|avif|ico)$/i,
+                type: 'asset/resource',
+                generator: {
+                  emit: false,
+                },
+              },
               {
                 test: /\.ts$/,
                 loader: 'ts-loader',
@@ -182,22 +194,21 @@ class VulmixInit {
      */
     if (mix.inProduction()) {
       try {
-
-        if (fs.existsSync(`${ABSOLUTE_ROOT_PATH}/_dist`)) {
+        if (fs.existsSync(`${ABSOLUTE_PUBLIC_PATH}`)) {
           console.log(`\n${chalk.grey('Removing _dist folder')}`)
 
-          fs.rmSync(`${ABSOLUTE_ROOT_PATH}/_dist`, {
+          fs.rmSync(`${ABSOLUTE_PUBLIC_PATH}`, {
             recursive: true,
             force: true,
           })
         }
 
         if (fs.existsSync(APP_PUBLIC_PATH)) {
-          mix.copy(APP_PUBLIC_PATH, `${ABSOLUTE_ROOT_PATH}/_dist/`)
+          mix.copy(APP_PUBLIC_PATH, `${ABSOLUTE_PUBLIC_PATH}`)
         }
 
         if (!fs.existsSync(`${ABSOLUTE_ROOT_PATH}/assets`)) {
-          fs.mkdirSync(`${ABSOLUTE_ROOT_PATH}/_dist/assets`, {
+          fs.mkdirSync(`${ABSOLUTE_PUBLIC_PATH}/assets`, {
             recursive: true,
           })
         }
@@ -231,7 +242,7 @@ class VulmixInit {
 
           .ts(
             `${ABSOLUTE_PACKAGE_PATH}/src/vue/main.ts`,
-            `${ABSOLUTE_ROOT_PATH}/_dist/_vulmix/js/main.vulmix.js`
+            `${ABSOLUTE_PUBLIC_PATH}/_vulmix/js/main.vulmix.js`
           )
 
           .compress()
@@ -275,9 +286,15 @@ class VulmixInit {
        * Development mode only
        */
 
+      const appSubFolder =
+        VulmixConfig.dirs?.dist?.root &&
+        VulmixConfig.dirs?.dist?.root?.startsWith('/')
+          ? VulmixConfig.dirs?.dist?.root
+          : `/${VulmixConfig.dirs?.dist?.root}` || ''
+
       // if server is killed, remove the .vulmix/client folder
       process.on('SIGINT', () => {
-        fs.rmSync(`${ABSOLUTE_ROOT_PATH}/.vulmix/client`, {
+        fs.rmSync(`${ABSOLUTE_ROOT_PATH}/.vulmix/client${appSubFolder}`, {
           recursive: true,
           force: true,
         })
@@ -286,7 +303,10 @@ class VulmixInit {
 
       try {
         if (fs.existsSync(APP_PUBLIC_PATH)) {
-          mix.copy(APP_PUBLIC_PATH, `${ABSOLUTE_ROOT_PATH}/.vulmix/client`)
+          mix.copy(
+            APP_PUBLIC_PATH,
+            `${ABSOLUTE_ROOT_PATH}/.vulmix/client${appSubFolder}`
+          )
         }
       } catch (error) {
         console.log(`\n${chalk.red(error)}`)
@@ -313,7 +333,7 @@ class VulmixInit {
             `${RELATIVE_PACKAGE_PATH}/src/index.ejs`,
             `${RELATIVE_ROOT_PATH}/.vulmix/client/mix-manifest.json`,
           ],
-          `${RELATIVE_ROOT_PATH}/.vulmix/client`,
+          `${RELATIVE_ROOT_PATH}/.vulmix/client${appSubFolder}`,
           VulmixConfig,
           {
             partials: [
@@ -325,7 +345,7 @@ class VulmixInit {
 
         .ts(
           `${ABSOLUTE_PACKAGE_PATH}/src/vue/main.ts`,
-          `${ABSOLUTE_ROOT_PATH}/.vulmix/client/_vulmix/js/main.vulmix.js`
+          `${ABSOLUTE_ROOT_PATH}/.vulmix/client${appSubFolder}/_vulmix/js/main.vulmix.js`
         )
 
         .sourceMaps()
@@ -413,13 +433,28 @@ class VulmixInit {
                   mix.ejs(
                     [
                       `${RELATIVE_PACKAGE_PATH}/src/index.ejs`,
-                      `${RELATIVE_ROOT_PATH}/.vulmix/client/mix-manifest.json`,
+                      `${RELATIVE_ROOT_PATH}/.vulmix/client${
+                        VulmixConfig.dirs?.dist?.root &&
+                        VulmixConfig.dirs?.dist?.root?.startsWith('/')
+                          ? VulmixConfig.dirs?.dist?.root
+                          : `/${VulmixConfig.dirs?.dist?.root}` || ''
+                      }/mix-manifest.json`,
                     ],
-                    `${RELATIVE_ROOT_PATH}/.vulmix/client`,
+                    `${RELATIVE_ROOT_PATH}/.vulmix/client${
+                      VulmixConfig.dirs?.dist?.root &&
+                      VulmixConfig.dirs?.dist?.root?.startsWith('/')
+                        ? VulmixConfig.dirs?.dist?.root
+                        : `/${VulmixConfig.dirs?.dist?.root}` || ''
+                    }`,
                     VulmixConfig_1,
                     {
                       partials: [
-                        `${RELATIVE_ROOT_PATH}/.vulmix/client/mix-manifest.json`,
+                        `${RELATIVE_ROOT_PATH}/.vulmix/client${
+                          VulmixConfig.dirs?.dist?.root &&
+                          VulmixConfig.dirs?.dist?.root?.startsWith('/')
+                            ? VulmixConfig.dirs?.dist?.root
+                            : `/${VulmixConfig.dirs?.dist?.root}` || ''
+                        }/mix-manifest.json`,
                       ],
                       mixVersioning: true,
                     }
