@@ -1,6 +1,6 @@
 {
   "name": "vulmix",
-  "version": "0.7.0-preview.37",
+  "version": "0.7.0-preview.38",
   "description": "Vue(3) meta-framework that uses Laravel Mix.",
   "repository": "ojvribeiro/vulmix",
   "main": "./src/mix.js",
