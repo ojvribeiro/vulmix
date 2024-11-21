@@ -248,6 +248,10 @@ class VulmixInit {
           .compress()
 
           .after(stats => {
+            if (!fs.existsSync(`${ABSOLUTE_PUBLIC_PATH}/.nojekyll`)) {
+              fs.writeFileSync(`${ABSOLUTE_PUBLIC_PATH}/.nojekyll`, '')
+            }
+
             /**
              * Only prints user files to the terminal
              */
