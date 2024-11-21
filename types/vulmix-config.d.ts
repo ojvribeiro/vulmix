@@ -20,6 +20,11 @@ export interface VulmixConfig {
   dirs?: {
     public?: string
     src?: string
+
+    dist?: {
+      root?: string
+      enableFileSystem?: boolean
+    }
   }
 
   head?: {

@@ -23,8 +23,8 @@
   <body>
     <div data-vulmix-app></div>
 
-    <script defer src="<%= mix('/_vulmix/js/main.vulmix.js') %>"></script>
-    <script defer src="<%= mix('/_vulmix/js/manifest.js') %>"></script>
-    <script defer src="<%= mix('/_vulmix/js/vendor.js') %>"></script>
+    <script defer src="<%= mix(`${typeof (dirs.dist.enableFileSystem)  != 'undefined' && dirs.dist.enableFileSystem === true ? '.' : ''}${typeof (dirs.dist.root) != 'undefined' ? (dirs.dist.root.startsWith('/') ? dirs.dist.root : `/${dirs.dist.root}`) : ''}/_vulmix/js/main.vulmix.js`) %>"></script>
+    <script defer src="<%= mix(`${typeof (dirs.dist.enableFileSystem)  != 'undefined' && dirs.dist.enableFileSystem === true ? '.' : ''}${typeof (dirs.dist.root) != 'undefined' ? (dirs.dist.root.startsWith('/') ? dirs.dist.root : `/${dirs.dist.root}`) : ''}/_vulmix/js/manifest.js`) %>"></script>
+    <script defer src="<%= mix(`${typeof (dirs.dist.enableFileSystem)  != 'undefined' && dirs.dist.enableFileSystem === true ? '.' : ''}${typeof (dirs.dist.root) != 'undefined' ? (dirs.dist.root.startsWith('/') ? dirs.dist.root : `/${dirs.dist.root}`) : ''}/_vulmix/js/vendor.js`) %>"></script>
   </body>
 </html>
