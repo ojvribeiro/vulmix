@@ -290,18 +290,24 @@ class VulmixInit {
        * Development mode only
        */
 
-      const appSubFolder =
+      const APP_OPTIONAL_SUBFOLDER =
         VulmixConfig.dirs?.dist?.root &&
         VulmixConfig.dirs?.dist?.root?.startsWith('/')
           ? VulmixConfig.dirs?.dist?.root
-          : `/${VulmixConfig.dirs?.dist?.root}` || ''
+          : VulmixConfig.dirs?.dist?.root &&
+            !VulmixConfig.dirs?.dist?.root?.startsWith('/')
+          ? `/${VulmixConfig.dirs?.dist?.root}`
+          : ''
 
       // if server is killed, remove the .vulmix/client folder
       process.on('SIGINT', () => {
-        fs.rmSync(`${ABSOLUTE_ROOT_PATH}/.vulmix/client${appSubFolder}`, {
-          recursive: true,
-          force: true,
-        })
+        fs.rmSync(
+          `${ABSOLUTE_ROOT_PATH}/.vulmix/client${APP_OPTIONAL_SUBFOLDER}`,
+          {
+            recursive: true,
+            force: true,
+          }
+        )
         process.exit()
       })
 
@@ -309,7 +315,7 @@ class VulmixInit {
         if (fs.existsSync(APP_PUBLIC_PATH)) {
           mix.copy(
             APP_PUBLIC_PATH,
-            `${ABSOLUTE_ROOT_PATH}/.vulmix/client${appSubFolder}`
+            `${ABSOLUTE_ROOT_PATH}/.vulmix/client${APP_OPTIONAL_SUBFOLDER}`
           )
         }
       } catch (error) {
@@ -337,7 +343,7 @@ class VulmixInit {
             `${RELATIVE_PACKAGE_PATH}/src/index.ejs`,
             `${RELATIVE_ROOT_PATH}/.vulmix/client/mix-manifest.json`,
           ],
-          `${RELATIVE_ROOT_PATH}/.vulmix/client${appSubFolder}`,
+          `${RELATIVE_ROOT_PATH}/.vulmix/client${APP_OPTIONAL_SUBFOLDER}`,
           VulmixConfig,
           {
             partials: [
@@ -349,7 +355,7 @@ class VulmixInit {
 
         .ts(
           `${ABSOLUTE_PACKAGE_PATH}/src/vue/main.ts`,
-          `${ABSOLUTE_ROOT_PATH}/.vulmix/client${appSubFolder}/_vulmix/js/main.vulmix.js`
+          `${ABSOLUTE_ROOT_PATH}/.vulmix/client${APP_OPTIONAL_SUBFOLDER}/_vulmix/js/main.vulmix.js`
         )
 
         .sourceMaps()
@@ -437,28 +443,13 @@ class VulmixInit {
                   mix.ejs(
                     [
                       `${RELATIVE_PACKAGE_PATH}/src/index.ejs`,
-                      `${RELATIVE_ROOT_PATH}/.vulmix/client${
-                        VulmixConfig.dirs?.dist?.root &&
-                        VulmixConfig.dirs?.dist?.root?.startsWith('/')
-                          ? VulmixConfig.dirs?.dist?.root
-                          : `/${VulmixConfig.dirs?.dist?.root}` || ''
-                      }/mix-manifest.json`,
+                      `${RELATIVE_ROOT_PATH}/.vulmix/client${APP_OPTIONAL_SUBFOLDER}/mix-manifest.json`,
                     ],
-                    `${RELATIVE_ROOT_PATH}/.vulmix/client${
-                      VulmixConfig.dirs?.dist?.root &&
-                      VulmixConfig.dirs?.dist?.root?.startsWith('/')
-                        ? VulmixConfig.dirs?.dist?.root
-                        : `/${VulmixConfig.dirs?.dist?.root}` || ''
-                    }`,
+                    `${RELATIVE_ROOT_PATH}/.vulmix/client${APP_OPTIONAL_SUBFOLDER}`,
                     VulmixConfig_1,
                     {
                       partials: [
-                        `${RELATIVE_ROOT_PATH}/.vulmix/client${
-                          VulmixConfig.dirs?.dist?.root &&
-                          VulmixConfig.dirs?.dist?.root?.startsWith('/')
-                            ? VulmixConfig.dirs?.dist?.root
-                            : `/${VulmixConfig.dirs?.dist?.root}` || ''
-                        }/mix-manifest.json`,
+                        `${RELATIVE_ROOT_PATH}/.vulmix/client${APP_OPTIONAL_SUBFOLDER}/mix-manifest.json`,
                       ],
                       mixVersioning: true,
                     }
