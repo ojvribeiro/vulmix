@@ -46,6 +46,19 @@ export interface VulmixConfig {
       href?: string
       hreflang?: string
       type?: LinkType
+      as?:
+        | 'audio'
+        | 'document'
+        | 'embed'
+        | 'fetch'
+        | 'font'
+        | 'image'
+        | 'object'
+        | 'script'
+        | 'style'
+        | 'track'
+        | 'video'
+        | 'worker'
     }[]
 
     script?: {
