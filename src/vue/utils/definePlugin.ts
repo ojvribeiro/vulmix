@@ -1,4 +1,4 @@
-import { Plugin } from 'vue'
+import type { Plugin } from 'vue'
 
 export function definePlugin(
   plugin: Plugin,
