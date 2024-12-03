@@ -290,14 +290,11 @@ class VulmixInit {
        * Development mode only
        */
 
-      const APP_OPTIONAL_SUBFOLDER =
-        VulmixConfig.dirs?.dist?.root &&
-        VulmixConfig.dirs?.dist?.root?.startsWith('/')
-          ? VulmixConfig.dirs?.dist?.root
-          : VulmixConfig.dirs?.dist?.root &&
-            !VulmixConfig.dirs?.dist?.root?.startsWith('/')
-          ? `/${VulmixConfig.dirs?.dist?.root}`
-          : ''
+      const APP_OPTIONAL_SUBFOLDER = VulmixConfig?.dirs?.dist?.root
+        ? VulmixConfig.dirs.dist.root.startsWith('/')
+          ? VulmixConfig.dirs.dist.root
+          : `/${VulmixConfig.dirs.dist.root}`
+        : ''
 
       // if server is killed, remove the .vulmix/client folder
       process.on('SIGINT', () => {

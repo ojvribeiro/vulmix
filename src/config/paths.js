@@ -14,10 +14,11 @@ const absoluteVulmixPaths = () => {
     path.resolve(
       __dirname,
       `${absoluteRootPath}/_dist${
-        VulmixConfig?.dirs?.dist?.root &&
-        VulmixConfig?.dirs?.dist?.root.startsWith('/')
-          ? VulmixConfig?.dirs?.dist?.root
-          : `/${VulmixConfig?.dirs?.dist?.root}` || ''
+        VulmixConfig?.dirs?.dist?.root
+          ? VulmixConfig.dirs.dist.root.startsWith('/')
+            ? VulmixConfig.dirs.dist.root
+            : `/${VulmixConfig.dirs.dist.root}`
+          : ''
       }`
     )
   )
